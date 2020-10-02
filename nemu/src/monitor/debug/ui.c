@@ -1,6 +1,7 @@
 #include <isa.h>
 #include "expr.h"
 #include "watchpoint.h"
+#include <memory/paddr.h> 
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -39,6 +40,18 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args);
+
+static int cmd_info(char *args);
+
+static int cmd_p(char *args);
+
+static int cmd_x(char *args);
+
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -47,7 +60,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si", "Let the program step into N instructions and then pause execution. When N is not given, the default is 1.", cmd_si },
+  { "info", "Display the state of registers or th watchpoint.", cmd_info },
+  { "p", "Calculate the value of the expression.", cmd_p },
+  { "x", "Calculate the value of the expression as the start address, and display N continuous 4-bits in hexadecimal form.", cmd_x },
+  { "w", "When the value of the expression changes, suspend the program.", cmd_w },
+  { "d", "Delete the watchpoint numbered N.", cmd_d },
   /* TODO: Add more commands */
 
 };
@@ -76,6 +94,65 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+
+static int cmd_si(char *args) {
+  char *arg = strtok(args, " ");
+  int i;
+
+  if (arg == NULL) {
+    cpu_exec(1);
+  }
+  else {
+    i = atoi(arg);
+    cpu_exec(i);
+  }
+  return 0;
+}
+
+static int cmd_info(char *args){
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    printf("No Arguments!\n");
+  }
+  else {
+    if (arg[0] == 'r'){
+      isa_reg_display();
+    }
+    else {
+      //
+    }
+  }
+  return 0;
+}
+
+static int cmd_p(char *args){
+  bool flag = true;
+  word_t answer = expr(args, &flag);
+  if (flag) printf("%u\n", answer);  
+  return 0;
+}
+
+static int cmd_x(char *args){
+  char *arg = strtok(args, " ");
+  char *arg2 = arg + strlen(arg) + 1;
+  int times = atoi(arg);
+  paddr_t addr = (paddr_t)strtol(arg2, NULL, 0);
+  for (int i = 0; i < times; i++){
+    printf("%x\n",(uint32_t)paddr_read(addr + 4 * i, 4)); 
+       
+  }
+  return 0;
+}
+
+static int cmd_w(char *args){
+  return 0;
+}
+
+static int cmd_d(char *args){
+  return 0;
+}
+
+
 
 void ui_mainloop() {
   if (is_batch_mode()) {

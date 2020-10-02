@@ -42,8 +42,24 @@ void reg_test() {
 }
 
 void isa_reg_display() {
+  printf("eax		0x%x\n", cpu.eax);
+  printf("ecx		0x%x\n", cpu.ecx);
+  printf("edx		0x%x\n", cpu.edx);
+  printf("ebx		0x%x\n", cpu.ebx);
+  printf("esp		0x%x\n", cpu.esp);
+  printf("ebp		0x%x\n", cpu.ebp);
+  printf("esi		0x%x\n", cpu.esi);
+  printf("edi		0x%x\n", cpu.edi);
+  return;
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  *success = true;
+  for (int i = R_EAX; i <= R_EDI; i ++){
+    if (strncmp(regsl[i], s, 3) == 0) return cpu.gpr[i]._32;
+    if (strncmp(regsw[i], s, 2) == 0) return cpu.gpr[i]._16;
+    if (strncmp(regsb[i], s, 2) == 0) return cpu.gpr[i & 3]._8[i >> 2];
+  }
+  *success = false;
   return 0;
 }

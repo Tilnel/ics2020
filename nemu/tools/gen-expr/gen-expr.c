@@ -16,8 +16,40 @@ static char *code_format =
 "  return 0; "
 "}";
 
+uint32_t choose (uint32_t n) {
+  return rand()%n;
+}
+
+static int id = 0;
+static inline void gen_rand_op() {
+  switch (choose(4)) {
+    case 0: buf[id] = '+'; break;
+    case 1: buf[id] = '-'; break;
+    case 2: buf[id] = '*'; break;
+    case 3: buf[id] = '/'; break;
+    default: assert(0);
+  }
+  id++;
+}
+
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
+  uint32_t num;
+  switch (choose(3)) {
+    case 0:
+      num = choose(4294967295);
+     // num = choose(65536);
+      id += sprintf(buf + id, "%u", num);
+      break;
+    case 1:
+      buf[id]='(';
+      id++;
+      gen_rand_expr(); 
+      buf[id]=')';
+      id++;
+      break;
+    default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
+  //buf[id] = '\0';
 }
 
 int main(int argc, char *argv[]) {
@@ -29,8 +61,9 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
+    id = 0;
     gen_rand_expr();
-
+    buf[id] = '\0';
     sprintf(code_buf, code_format, buf);
 
     FILE *fp = fopen("/tmp/.code.c", "w");
