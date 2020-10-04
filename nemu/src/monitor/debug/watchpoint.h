@@ -6,10 +6,18 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-
+  char *EXPR;
+  bool checked; 
+  word_t value;
   /* TODO: Add more members if necessary */
 
 } WP;
 
+void wp_display();
 
+WP* new_wp();
+
+void free_wp(int id);
+
+void wp_check();
 #endif

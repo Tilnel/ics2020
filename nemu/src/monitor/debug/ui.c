@@ -35,7 +35,8 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
-  return -1;
+  exit(0);
+  //return -1;
 }
 
 static int cmd_help(char *args);
@@ -118,8 +119,13 @@ static int cmd_info(char *args){
     if (arg[0] == 'r'){
       isa_reg_display();
     }
+    else if (arg[0] == 'w') {
+      wp_display();
+    }
     else {
-      //
+      printf("Unavailable command!\n");
+      printf("Usage: info r: display the status of registers.\n");
+      printf("       info w: display the status of watchpoints.\n");
     }
   }
   return 0;
@@ -127,7 +133,7 @@ static int cmd_info(char *args){
 
 static int cmd_p(char *args){
   bool flag = true;
-  word_t answer = expr(args, &flag);
+  sword_t answer = expr(args, &flag);
   if (flag) printf("%u\n", answer);  
   return 0;
 }
@@ -138,17 +144,31 @@ static int cmd_x(char *args){
   int times = atoi(arg);
   paddr_t addr = (paddr_t)strtol(arg2, NULL, 0);
   for (int i = 0; i < times; i++){
-    printf("%x\n",(uint32_t)paddr_read(addr + 4 * i, 4)); 
+    printf("%x\n",(uint32_t)paddr_read(addr + i, 1)); 
        
   }
   return 0;
 }
 
 static int cmd_w(char *args){
+  char *arg = strtok(args, " ");
+  bool flag = true;
+  expr(arg, &flag);
+  
+  if (flag) {
+    new_wp(arg);
+  } else {
+    printf("Please input an available expression.\n");
+  }
   return 0;
 }
 
 static int cmd_d(char *args){
+  char *arg = strtok(args, " ");
+  bool flag = true;
+  int id = expr(arg, &flag);
+  free_wp(id);
+
   return 0;
 }
 

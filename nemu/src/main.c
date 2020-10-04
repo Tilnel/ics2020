@@ -3,8 +3,8 @@ void engine_start();
 int is_exit_status_bad();
 #include <stdio.h>
 #include <stdint.h>
-#include "monitor/debug/expr.h"
-char buf[65536];
+//#include "monitor/debug/expr.h"
+//char buf[65536];
 
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
    
   //added, can be deleted
-  FILE *fp = fopen("./tools/gen-expr/input", "r");
+ /* FILE *fp = fopen("./tools/gen-expr/input", "r");
   assert (fp!= NULL);
   uint32_t ans;
   bool flag, res = true;
@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     }
   }
   if (res) printf("Accepted\n");
-  
+ */ 
  /* Start engine. */
     engine_start();
 

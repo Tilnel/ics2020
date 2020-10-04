@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <memory/paddr.h>
 enum {
-  TK_NOTYPE = 256, TK_EQ = 255, TK_NUM = 254, TK_PLUS = '+', TK_SUBS = '-', TK_TIMES = '*', TK_DIVIDE = '/', TK_LPAREN = '(', TK_RPAREN = ')', TK_REG = 253, TK_HEX = 252, TK_DEREF = 251,  
+  TK_NOTYPE = 256, TK_EQ = 255, TK_NUM = 254, TK_PLUS = '+', TK_SUBS = '-', TK_TIMES = '*', TK_DIVIDE = '/', TK_LPAREN = '(', TK_RPAREN = ')', TK_REG = 253, TK_HEX = 252, TK_DEREF = 251, TK_NEQ = 250, TK_AND = 249, TK_NEG = 248, 
 
   /* TODO: Add more token types */
 
@@ -24,15 +24,17 @@ static struct rule {
 
   {"0x[a-f0-9]+", TK_HEX}, // hexademical num
   {"\\$[a-z]+", TK_REG},// registers
+  {"[0-9]+", TK_NUM},   // demical number
   {" +", TK_NOTYPE},    // spaces
-  {"\\-", '-'},		// subs
+  {"\\-", '-'},		// subs, negative
   {"\\+", '+'},         // plus
   {"\\*", '*'},		// times, dereference
   {"\\/", '/'},		// divide
   {"\\(", '('},		// open paren
   {"\\)", ')'},		// close paren
-  {"[0-9]+", TK_NUM},	// demical number
   {"==", TK_EQ},        // equal
+  {"!=", TK_NEQ},	// not equal
+  {"\\&\\&", TK_AND},   // and
   
 };
 
@@ -115,12 +117,22 @@ static bool make_token(char *e) {
 	    nr_token++;
 	    break;
 	  case TK_NOTYPE : break;
-	  case '*' : 
+	  case '*' || '-' : 
 	    if (nr_token == 0 || (tokens[nr_token - 1].type != TK_NUM &&
 			    tokens[nr_token - 1].type != ')') ||
-			    tokens[nr_token - 1].type == '(')
+			    tokens[nr_token - 1].type == '('  ||
+		    	    tokens[nr_token - 1].type == TK_EQ)
 	      tokens[nr_token].type = TK_DEREF;
 	    else tokens[nr_token].type = '*';
+	    nr_token ++;
+	    break;
+	  case '-' :
+	    if (nr_token == 0 || (tokens[nr_token - 1].type != TK_NUM &&
+			    tokens[nr_token - 1].type != ')') ||
+			    tokens[nr_token - 1].type == '('  ||
+			    tokens[nr_token - 1].type == TK_EQ)
+	      tokens[nr_token].type = TK_NEG;
+	    else tokens[nr_token].type = '-';
 	    nr_token ++;
 	    break;
           default: //TODO();
@@ -131,6 +143,7 @@ static bool make_token(char *e) {
 
         break;
       }
+      
     }
 
     if (i == NR_REGEX) {
@@ -163,6 +176,10 @@ word_t eval (int p, int q, bool *flag) {
   else if (p == q) {
     return (word_t)strtol(tokens[p].str, NULL, 10);
   }
+  else if (tokens[p].type == TK_NEG) {
+    word_t val1 = eval(p + 1, q, flag);
+    return -val1;
+  }
   else if (tokens[p].type == TK_DEREF) {
     word_t val1 = eval(p + 1, q, flag);
     return paddr_read(val1, 4);
@@ -177,8 +194,10 @@ word_t eval (int p, int q, bool *flag) {
       if (type == '(') paren++;
       if (type == ')') paren--;
       if (paren == 0) {
-	if (op_type != '+' && op_type != '-' && (type == '*' || type == '/')) {op_type = type; op = i;}
-	if (type == '+' || type == '-') {op_type = type; op = i;}
+	if (op_type != '+' && op_type != '-' && op_type != TK_NEQ && op_type != TK_EQ && op_type!= TK_AND && (type == '*' || type == '/')) {op_type = type; op = i;}
+	if (op_type != TK_NEQ && op_type != TK_EQ && op_type!= TK_AND && (type == '+' || type == '-')) {op_type = type; op = i;}
+	if (op_type!= TK_AND && (type == TK_EQ || type == TK_NEQ)) {op_type = type; op = i;}
+	if (type == TK_AND) {op_type = type; op = i;}
       }
     }
     word_t val1 = eval(p, op - 1, flag);
@@ -187,13 +206,16 @@ word_t eval (int p, int q, bool *flag) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
-      case '/': {
+      case '/': 
 	if (val2 == 0) {
 	  *flag = false;
 	  return 0;
 	}
 	return val1 / val2;
-      }
+     
+      case TK_EQ: return val1 == val2;
+      case TK_NEQ: return val1 != val2;
+      case TK_AND: return val1 && val2;
       default: *flag = false;
     }
   }
