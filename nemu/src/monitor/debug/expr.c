@@ -117,7 +117,7 @@ static bool make_token(char *e) {
 	    nr_token++;
 	    break;
 	  case TK_NOTYPE : break;
-	  case '*' || '-' : 
+	  case '*' : 
 	    if (nr_token == 0 || (tokens[nr_token - 1].type != TK_NUM &&
 			    tokens[nr_token - 1].type != ')') ||
 			    tokens[nr_token - 1].type == '('  ||
