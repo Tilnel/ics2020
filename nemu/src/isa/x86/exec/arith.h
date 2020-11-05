@@ -1,7 +1,8 @@
 #include "cc.h"
 
 static inline def_EHelper(add) {
-  TODO();
+  *ddest += *dsrc1;
+  //TODO();
   print_asm_template2(add);
 }
 
