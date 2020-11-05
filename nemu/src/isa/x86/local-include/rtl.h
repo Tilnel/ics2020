@@ -39,31 +39,34 @@ static inline def_rtl(pop, rtlreg_t* dest) {
 
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
-  // dest <- is_overflow(src1 - src2)
-  TODO();
+    *dest = ((*src1 >> 31 == *src2 >> 31) & (*src2 >> 31 != (src1 - src2)>> 31));
+  //TODO();
 }
 
 static inline def_rtl(is_sub_carry, rtlreg_t* dest,
     const rtlreg_t* src1, const rtlreg_t* src2) {
+    *dest = (*src2 > *src1);
   // dest <- is_carry(src1 - src2)
-  TODO();
+  //TODO();
 }
 
 static inline def_rtl(is_add_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
+    *dest = ((*src1 >> 31 == *src2 >> 31) & (*src2 >> 31 != (*src1 + *src2)>> 31));
   // dest <- is_overflow(src1 + src2)
-  TODO();
+  //TODO();
 }
 
 static inline def_rtl(is_add_carry, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1) {
+    *dest = (~(*src1) < *res);
   // dest <- is_carry(src1 + src2)
-  TODO();
+  //TODO();
 }
 
 #define def_rtl_setget_eflags(f) \
   static inline def_rtl(concat(set_, f), const rtlreg_t* src) { \
-    TODO(); \
+      TODO(); \
   } \
   static inline def_rtl(concat(get_, f), rtlreg_t* dest) { \
     TODO(); \

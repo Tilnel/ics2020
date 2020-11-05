@@ -38,6 +38,7 @@ typedef struct {
   };
 
   vaddr_t pc;
+  rtlreg_t EFLAGS;
 } x86_CPU_state;
 
 // decode
