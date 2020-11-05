@@ -38,6 +38,11 @@ static inline def_EHelper(ret) {
   print_asm("ret");
 }
 
+static inline def_EHelper(endbr32) {
+  instr_fetch(&s->seq_pc, 2);
+  instr_fetch(&s->seq_pc, 1);
+}
+
 static inline def_EHelper(ret_imm) {
   TODO();
   print_asm("ret %s", id_dest->str);
