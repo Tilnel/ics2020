@@ -77,6 +77,7 @@ again:
   switch (opcode) {
     EX   (0x0f, 2byte_esc)
     IDEX (0x31, G2E, xor)
+    EX   (0xc3, ret)
     IDEX (0x50, push_r, push)
     IDEX (0x51, push_r, push)
     IDEX (0x52, push_r, push)
