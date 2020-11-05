@@ -6,7 +6,8 @@ static inline def_EHelper(test) {
 }
 
 static inline def_EHelper(and) {
-  TODO();
+  *ddest &= *dsrc1;
+  //TODO();
   print_asm_template2(and);
 }
 
@@ -17,12 +18,14 @@ static inline def_EHelper(xor) {
 }
 
 static inline def_EHelper(or) {
-  TODO();
+  *ddest |= *dsrc1;
+  //TODO();
   print_asm_template2(or);
 }
 
 static inline def_EHelper(not) {
-  TODO();
+  //TODO();
+  *ddest = ~(*ddest);
   print_asm_template1(not);
 }
 
