@@ -11,7 +11,8 @@ static inline def_EHelper(and) {
 }
 
 static inline def_EHelper(xor) {
-  TODO();
+  *ddest ^= *dsrc1;
+  //TODO();
   print_asm_template2(xor);
 }
 
