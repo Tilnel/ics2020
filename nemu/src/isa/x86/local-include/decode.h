@@ -47,14 +47,16 @@ static inline def_DopHelper(I) {
 /* sign immediate */
 static inline def_DopHelper(SI) {
   assert(op->width == 1 || op->width == 4);
-
+  word_t imm = instr_fetch(&s -> seq_pc, op->width);
+  if (op -> width == 1 && imm >> 7) imm = imm | 0xffffff00;
+  operand_imm(s, op, load_val, imm, op->width);
   /* TODO: Use instr_fetch() to read `op->width' bytes of memory
    * pointed by 's->seq_pc'. Interpret the result as a signed immediate,
    * and call `operand_imm()` as following.
    *
    operand_imm(s, op, load_val, ???, op->width);
    */
-  TODO();
+//  TODO();
 }
 
 /* I386 manual does not contain this abbreviation.
