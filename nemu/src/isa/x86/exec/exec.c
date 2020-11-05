@@ -94,6 +94,7 @@ again:
     IDEX (0x89, mov_G2E, mov)
     IDEXW(0x8a, mov_E2G, mov, 1)
     IDEX (0x8b, mov_E2G, mov)
+    IDEX (0X8d, lea_M2G, lea)
     IDEXW(0xa0, O2a, mov, 1)
     IDEX (0xa1, O2a, mov)
     IDEXW(0xa2, a2O, mov, 1)
