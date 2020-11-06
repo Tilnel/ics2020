@@ -19,6 +19,7 @@ static inline def_EHelper(andl) {
   exec_and(s);
   operand_write(s, id_dest, ddest);
 }
+
 static inline def_EHelper(xor) {
   *ddest ^= *dsrc1;
   rtl_update_ZFSF(s, ddest, s->width);
@@ -31,6 +32,11 @@ static inline def_EHelper(or) {
   rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   print_asm_template2(or);
+}
+
+static inline def_EHelper(orl) {
+  exec_or(s);
+  operand_write(s, id_dest, ddest);
 }
 
 static inline def_EHelper(not) {

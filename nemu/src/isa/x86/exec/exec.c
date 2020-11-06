@@ -84,7 +84,7 @@ again:
     IDEX (0x03, E2G, add)
     IDEXW(0x08, G2E, or, 1)
     IDEX (0x09, G2E, or)
-    IDEXW(0x0a, E2G, or, 1)
+    IDEXW(0x0a, E2G, orl, 1)
     IDEX (0x0b, E2G, or)
     EX   (0x0f, 2byte_esc)
     IDEXW(0x10, G2E, adc, 1)
