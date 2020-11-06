@@ -39,7 +39,7 @@ typedef struct {
 
   vaddr_t pc;
   union {
-    rtlreg_t EFLAGS;
+    rtlreg_t eflags;
     struct {
       rtlreg_t unused1 : 20;
       rtlreg_t OF : 1;
@@ -52,8 +52,7 @@ typedef struct {
       rtlreg_t CF : 1;
     };
   };
-  rtlreg_t cs, ss, ds, es, fs, gs;
-  rtlreg_t array[77];
+//  rtlreg_t cs, ss, ds, es, fs, gs;
 } x86_CPU_state;
 
 // decode
