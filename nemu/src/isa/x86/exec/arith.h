@@ -29,6 +29,10 @@ static inline def_EHelper(sub) {
   print_asm_template2(sub);
 }
 
+static inline def_EHelper(subl) {
+  exec_sub(s);
+  operand_write(s, id_dest, ddest);
+}
 static inline def_EHelper(cmp) {
   *s1 = *ddest;
   *s1 -= *dsrc1;
