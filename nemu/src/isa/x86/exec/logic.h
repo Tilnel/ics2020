@@ -14,12 +14,14 @@ static inline def_EHelper(and) {
 
 static inline def_EHelper(xor) {
   *ddest ^= *dsrc1;
+  rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   print_asm_template2(xor);
 }
 
 static inline def_EHelper(or) {
   *ddest |= *dsrc1;
+  rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   print_asm_template2(or);
 }
@@ -27,6 +29,7 @@ static inline def_EHelper(or) {
 static inline def_EHelper(not) {
   //TODO();
   *ddest = ~(*ddest);
+  rtl_update_ZFSF(s, ddest, s->width);
   print_asm_template1(not);
 }
 
