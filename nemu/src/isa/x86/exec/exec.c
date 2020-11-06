@@ -93,7 +93,7 @@ again:
     IDEX (0x13, E2G, adc)
     IDEXW(0x20, G2E, and, 1)
     IDEX (0x21, G2E, and)
-    IDEXW(0x22, E2G, and, 1)
+    IDEXW(0x22, E2G, andl, 1)
     IDEX (0x23, E2G, and)
     IDEX (0x31, G2E, xor)
     IDEX (0x3b, E2G, cmp)
