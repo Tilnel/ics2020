@@ -46,7 +46,7 @@ static inline def_EHelper(gp4) {
 /* 0xff */
 static inline def_EHelper(gp5) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
+    EX(0, inc) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(4) EMPTY(5) EX(6, push) EMPTY(7)
   }
 }
@@ -138,7 +138,7 @@ again:
     IDEXW(0xf6, E, gp3, 1)
     IDEX (0xf7, E, gp3)
     IDEXW(0xfe, E, gp4, 1)
-    IDEXW (0xff, E, gp5, 1)
+    IDEX (0xff, E, gp5)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
   default: exec_inv(s);
   }
