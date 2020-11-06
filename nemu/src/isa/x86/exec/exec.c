@@ -78,6 +78,7 @@ again:
     IDEX (0x01, G2E, add)
     EX   (0x0f, 2byte_esc)
     IDEX (0x31, G2E, xor)
+    IDEX (0x3b, E2G, cmp)
     EX   (0xc3, ret)
     IDEX (0x50, push_r, push)
     IDEX (0x51, push_r, push)

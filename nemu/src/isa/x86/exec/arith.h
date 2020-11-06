@@ -13,6 +13,7 @@ static inline def_EHelper(sub) {
 }
 
 static inline def_EHelper(cmp) {
+  //rtl_set_
   TODO();
   print_asm_template2(cmp);
 }
