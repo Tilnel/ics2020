@@ -34,13 +34,8 @@ static inline def_EHelper(subl) {
   operand_write(s, id_dest, ddest);
 }
 static inline def_EHelper(cmp) {
-  *s1 = *ddest;
-  *s1 -= *dsrc1;
-  rtl_is_sub_carry(s, s0, ddest, dsrc1);
-  rtl_set_CF(s, s0);
-  rtl_is_sub_overflow(s, s0, s1, ddest, dsrc1, s->width);
-  rtl_set_OF(s, s0);
-  rtl_update_ZFSF(s, s1, s->width);
+  rtl_sub(s, s0, ddest, dsrc1);
+  rtl_update_ZFSF(s, s0, s->width);
   //TODO();
   print_asm_template2(cmp);
 }
