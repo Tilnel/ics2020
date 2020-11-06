@@ -35,7 +35,7 @@ static inline def_EHelper(subl) {
 }
 static inline def_EHelper(cmp) {
   *s1 = *ddest;
-  rtl_sext(s, s2, dsrc1, s->width);
+  rtl_sext(s, s2, dsrc1, id_src1->width);
   *s1 -= *s2;
   rtl_is_sub_carry(s, s0, ddest, s2);
   rtl_set_CF(s, s0);
