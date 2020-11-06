@@ -12,6 +12,11 @@ static inline def_EHelper(add) {
   print_asm_template2(add);
 }
 
+static inline def_DHelper(addl) {
+  exec_add(s);
+  rtl_sm(s, s->isa.mbase,s->isa.moff,ddest,id_dest->width);
+}
+
 static inline def_EHelper(sub) {
   *s1 = *ddest;
   *ddest -= *dsrc1;
