@@ -38,7 +38,7 @@ typedef struct {
   };
 
   vaddr_t pc;
-  uint8_t OF, CF, SF, ZF, IF;
+  uint8_t OF, CF, SF, IF, ZF;
   /*union {
     rtlreg_t eflags;
     struct {
