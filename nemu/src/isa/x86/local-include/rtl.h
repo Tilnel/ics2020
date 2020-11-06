@@ -32,8 +32,8 @@ static inline def_rtl(push, const rtlreg_t* src1) {
 }
 
 static inline def_rtl(pop, rtlreg_t* dest) {
-  *dest = vaddr_read(cpu.esp, 4);
   cpu.esp = cpu.esp + 4;
+  *dest = vaddr_read(cpu.esp, 4);
   //TODO();
 }
 
