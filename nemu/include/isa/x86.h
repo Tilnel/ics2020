@@ -52,6 +52,8 @@ typedef struct {
       rtlreg_t CF : 1;
     };
   };
+  rtlreg_t cs, ss, ds, es, fs, gs;
+  rtlreg_t array[77];
 } x86_CPU_state;
 
 // decode
