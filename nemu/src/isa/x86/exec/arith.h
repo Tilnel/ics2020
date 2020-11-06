@@ -12,7 +12,7 @@ static inline def_EHelper(add) {
   print_asm_template2(add);
 }
 
-static inline def_DHelper(addl) {
+static inline def_EHelper(addl) {
   exec_add(s);
   rtl_sm(s, s->isa.mbase,s->isa.moff,ddest,id_dest->width);
 }
