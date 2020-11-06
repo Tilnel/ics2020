@@ -44,7 +44,7 @@ static inline def_EHelper(inc) {
 
 static inline def_EHelper(incl) {
   (*ddest) ++;
-  rtl_sm(s, s->isa.mbase,s->isa.moff,ddest,s->width);
+  rtl_sm(s, s->isa.mbase,s->isa.moff,ddest,id_dest->width);
 }
 
 static inline def_EHelper(dec) {
