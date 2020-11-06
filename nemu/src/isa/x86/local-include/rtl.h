@@ -40,8 +40,8 @@ static inline def_rtl(pop, rtlreg_t* dest) {
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
     *s0 = ~(*src2) + 1;
-    *dest = (((*src1) >> (8 * width - 1) == (*s0) >> (8 * width - 1)) &
-            ((*s0) >> (8 * width - 1) != (*res) >> (8 * width - 1)));
+    *dest = ((*src1 >> (8 * width - 1) == *s0 >> (8 * width - 1)) &
+            (*s0 >> (8 * width - 1) != *res >> (8 * width - 1)));
   //TODO();
 }
 
@@ -82,14 +82,14 @@ def_rtl_setget_eflags(SF)
 
 static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  *t0 = (*result) << (32 - width * 8) == 0;
+  *t0 = (((*result) << (32 - width * 8)) == 0);
   rtl_set_ZF(s, t0);
   //TODO();
 }
 
 static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  *t0 = (*result) >> (width * 8 - 1) ;
+  *t0 = ((*result) >> (width * 8 - 1)) & 1;
   rtl_set_SF(s, t0);
   //TODO();
 }
