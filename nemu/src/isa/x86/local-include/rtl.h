@@ -39,7 +39,8 @@ static inline def_rtl(pop, rtlreg_t* dest) {
 
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
-    *dest = ((*src1 >> 31 == *src2 >> 31) & ((*src2) >> 31 != (*res)>> 31));
+    *dest = ((*src1 >> (8 * width - 1) == *src2 >> (8 * width - 1)) 
+          & ((*src2) >> (8 * width - 1) != (*res)>> (8 * width - 1)));
   //TODO();
 }
 
@@ -52,7 +53,8 @@ static inline def_rtl(is_sub_carry, rtlreg_t* dest,
 
 static inline def_rtl(is_add_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
-    *dest = ((*src1 >> 31 == *src2 >> 31) & (*src2 >> 31 != (*res)>> 31));
+    *dest = ((*src1 >> (8 * width - 1) == *src2 >> (8 * width - 1)) &
+             (*src2 >> (8 * width - 1)!= (*res)>> (8 * width - 1)));
     //dest <- is_overflow(src1 + src2)
   //TODO();
 }
