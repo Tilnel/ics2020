@@ -105,6 +105,8 @@ again:
     IDEX (0x39, G2E, cmp)
     IDEX (0x3a, E2G, cmp)
     IDEX (0x3b, E2G, cmp)
+    IDEXW(0x3c, I2r, cmp, 1)
+    IDEX (0x3d, I2r, cmp)
     IDEX (0x40, r, inc)
     IDEX (0x41, r, inc)
     IDEX (0x42, r, inc)
