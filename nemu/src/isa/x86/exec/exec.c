@@ -30,7 +30,7 @@ static inline def_EHelper(gp2) {
 /* 0xf6, 0xf7 */
 static inline def_EHelper(gp3) {
   switch (s->isa.ext_opcode) {
-    IDEXW(0, I, test, 1) EMPTY(1) EX(2, not) EMPTY(3)
+    IDEXW(0, test_I, test, 1) EMPTY(1) EX(2, not) EMPTY(3)
     EMPTY(4) EMPTY(5) EMPTY(6) EX(7, idiv)
   }
 }
