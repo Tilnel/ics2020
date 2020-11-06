@@ -42,6 +42,11 @@ static inline def_EHelper(inc) {
   print_asm_template1(inc);
 }
 
+static inline def_EHelper(incl) {
+  (*ddest) ++;
+  rtl_sm(s, s->isa.mbase,s->isa.moff,ddest,s->width);
+}
+
 static inline def_EHelper(dec) {
   TODO();
   print_asm_template1(dec);
