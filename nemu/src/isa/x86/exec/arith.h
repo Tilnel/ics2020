@@ -37,7 +37,8 @@ static inline def_EHelper(cmp) {
 }
 
 static inline def_EHelper(inc) {
-  TODO();
+  (*ddest) ++;
+  //TODO();
   print_asm_template1(inc);
 }
 
