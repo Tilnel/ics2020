@@ -38,7 +38,8 @@ typedef struct {
   };
 
   vaddr_t pc;
-  union {
+  uint8_t OF, CF, SF, ZF, IF;
+  /*union {
     rtlreg_t eflags;
     struct {
      uint8_t unused1 : 8;
@@ -54,7 +55,7 @@ typedef struct {
      uint8_t unused5 : 1;
      uint8_t CF : 1;
     };
-  };
+  };*/
 //  rtlreg_t cs, ss, ds, es, fs, gs;
 } x86_CPU_state;
 
