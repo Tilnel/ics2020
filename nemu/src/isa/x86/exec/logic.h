@@ -37,7 +37,7 @@ static inline def_EHelper(not) {
 }
 
 static inline def_EHelper(sar) {
-  *ddest = (int)(*ddest) >> 1;
+  *ddest = (int)(*ddest) >> (*dsrc1);
   rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
