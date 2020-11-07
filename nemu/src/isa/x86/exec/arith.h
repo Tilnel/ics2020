@@ -34,7 +34,7 @@ static inline def_EHelper(subl) {
   operand_write(s, id_dest, ddest);
 }
 static inline def_EHelper(cmp) {
-  printf("%x %x %x\n", *dsrc1, *ddest, *s2);
+  // printf("%x %x %x\n", *dsrc1, *ddest, *s2);
   *s1 = *ddest;
   rtl_sext(s, s2, dsrc1, id_src1->width);
   *s1 -= *s2;
