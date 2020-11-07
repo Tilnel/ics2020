@@ -5,7 +5,19 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-int printf(const char *fmt, ...) { return 0; }
+int printf(const char *fmt, ...) {
+  va_list ap;
+  va_start(ap, fmt);
+  char buf[256];
+  sprintf(buf, fmt, ap);
+  va_end(ap);
+  size_t i = 0;
+  while (buf[i] != '\0') {
+    putch(buf[i]);
+    i++;
+  }
+  return 0;
+}
 
 int vsprintf(char *out, const char *fmt, va_list ap) { return 0; }
 
