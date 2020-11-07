@@ -10,6 +10,11 @@ static inline def_EHelper(push) {
   print_asm_template1(push);
 }
 
+static inline def_EHelper(push_imm8) {
+  rtl_sext(s, s0, ddest, 1);
+  rtl_push(s, s0);
+}
+
 static inline def_EHelper(pop) {
   rtl_pop(s, ddest);
   //TODO();
