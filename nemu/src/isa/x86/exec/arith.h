@@ -24,7 +24,6 @@ static inline def_EHelper(sub) {
   rtl_set_CF(s, s0);
   rtl_is_sub_overflow(s, s0, ddest, s1, dsrc1, s->width);
   rtl_set_OF(s, s0);
-  assert(!cpu.OF);
   rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   print_asm_template2(sub);
