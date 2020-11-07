@@ -40,7 +40,7 @@ static inline def_EHelper(cmp) {
   rtl_is_sub_carry(s, s0, ddest, s2);
   cpu.CF = *s0; assert(!cpu.CF);
   rtl_is_sub_overflow(s, s0, s1, ddest, s2, id_dest->width);
-  cpu.OF = *s0;
+  cpu.OF = *s0; assert(!cpu.OF);
   rtl_update_ZFSF(s, s1, id_dest->width);
   //TODO();
   print_asm_template2(cmp);
