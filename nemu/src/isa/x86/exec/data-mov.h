@@ -4,7 +4,7 @@ static inline def_EHelper(mov) {
 }
 
 static inline def_EHelper(push) {
-  rtl_push(s, ddest);
+  rtl_push(s, dsrc1);
 
 //  TODO();
   print_asm_template1(push);
