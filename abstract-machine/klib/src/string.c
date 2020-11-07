@@ -6,7 +6,7 @@
 size_t strlen(const char *s) {
     size_t i = 0;
     while (s[i] != '\0') {
-        i++;
+        i++;  
     }
     return i;
 }
@@ -27,8 +27,9 @@ char *strncpy(char *dst, const char *src, size_t n) {
 
 char *strcat(char *dst, const char *src) {
     size_t dest_len = strlen(dst);
+    size_t src_len = strlen(src);
     size_t i;
-    for (i = 0; i < dest_len && src[i] != '\0'; i++) {
+    for (i = 0; i < src_len && src[i] != '\0'; i++) {
         dst[dest_len + i] = src[i];
     }
     dst[dest_len + i] = '\0';
