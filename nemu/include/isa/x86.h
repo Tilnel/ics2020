@@ -3,7 +3,6 @@
 
 #include <common.h>
 
-
 // memory
 #define x86_IMAGE_START 0x100000
 #define x86_PMEM_BASE 0x0
@@ -18,57 +17,58 @@
  */
 
 typedef struct {
-  union{
-  struct {
     union {
-      uint32_t _32;
-      uint16_t _16;
-      uint8_t _8[2];
+        struct {
+            union {
+                uint32_t _32;
+                uint16_t _16;
+                uint8_t _8[2];
+            };
+        } gpr[8];
+
+        /* Do NOT change the order of the GPRs' definitions. */
+
+        /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
+         * in PA2 able to directly access these registers.
+         */
+        struct {
+            rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+        };
     };
-  } gpr[8];
 
-  /* Do NOT change the order of the GPRs' definitions. */
-
-  /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
-   * in PA2 able to directly access these registers.
-   */
-  struct {
-  rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-  };
-  };
-
-  vaddr_t pc;
-  uint8_t OF, CF, SF, IF, ZF;
-  /*union {
-    rtlreg_t eflags;
-    struct {
-     uint8_t unused1 : 8;
-     uint8_t unused6 : 8;
-     uint8_t unused : 4;
-     uint8_t OF : 1;
-     uint8_t unused2 : 1; 
-     uint8_t IF : 1;
-     uint8_t unused3 : 1; 
-     uint8_t SF : 1;
-     uint8_t ZF : 1;
-     uint8_t unused4 : 4;
-     uint8_t unused5 : 1;
-     uint8_t CF : 1;
-    };
-  };*/
-//  rtlreg_t cs, ss, ds, es, fs, gs;
+    vaddr_t pc;
+    uint8_t OF, CF, SF, IF, ZF;
+    /*union {
+      rtlreg_t eflags;
+      struct {
+       uint8_t unused1 : 8;
+       uint8_t unused6 : 8;
+       uint8_t unused : 4;
+       uint8_t OF : 1;
+       uint8_t unused2 : 1;
+       uint8_t IF : 1;
+       uint8_t unused3 : 1;
+       uint8_t SF : 1;
+       uint8_t ZF : 1;
+       uint8_t unused4 : 4;
+       uint8_t unused5 : 1;
+       uint8_t CF : 1;
+      };
+    };*/
+    //  rtlreg_t cs, ss, ds, es, fs, gs;
 } x86_CPU_state;
 
 // decode
 typedef struct {
-  bool is_operand_size_16;
-  uint8_t ext_opcode;
-  const rtlreg_t *mbase;
-  rtlreg_t mbr;
-  word_t moff;
+    bool is_operand_size_16;
+    uint8_t ext_opcode;
+    const rtlreg_t *mbase;
+    rtlreg_t mbr;
+    word_t moff;
 } x86_ISADecodeInfo;
 
-#define suffix_char(width) ((width) == 4 ? 'l' : ((width) == 1 ? 'b' : ((width) == 2 ? 'w' : '?')))
+#define suffix_char(width)                                                     \
+    ((width) == 4 ? 'l' : ((width) == 1 ? 'b' : ((width) == 2 ? 'w' : '?')))
 #define isa_vaddr_check(vaddr, type, len) (MEM_RET_OK)
 #define x86_has_mem_exception() (false)
 
