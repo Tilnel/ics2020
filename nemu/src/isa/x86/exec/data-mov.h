@@ -4,7 +4,7 @@ static inline def_EHelper(mov) {
 }
 
 static inline def_EHelper(push) {
-  rtl_push(s, ddest);
+  rtl_push(s, dsrc1);
 
 //  TODO();
   print_asm_template1(push);
@@ -35,14 +35,10 @@ static inline def_EHelper(leave) {
 
 static inline def_EHelper(cltd) {
   if (s->isa.is_operand_size_16) {
-    if ((cpu.eax >> 15) & 1) cpu.edx |= 0x0000ffff;
-    else cpu.edx &= 0xffff0000;
-    //TODO();
+    TODO();
   }
   else {
-    if (cpu.eax >> 31) cpu.edx = 0xffffffff;
-    else cpu.edx = 0x00000000;
-    //TODO();
+    TODO();
   }
   print_asm(s->isa.is_operand_size_16 ? "cwtl" : "cltd");
 }
