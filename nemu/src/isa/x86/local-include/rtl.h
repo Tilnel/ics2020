@@ -42,7 +42,7 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     *t0 = ~(*src2) + 1;
     *dest = (((*src1 >> (8 * width - 1)) & 1) == ((*t0 >> (8 * width - 1)) & 1)) &&
             (((*t0 >> (8 * width - 1)) & 1) != ((*res >> (8 * width - 1)) & 1));
-assert(!dest);
+
 
   //TODO();
 }
