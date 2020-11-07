@@ -45,7 +45,8 @@ static inline def_EHelper(iret) {
 }
 
 static inline def_EHelper(in) {
-  TODO();
+  *ddest = *dsrc1;
+  //TODO();
   print_asm_template2(in);
 }
 
