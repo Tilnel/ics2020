@@ -96,6 +96,7 @@ static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   width = 4;
   *t0 = ((*result) >> (width * 8 - 1)) ? 1 : 0;
   rtl_set_SF(s, t0);
+  (*t0) = 1;
   assert(!cpu.SF);
   assert(!(*t0));
   //TODO();
