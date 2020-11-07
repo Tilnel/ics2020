@@ -27,9 +27,9 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
    switch (width) {
-     case 1 : *dest = (int)(uint8_t)(*src1); break;
-     case 2 : *dest = (int)(uint16_t)(*src1); break;
-     case 4 : *dest = (int)(*src1); break;
+     case 1 : *dest = ((*src1 >> 7 & 1) == 1)?  *src1 | 0xffffff00 : *src1 & 0x000000ff; break;
+     case 2 : *dest = ((*src1 >> 15 & 1) == 1)? *src1 | 0xffffff00 : *src1 & 0x000000ff; break;
+     case 4 : *dest = *src1; break;
      default : assert(0);
    }
   //TODO();
