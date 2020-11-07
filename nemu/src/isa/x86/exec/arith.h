@@ -41,9 +41,9 @@ static inline def_EHelper(cmp) {
   rtl_update_ZFSF(s, ddest, id_dest->width);
   rtl_is_sub_carry(s, s0, ddest, s2);
   //assert(!(*s0));
-  //cpu.CF = *s0; assert(!cpu.CF);
+  cpu.CF = *s0; //assert(!cpu.CF);
   rtl_is_sub_overflow(s, s0, s1, ddest, s2, id_dest->width);
-  cpu.OF = *s0; assert(!cpu.OF);
+  cpu.OF = *s0; //assert(!cpu.OF);
   //TODO();
   print_asm_template2(cmp);
 }
