@@ -10,6 +10,7 @@ static inline def_EHelper(test) {
 
 static inline def_EHelper(and) {
   *ddest &= *dsrc1;
+  //cpu.OF
   rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   print_asm_template2(and);
