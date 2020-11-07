@@ -166,7 +166,7 @@ again:
     IDEXW(0x88, mov_G2E, mov, 1)
     IDEX (0x89, mov_G2E, mov)
     IDEXW(0x8a, mov_E2G, mov, 1)
-    IDEX (0x8b, mov_E2G, mov)
+    IDEX (0x8b, I_E2G, mov)
     IDEX (0x8d, lea_M2G, lea)
     EX   (0x90, nop)
     EX   (0x99, cltd)
