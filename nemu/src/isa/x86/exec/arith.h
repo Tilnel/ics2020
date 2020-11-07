@@ -68,7 +68,11 @@ static inline def_EHelper(dec) {
 }
 
 static inline def_EHelper(neg) {
-  TODO();
+  if (*ddest == 0) cpu.OF = 0;
+  else cpu.OF = 1;
+  *ddest = -*ddest;
+  operand_write(s, id_dest, ddest);
+  //TODO();
   print_asm_template1(neg);
 }
 
