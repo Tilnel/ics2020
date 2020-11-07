@@ -34,8 +34,8 @@ static inline def_EHelper(subl) {
   operand_write(s, id_dest, ddest);
 }
 static inline def_EHelper(cmp) {
-  *s1 = *ddest;
-  rtl_sext(s, s2, dsrc1, id_src1->width);
+  *s2 = *ddest;
+  rtl_sext(s, s1, dsrc1, id_src1->width);
   *s1 -= *s2;
   rtl_is_sub_carry(s, s0, ddest, s2);
   cpu.CF = *s0;
