@@ -229,7 +229,7 @@ again:
     IDEX (0xe9, J, jmp)
     //IDEX (0xea, J, jmp)
     IDEXW(0xeb, J, jmp, 1)
-    IDEXW(0xec, in_dx2a, in, 2)
+    IDEXW(0xec, in_dx2a, in, 1)
     IDEX (0xed, in_dx2a, in)
     IDEXW(0xee, out_a2dx, out, 1)
     IDEX (0xef, out_a2dx, out)
