@@ -8,6 +8,7 @@ static inline def_EHelper(add) {
   rtl_is_add_overflow(s, s0, ddest, dsrc1, s1, s->width);
   cpu.OF = *s0;
   rtl_update_ZFSF(s, ddest, s->width);
+  operand_write(s, id_dest, ddest);
   //TODO();
   print_asm_template2(add);
 }
