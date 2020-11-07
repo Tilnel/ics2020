@@ -28,7 +28,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
 
   // TODO: Query EFLAGS to determine whether the condition code is satisfied.
   // dest <- ( cc is satisfied ? 1 : 0)
-  switch (subcode & 0xe) {
+  switch (subcode & 0xf) {
     case CC_O: *dest = (cpu.OF == 1)? 1 : 0; break;
     case CC_NO: *dest = (cpu.OF == 0)? 1 : 0; break;
     case CC_B: *dest = (cpu.CF == 1)? 1 : 0; break;
