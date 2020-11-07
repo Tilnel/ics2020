@@ -68,10 +68,11 @@ static inline def_EHelper(dec) {
 }
 
 static inline def_EHelper(neg) {
-  if (*ddest == 0) cpu.OF = 0;
-  else cpu.OF = 1;
+  if (*ddest == 0) cpu.CF = 0;
+  else cpu.CF = 1;
   *ddest = -*ddest;
   operand_write(s, id_dest, ddest);
+  rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
   print_asm_template1(neg);
 }
