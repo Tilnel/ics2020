@@ -124,7 +124,7 @@ again:
     IDEXW(0x2a, E2G, subl, 1)
     IDEX (0x2b, E2G, subl)
     IDEX (0x31, G2E, xor)
-    IDEX (0x38, G2E, cmp)
+    IDEXW(0x38, G2E, cmp, 1)
     IDEX (0x39, G2E, cmp)
     IDEX (0x3a, E2G, cmp)
     IDEX (0x3b, E2G, cmp)
