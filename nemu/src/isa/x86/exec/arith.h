@@ -50,7 +50,14 @@ static inline def_EHelper(cmp) {
 }
 
 static inline def_EHelper(inc) {
+  *s1 = *ddest;
   (*ddest) ++;
+  rtl_is_add_carry(s, s0, ddest, s1);
+  cpu.CF = *s0;
+  *s2 = 1;
+  rtl_is_add_overflow(s, s0, ddest, s1, s2, id_dest->width);
+  cpu.OF = *s0;
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   print_asm_template1(inc);
 }
