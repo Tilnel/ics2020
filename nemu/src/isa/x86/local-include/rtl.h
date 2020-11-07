@@ -41,8 +41,8 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
       width = 4;
     *t0 = ~(*src2) + 1;
-    *dest = (((*src1 >> (8 * width - 1)) & 1) == ((*t0 >> (8 * width - 1)) & 1)) &&
-            (((*t0 >> (8 * width - 1)) & 1) != ((*res >> (8 * width - 1)) & 1));
+    *dest = ((((*src1) >> (8 * width - 1)) & 1) == (((*t0) >> (8 * width - 1)) & 1)) &&
+            ((((*t0) >> (8 * width - 1)) & 1) != (((*res) >> (8 * width - 1)) & 1));
 assert(!(*dest));
 
   //TODO();
