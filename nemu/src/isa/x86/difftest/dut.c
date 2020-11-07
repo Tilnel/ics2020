@@ -4,7 +4,7 @@
 #include "difftest.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-  // printf("pc: %x %x  ", ref_r->pc, cpu.pc);
+  printf("pc: %x %x  \n", ref_r->pc, cpu.pc);
   // printf("ebp: %x %x", ref_r->ebp, cpu.ebp);
   // printf("eax: %x %x", ref_r->eax, cpu.eax);
   for (int i = 0; i < 8; i++) {
