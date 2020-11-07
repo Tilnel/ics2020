@@ -13,7 +13,7 @@ void init_difftest(char *ref_so_file, long img_size, int port);
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
-static int batch_mode = false;
+static int batch_mode = true;
 static int difftest_port = 1234;
 
 int is_batch_mode() { return batch_mode; }
