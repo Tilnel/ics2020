@@ -12,8 +12,8 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
       printf("%d %x %x\n", i, ref_r->gpr[i]._32, cpu.gpr[i]._32);return false;}
   }
   //if ((*ref_r).pc != cpu.pc) return false;
-  printf("cpu :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", cpu.OF, cpu.ZF, cpu.SF, cpu.CF, cpu.IF);
-  printf("ref :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", ref_r->OF, ref_r->ZF, ref_r->SF, ref_r->CF, ref_r->IF);
+  //printf("cpu :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", cpu.OF, cpu.ZF, cpu.SF, cpu.CF, cpu.IF);
+  //printf("ref :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", ref_r->OF, ref_r->ZF, ref_r->SF, ref_r->CF, ref_r->IF);
   // if ((*ref_r).OF != cpu.OF) return false;
   // if ((*ref_r).ZF != cpu.ZF) return false;
   // if ((*ref_r).SF != cpu.SF) return false;
