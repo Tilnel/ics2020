@@ -65,7 +65,7 @@ int sprintf(char *out, const char *fmt, ...) {
     }
     out[pos] = '\0';
     va_end(ap);
-    return 0;
+    return pos;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) { return 0; }
