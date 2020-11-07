@@ -229,6 +229,7 @@ again:
     IDEX (0xe9, J, jmp)
     //IDEX (0xea, J, jmp)
     IDEXW(0xeb, J, jmp, 1)
+    IDEXW(0xee, a2O, out, 1)
     EX   (0xf3, endbr32)
     IDEXW(0xf6, E, gp3, 1)
     IDEX (0xf7, E, gp3)
