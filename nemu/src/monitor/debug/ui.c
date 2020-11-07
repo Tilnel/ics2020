@@ -135,7 +135,7 @@ static int cmd_info(char *args){
 static int cmd_p(char *args){
   bool flag = true;
   sword_t answer = expr(args, &flag);
-  if (flag) printf("%u\n", answer);  
+  if (flag) printf("%x\n", answer);  
   return 0;
 }
 
