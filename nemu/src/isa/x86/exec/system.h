@@ -45,7 +45,7 @@ static inline def_EHelper(iret) {
 }
 
 static inline def_EHelper(in) {
-  switch (s->width) {
+  switch (id_dest->width) {
     case 1 : *ddest = pio_read_b(*dsrc1); break;  
     case 2 : *ddest = pio_read_w(*dsrc1); break;
     case 4 : *ddest = pio_read_l(*dsrc1); break;
@@ -56,7 +56,7 @@ static inline def_EHelper(in) {
 }
 
 static inline def_EHelper(out) {
-  switch (s->width) {
+  switch (id_src1->width) {
     case 1 : pio_write_b(*ddest, *dsrc1); break;  
     case 2 : pio_write_w(*ddest, *dsrc1); break;
     case 4 : pio_write_l(*ddest, *dsrc1); break;
