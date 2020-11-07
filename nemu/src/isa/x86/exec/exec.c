@@ -231,7 +231,7 @@ again:
     IDEXW(0xeb, J, jmp, 1)
     IDEXW(0xec, in_dx2a, in, 2)
     IDEX (0xed, in_dx2a, in)
-    IDEX (0xee, out_a2dx, out)
+    IDEXW(0xee, out_a2dx, out, 2)
     IDEX (0xef, out_a2dx, out)
     EX   (0xf3, endbr32)
     IDEXW(0xf6, E, gp3, 1)
