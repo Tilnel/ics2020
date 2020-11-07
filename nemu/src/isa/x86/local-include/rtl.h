@@ -72,7 +72,7 @@ static inline def_rtl(is_add_carry, rtlreg_t* dest,
 
 #define def_rtl_setget_eflags(f) \
   static inline def_rtl(concat(set_, f), const rtlreg_t* src) { \
-    concat(eflags_, f) = *src & 1; \
+    concat(eflags_, f) = *src; \
   } \
   static inline def_rtl(concat(get_, f), rtlreg_t* dest) { \
     *dest = concat(eflags_, f); \
@@ -93,7 +93,7 @@ static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
 static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
   width = 4;
-  *t0 = ((*result) >> (width * 8 - 1)) && 1;
+  *t0 = (*result) >> (width * 8 - 1);
   rtl_set_SF(s, t0);
   assert(!cpu.SF);
   assert(!(*t0));
