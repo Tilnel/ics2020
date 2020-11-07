@@ -43,7 +43,7 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     *t0 = ~(*src2) + 1;
     *dest = ((((*src1) >> (8 * width - 1)) & 1) == (((*t0) >> (8 * width - 1)) & 1)) &&
             ((((*t0) >> (8 * width - 1)) & 1) != (((*res) >> (8 * width - 1)) & 1));
-assert(!(*dest));
+
 
   //TODO();
 }
@@ -94,6 +94,8 @@ static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
   *t0 = ((*result) >> (width * 8 - 1)) & 1;
   rtl_set_SF(s, t0);
+  assert(!cpu.SF);
+  assert(!(*t0));
   //TODO();
 }
 
