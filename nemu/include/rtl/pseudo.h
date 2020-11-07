@@ -36,7 +36,12 @@ static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
-  *dest = *src1;
+  switch (width) {
+    case 1 : *dest = (uint8_t)(*src1); break;
+    case 2 : *dest = (uint16_t)(*src1); break;
+    case 4 : *dest = (*src1); break;
+    default : assert(0);
+  }
   // dest <- zeroext(src1[(width * 8 - 1) .. 0])
   //TODO();
 }
