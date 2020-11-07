@@ -44,7 +44,7 @@ static inline def_EHelper(cmp) {
   cpu.CF = *s0; //assert(!cpu.CF);
   *s2 = ~*dsrc1 + 1;
   rtl_is_add_overflow(s, s0, s1, ddest, s2, id_dest->width);
-  cpu.OF = *s0 ^  cpu.ZF; //assert(!cpu.OF);
+  cpu.OF = *s0 ^ cpu.CF; //assert(!cpu.OF);
   //TODO();
   print_asm_template2(cmp);
 }
