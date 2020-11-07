@@ -41,7 +41,7 @@ static inline def_EHelper(cmp) {
   cpu.CF = *s0;
   rtl_is_sub_overflow(s, s0, s1, ddest, s2, s->width);
   cpu.OF = *s0;
-  rtl_update_ZFSF(s, s1, s->width);
+  rtl_update_ZFSF(s, s1, id_dest->width);
   //TODO();
   print_asm_template2(cmp);
 }
