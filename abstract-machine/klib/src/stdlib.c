@@ -30,12 +30,12 @@ int atoi(const char* nptr) {
 }
 
 void *malloc(size_t size) {
-  assert(0);
-  return NULL;  
+  void *addr = heap.start;
+  heap.start = addr + size;
+  return addr;
 }
 
 void free(void *ptr) {
-  assert(0);
 }
 
 #endif
