@@ -81,3 +81,9 @@ static inline def_EHelper(lea) {
   operand_write(s, id_dest, ddest);
   print_asm_template2(lea);
 }
+
+static inline def_EHelper(movsb) {
+  *s0 = *dsrc1 + 1;
+  operand_write(s, id_dest, s0);
+  print_asm_template2(mov);
+}
