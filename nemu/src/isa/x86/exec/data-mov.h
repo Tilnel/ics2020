@@ -83,7 +83,7 @@ static inline def_EHelper(lea) {
 }
 
 static inline def_EHelper(movsb) {//????????????
-  cpu.edi = (cpu.edi & 0xffffff00) | (cpu.esi & 0x000000ff);
+  cpu.edi = (cpu.edi & 0xffffff00) | (cpu.edx & 0x000000ff);
   cpu.edi++;
   cpu.esi++;
   print_asm_template2(mov);
