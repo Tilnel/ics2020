@@ -6,14 +6,13 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-
+  char buf[256];
   va_list ap;
   va_start(ap, fmt);
-  char buf[256];
   sprintf(buf, fmt, ap);
   va_end(ap);
   size_t i = 0;
-assert(0);
+  assert(0);
   assert(buf[i] != '\0');
   while (buf[i] != '\0') {
     putch(buf[i]);
@@ -69,9 +68,10 @@ int sprintf(char *out, const char *fmt, ...) {
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos);
                 addlen -= len;
-                while (addlen--) {
+                while (addlen > 0) {
                   out[pos] = '0';
                   pos++;
+                  addlen --;
                 }
                 itoa (d, out + pos);
                 pos += len;
