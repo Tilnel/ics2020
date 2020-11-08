@@ -17,4 +17,5 @@ void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
   rtc->day    = 0;
   rtc->month  = 0;
   rtc->year   = 1900;
+  outl(RTC_ADDR, rtc->year);
 }
