@@ -37,6 +37,6 @@ void init_audio() {
   add_mmio_map("audio", AUDIO_MMIO, (void *)audio_base, space_size, audio_io_handler);
 
   sbuf = (void *)new_space(STREAM_BUF_MAX_SIZE);
-  add_mmio_map("audio-sbuf", STREAM_BUF, (void *)sbuf, STREAM_BUF_MAX_SIZE, NULL);
+  add_mmio_map("audio-sbuf", STREAM_BUF, (void *)sbuf, STREAM_BUF_MAX_SIZE, NULL);  
 }
 #endif	/* HAS_IOE */
