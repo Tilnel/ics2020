@@ -49,7 +49,7 @@ int sprintf(char *out, const char *fmt, ...) {
     int d;
     char *s;
     size_t pos = 0;
-    size_t len, addlen;
+    size_t len;//, addlen;
     va_start(ap, fmt);
     while (fmt[i] != '\0' && i < 256) {
         switch (fmt[i]) {
@@ -61,7 +61,7 @@ int sprintf(char *out, const char *fmt, ...) {
                 strncpy(out + pos, s, len);
                 pos += len;
                 break;
-            case '0':
+            /*case '0':
                 addlen = fmt[i + 1] - '0';
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos);
@@ -74,11 +74,10 @@ int sprintf(char *out, const char *fmt, ...) {
                 itoa (d, out + pos);
                 pos += len;
                 i+=2;
-                break;
+                break;*/
             case 'd':
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos);
-                assert(0);
                 pos += len;
                 break;
             }
