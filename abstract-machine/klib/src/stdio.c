@@ -53,7 +53,7 @@ int sprintf(char *out, const char *fmt, ...) {
     size_t pos = 0;
     size_t len, addlen;
     va_start(ap, fmt);
-    while (fmt[i] != '\0') {
+    while (fmt[i] != '\0' && i < 256) {
         switch (fmt[i]) {
         case '%':
             switch (fmt[++i]) {
@@ -76,7 +76,6 @@ int sprintf(char *out, const char *fmt, ...) {
                 itoa (d, out + pos);
                 pos += len;
                 i++;
-                assert(0);
                 break;
             case 'd':
                 d = va_arg(ap, int);
