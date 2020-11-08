@@ -60,7 +60,6 @@ int sprintf(char *out, const char *fmt, ...) {
                 len = strlen(s);
                 strncpy(out + pos, s, len);
                 pos += len;
-                assert(0);
                 break;
             case '0':
                 addlen = fmt[i + 1] - '0';
@@ -77,6 +76,7 @@ int sprintf(char *out, const char *fmt, ...) {
                 i+=2;
                 break;
             case 'd':
+            assert(0);
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos);
                 pos += len;
