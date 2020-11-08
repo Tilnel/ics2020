@@ -268,15 +268,15 @@ static inline def_DHelper(J) {
 }
 
 static inline def_DHelper(push_SI) {
-  decode_op_SI(s, id_dest, false);
+  decode_op_SI(s, id_dest, true);
 }
 
 static inline def_DHelper(push_r) {
-  decode_op_r(s, id_dest, false);
+  decode_op_r(s, id_dest, true);
 }
 
 static inline def_DHelper(push_I) {
-  decode_op_I(s, id_dest, false);
+  decode_op_I(s, id_dest, true);
 }
 
 static inline def_DHelper(in_I2a) {
