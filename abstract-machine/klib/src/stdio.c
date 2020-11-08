@@ -7,13 +7,13 @@
 
 int printf(const char *fmt, ...) {
 
-  assert(0);
   va_list ap;
   va_start(ap, fmt);
   char buf[256];
   sprintf(buf, fmt, ap);
   va_end(ap);
   size_t i = 0;
+assert(0);
   assert(buf[i] != '\0');
   while (buf[i] != '\0') {
     putch(buf[i]);
