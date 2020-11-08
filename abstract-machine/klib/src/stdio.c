@@ -8,7 +8,7 @@
 int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
-  char buf[256];
+  char buf[512];
   sprintf(buf, fmt, ap);
   va_end(ap);
   size_t i = 0;
