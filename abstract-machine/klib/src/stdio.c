@@ -6,17 +6,17 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  char buf[256];
-  va_list ap;
-  va_start(ap, fmt);
-  sprintf(buf, fmt, ap);
-  va_end(ap);
-  size_t i = 0;
-  while (buf[i] != '\0') {
-    putch(buf[i]);
-    i++;
-  }
-  return 0;
+    char buf[256];
+    va_list ap;
+    va_start(ap, fmt);
+    sprintf(buf, fmt, ap);
+    va_end(ap);
+    size_t i = 0;
+    while (buf[i] != '\0') {
+        putch(buf[i]);
+        i++;
+    }
+    return 0;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) { return 0; }
@@ -65,16 +65,17 @@ int sprintf(char *out, const char *fmt, ...) {
                 addlen = fmt[i + 1] - '0';
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos);
-                assert(addlen >= len);
-                addlen -= len;
-                while (addlen > 0) {
-                  out[pos] = '0';
-                  pos++;
-                  addlen --;
+                if (len < addlen) {
+                    addlen -= len;
+                    while (addlen > 0) {
+                        out[pos] = '0';
+                        pos++;
+                        addlen--;
+                    }
+                    itoa(d, out + pos);
                 }
-                itoa (d, out + pos);
                 pos += len;
-                i+=2;
+                i += 2;
                 break;
             case 'd':
                 d = va_arg(ap, int);
