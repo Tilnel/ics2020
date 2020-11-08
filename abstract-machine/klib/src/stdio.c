@@ -10,6 +10,7 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   sprintf(buf, fmt, ap);
+  assert(0);
   va_end(ap);
   size_t i = 0;
   while (buf[i] != '\0') {
