@@ -5,7 +5,7 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  while(1) uptime->us = inl(0x52);
+  while(1) uptime->us = inl(0x44);
 
 }
 
