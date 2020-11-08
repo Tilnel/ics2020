@@ -272,7 +272,7 @@ static inline def_DHelper(push_SI) {
 }
 
 static inline def_DHelper(push_r) {
-  decode_op_r(s, id_dest, true);
+  decode_op_r(s, id_dest, false);
 }
 
 static inline def_DHelper(push_I) {
