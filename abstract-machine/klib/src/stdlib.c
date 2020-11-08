@@ -30,6 +30,7 @@ int atoi(const char* nptr) {
 }
 
 void *malloc(size_t size) {
+  
   return NULL;
 }
 
