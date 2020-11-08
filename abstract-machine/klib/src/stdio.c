@@ -69,7 +69,6 @@ int sprintf(char *out, const char *fmt, ...) {
                 len = itoa(d, out + pos);
                 addlen -= len;
                 while (addlen > 0) {
-                  assert(0);
                   out[pos] = '0';
                   pos++;
                   addlen --;
