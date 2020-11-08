@@ -27,6 +27,7 @@ static inline def_EHelper(sub) {
   rtl_set_OF(s, s0);
   rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
+  operand_write(s, id_dest, ddest);
   print_asm_template2(sub);
 }
 
@@ -59,6 +60,7 @@ static inline def_EHelper(inc) {
   rtl_is_add_overflow(s, s0, ddest, s1, s2, id_dest->width);
   cpu.OF = *s0;
   rtl_update_ZFSF(s, ddest, id_dest->width);
+  operand_write(s, id_dest, ddest);
   //TODO();
   print_asm_template1(inc);
 }
