@@ -74,6 +74,7 @@ static inline def_EHelper(dec) {
   (*ddest) --;
   rtl_update_ZFSF(s, ddest, s->width);
   //TODO();
+  operand_write(s, id_dest, ddest);
   print_asm_template1(dec);
 }
 
