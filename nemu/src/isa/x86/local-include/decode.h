@@ -66,7 +66,10 @@ static inline def_DopHelper(SI) {
 static inline def_DopHelper(a) {
   operand_reg(s, op, load_val, R_EAX, op->width);
 }
-
+static inline def_DHelper(s2d) {
+  operand_reg(s, id_dest, false, R_EDI, s->width);
+  operand_reg(s, id_src1, true, R_ESI, s->width);
+}
 /* This helper function is use to decode register encoded in the opcode. */
 /* XX: AL, AH, BL, BH, CL, CH, DL, DH
  * eXX: eAX, eCX, eDX, eBX, eSP, eBP, eSI, eDI
