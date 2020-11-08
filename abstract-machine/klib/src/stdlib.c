@@ -30,11 +30,12 @@ int atoi(const char* nptr) {
 }
 
 void *malloc(size_t size) {
-  
+  assert(0);
   return NULL;
 }
 
 void free(void *ptr) {
+  assert(0);
 }
 
 #endif
