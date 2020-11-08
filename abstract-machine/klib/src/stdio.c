@@ -56,7 +56,7 @@ int sprintf(char *out, const char *fmt, ...) {
         case '%':
             switch (fmt[++i]) {
             case 's':
-                s = (char *)va_arg(ap, const char*);
+                s = (char *)va_arg(ap, char *);
                 len = strlen(s);
                 strncpy(out + pos, s, len);
                 pos += len;
