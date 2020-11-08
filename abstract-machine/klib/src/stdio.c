@@ -19,7 +19,7 @@ int printf(const char *fmt, ...) {
     return 0;
 }
 
-int vsprintf(char *out, const char *fmt, va_list ap) { return 0; }
+int vsprintf(char *out, const char *fmt, va_list ap) { assert(0);return 0; }
 
 int itoa(int n, char *s) {
     int i, j, sign;
@@ -96,8 +96,8 @@ int sprintf(char *out, const char *fmt, ...) {
     return pos;
 }
 
-int snprintf(char *out, size_t n, const char *fmt, ...) { return 0; }
+int snprintf(char *out, size_t n, const char *fmt, ...) { assert(0);return 0; }
 
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) { return 0; }
+int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) { assert(0);return 0; }
 
 #endif
