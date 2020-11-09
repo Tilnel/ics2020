@@ -58,7 +58,7 @@ static inline def_EHelper(sar) {
   *s1 = *ddest >> (id_dest->width * 8 - 1) & 1;
   *s2 = *dsrc1;
   *s0 = (*ddest) >> (*dsrc1);
-  printf("%d\n", id_dest->width);
+  //printf("%d\n", id_dest->width);
   for ( ; *s2 > 0; (*s2) --) {
     *s0 |= (*s1 << (id_dest -> width * 8 - *s2));
   }
@@ -87,7 +87,7 @@ static inline def_EHelper(shr) {
   rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
-  printf("%d\n", id_dest->width);
+  //printf("%d\n", id_dest->width);
   operand_write(s, id_dest, s0);
   print_asm_template2(shr);
 }
