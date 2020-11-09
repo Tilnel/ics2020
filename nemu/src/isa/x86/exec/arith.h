@@ -5,9 +5,9 @@ static inline def_EHelper(add) {
   *ddest += *dsrc1;
   rtl_is_add_carry(s, s0, ddest, dsrc1);
   cpu.CF = *s0;
-  rtl_is_add_overflow(s, s0, ddest, dsrc1, s1, s->width);
+  rtl_is_add_overflow(s, s0, ddest, dsrc1, s1, id_dest->width);
   cpu.OF = *s0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   operand_write(s, id_dest, ddest);
   //TODO();
   print_asm_template2(add);
@@ -23,9 +23,9 @@ static inline def_EHelper(sub) {
   *ddest -= *dsrc1;
   rtl_is_sub_carry(s, s0, s1, dsrc1);
   rtl_set_CF(s, s0);
-  rtl_is_sub_overflow(s, s0, ddest, s1, dsrc1, s->width);
+  rtl_is_sub_overflow(s, s0, ddest, s1, dsrc1, id_dest->width);
   rtl_set_OF(s, s0);
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   operand_write(s, id_dest, ddest);
   print_asm_template2(sub);
@@ -72,7 +72,7 @@ static inline def_EHelper(incl) {
 
 static inline def_EHelper(dec) {
   (*ddest) --;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   operand_write(s, id_dest, ddest);
   print_asm_template1(dec);
@@ -83,7 +83,7 @@ static inline def_EHelper(neg) {
   else cpu.CF = 1;
   *ddest = -*ddest;
   operand_write(s, id_dest, ddest);
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   print_asm_template1(neg);
 }
