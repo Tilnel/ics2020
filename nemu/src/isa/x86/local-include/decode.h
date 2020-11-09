@@ -314,5 +314,5 @@ static inline void operand_write(DecodeExecState *s, Operand *op, rtlreg_t* src)
 }
 
 static inline def_DHelper(gp3_a) {
-  decode_op_a(s, id_dest, true);
+  decode_op_a(s, id_dest, false);
 }
