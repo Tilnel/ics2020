@@ -23,20 +23,20 @@ static inline def_EHelper(andl) {
 }
 
 static inline def_EHelper(xor) {
-  *ddest ^= *dsrc1;
+  *s0 = *ddest ^ *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
-  operand_write(s, id_dest, ddest);
+  operand_write(s, id_dest, s0);
   print_asm_template2(xor);
 }
 
 static inline def_EHelper(or) {
-  *ddest |= *dsrc1;
+  *s0 = *ddest | *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
-  operand_write(s, id_dest, ddest);
+  operand_write(s, id_dest, s0);
   print_asm_template2(or);
 }
 
