@@ -84,6 +84,9 @@ static inline def_EHelper(shr) {
   print_asm_template2(shr);
 }
 
+static inline def_EHelper(rol) {
+  TODO();
+}
 
 static inline def_EHelper(setcc) {
   uint32_t cc = s->opcode & 0xf;
