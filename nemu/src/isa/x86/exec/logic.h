@@ -56,6 +56,7 @@ static inline def_EHelper(not) {
 
 static inline def_EHelper(sar) {
   *s0 = (*ddest) >> (*dsrc1);
+  rtl_sext(s, s0, s0, id_dest->width);
   cpu.CF = cpu.OF = 0;
   rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
