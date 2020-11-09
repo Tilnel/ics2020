@@ -55,7 +55,7 @@ static inline def_EHelper(not) {
 }
 
 static inline def_EHelper(sar) {
-  *s1 = *ddest >> (id_dest->width * 4 - 1);
+  *s1 = *ddest >> (id_dest->width * 4 - 1) & 1;
   *s2 = *dsrc1;
   *s0 = (*ddest) >> (*dsrc1);
   for ( ; *s2 > 0; (*s2) --) {
