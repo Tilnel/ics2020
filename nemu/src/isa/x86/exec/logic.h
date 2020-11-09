@@ -58,8 +58,9 @@ static inline def_EHelper(sar) {
   *s1 = *ddest >> (id_dest->width * 4 - 1) & 1;
   *s2 = *dsrc1;
   *s0 = (*ddest) >> (*dsrc1);
+  printf("%d\n", id_dest->width);
   for ( ; *s2 > 0; (*s2) --) {
-    *s0 |= *s1 << (id_dest -> width * 4 - *s2);
+    *s0 |= (*s1 << (id_dest -> width * 4 - *s2));
   }
   cpu.CF = cpu.OF = 0;
   rtl_update_ZFSF(s, s0, id_dest->width);
