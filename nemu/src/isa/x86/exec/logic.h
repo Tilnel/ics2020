@@ -88,6 +88,19 @@ static inline def_EHelper(rol) {
   TODO();
 }
 
+static inline def_EHelper(bsr) {
+  if (*dsrc1 == 0) cpu.ZF = 1;
+  else {
+    *s1 = 0;
+    *s0 = *s2 = id_dest->width * 8 - 1;
+    for (; *s0 >= 0; (*s0) --) {
+      *s1 += (*dsrc1 >> *s0 & 1) << (*s2 - *s1);
+    }
+    operand_write(s, id_dest, s1);
+  }
+  //TODO();
+}
+
 static inline def_EHelper(setcc) {
   uint32_t cc = s->opcode & 0xf;
   rtl_setcc(s, ddest, cc);
