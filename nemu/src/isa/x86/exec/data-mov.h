@@ -88,3 +88,13 @@ static inline def_EHelper(movsb) {//????????????
   cpu.esi++;
   print_asm_template2(mov);
 }
+
+static inline def_EHelper(xchg) {
+  if (s->width == 4) {
+    *s0  = *ddest;
+    *ddest = *dsrc1;
+    *dsrc1 = *s0;
+  } else {
+    TODO();
+  }
+}

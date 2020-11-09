@@ -77,7 +77,10 @@ static inline def_DHelper(s2d) {
 static inline def_DopHelper(r) {
   operand_reg(s, op, load_val, s->opcode & 0x7, op->width);
 }
-
+static inline def_DHelper(xchg_a2r) {
+  decode_op_a(s, id_dest, true);
+  decode_op_r(s, id_src1, true);
+}
 /* I386 manual does not contain this abbreviation.
  * We decode everything of modR/M byte in one time.
  */
