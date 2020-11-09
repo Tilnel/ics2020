@@ -11,7 +11,7 @@ static inline def_EHelper(test) {
 static inline def_EHelper(and) {
   *ddest &= *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   operand_write(s, id_dest, ddest);
   print_asm_template2(and);
@@ -25,7 +25,7 @@ static inline def_EHelper(andl) {
 static inline def_EHelper(xor) {
   *ddest ^= *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   operand_write(s, id_dest, ddest);
   print_asm_template2(xor);
@@ -34,7 +34,7 @@ static inline def_EHelper(xor) {
 static inline def_EHelper(or) {
   *ddest |= *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   operand_write(s, id_dest, ddest);
   print_asm_template2(or);
@@ -49,7 +49,7 @@ static inline def_EHelper(not) {
   //TODO();
   *ddest = ~(*ddest);
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   operand_write(s, id_dest, ddest);
   print_asm_template1(not);
 }
@@ -57,7 +57,7 @@ static inline def_EHelper(not) {
 static inline def_EHelper(sar) {
   *ddest = (int)(*ddest) >> (*dsrc1);
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
   operand_write(s, id_dest, ddest);
@@ -67,7 +67,7 @@ static inline def_EHelper(sar) {
 static inline def_EHelper(shl) {
   *ddest <<= *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
   operand_write(s, id_dest, ddest);
@@ -77,7 +77,7 @@ static inline def_EHelper(shl) {
 static inline def_EHelper(shr) {
   *ddest >>= *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, s->width);
+  rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
   operand_write(s, id_dest, ddest);
