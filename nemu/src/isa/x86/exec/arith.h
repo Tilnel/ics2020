@@ -71,7 +71,7 @@ static inline def_EHelper(incl) {
 }
 
 static inline def_EHelper(dec) {
-  (*ddest) --;
+  *s0 = *ddest - 1;
   rtl_update_ZFSF(s, ddest, id_dest->width);
   //TODO();
   operand_write(s, id_dest, ddest);
