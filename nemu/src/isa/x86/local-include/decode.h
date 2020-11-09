@@ -312,3 +312,7 @@ static inline void operand_write(DecodeExecState *s, Operand *op, rtlreg_t* src)
   else if (op->type == OP_TYPE_MEM) { rtl_sm(s, s->isa.mbase, s->isa.moff, src, op->width); }
   else { assert(0); }
 }
+
+static inline def_DHelper(gp3_a) {
+  decode_op_a(s, id_src1, true);
+}
