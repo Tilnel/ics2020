@@ -90,7 +90,7 @@ static inline def_EHelper(movsb) {//????????????
 }
 
 static inline def_EHelper(xchg) {
-  if (s->width == 4) {
+  if (id_dest->width == 4) {
     *s0  = *ddest;
     *ddest = *dsrc1;
     *dsrc1 = *s0;
