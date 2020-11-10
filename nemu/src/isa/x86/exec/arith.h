@@ -1,14 +1,13 @@
 #include "cc.h"
 
 static inline def_EHelper(add) {
-  *s1 = *ddest;
-  *ddest += *dsrc1;
-  rtl_is_add_carry(s, s0, ddest, dsrc1);
+  *s1 = *ddest + *dsrc1;
+  rtl_is_add_carry(s, s0, s1, dsrc1);
   cpu.CF = *s0;
-  rtl_is_add_overflow(s, s0, ddest, dsrc1, s1, id_dest->width);
+  rtl_is_add_overflow(s, s0, s1, dsrc1, ddest, id_dest->width);
   cpu.OF = *s0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
-  operand_write(s, id_dest, ddest);
+  rtl_update_ZFSF(s, s1, id_dest->width);
+  operand_write(s, id_dest, s1);
   //TODO();
   print_asm_template2(add);
 }
@@ -19,15 +18,14 @@ static inline def_EHelper(addl) {
 }
 
 static inline def_EHelper(sub) {
-  *s1 = *ddest;
-  *ddest -= *dsrc1;
-  rtl_is_sub_carry(s, s0, s1, dsrc1);
+  *s1 = *ddest - *dsrc1;
+  rtl_is_sub_carry(s, s0, ddest, dsrc1);
   rtl_set_CF(s, s0);
-  rtl_is_sub_overflow(s, s0, ddest, s1, dsrc1, id_dest->width);
+  rtl_is_sub_overflow(s, s0, s1, ddest, dsrc1, id_dest->width);
   rtl_set_OF(s, s0);
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s1, id_dest->width);
   //TODO();
-  operand_write(s, id_dest, ddest);
+  operand_write(s, id_dest, s1);
   print_asm_template2(sub);
 }
 
@@ -52,15 +50,14 @@ static inline def_EHelper(cmp) {
 }
 
 static inline def_EHelper(inc) {
-  *s1 = *ddest;
-  (*ddest) ++;
-  rtl_is_add_carry(s, s0, ddest, s1);
+  *s1 = *ddest + 1;
+  rtl_is_add_carry(s, s0, s1, ddest);
   cpu.CF = *s0;
   *s2 = 1;
-  rtl_is_add_overflow(s, s0, ddest, s1, s2, id_dest->width);
+  rtl_is_add_overflow(s, s0, s1, ddest, s2, id_dest->width);
   cpu.OF = *s0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
-  operand_write(s, id_dest, ddest);
+  rtl_update_ZFSF(s, s1, id_dest->width);
+  operand_write(s, id_dest, s1);
   //TODO();
   print_asm_template1(inc);
 }
@@ -81,9 +78,9 @@ static inline def_EHelper(dec) {
 static inline def_EHelper(neg) {
   if (*ddest == 0) cpu.CF = 0;
   else cpu.CF = 1;
-  *ddest = -*ddest;
-  operand_write(s, id_dest, ddest);
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  *s0 = -*ddest;
+  operand_write(s, id_dest, s0);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
   print_asm_template1(neg);
 }
