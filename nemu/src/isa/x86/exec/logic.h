@@ -96,7 +96,8 @@ static inline def_EHelper(rol) {
   *s0 = *ddest;
   *s1 = *dsrc1;
   for ( ; *s1 > 0; (*s1)--) {
-    *s0 = (*s0 >> (id_dest->width * 8 - 1) & 1) + (*s0 << 1); 
+    *s2 = *s0 << 1;
+    *s0 = (*s0 >> (id_dest->width * 8 - 1) & 1) + *s2; 
   }
   operand_write(s, id_dest, s0);
   //TODO();
