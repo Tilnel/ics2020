@@ -39,9 +39,9 @@ static inline def_EHelper(cmp) {
   //rtl_sext(s, s2, dsrc1, id_src1->width);
   *s1 -= *dsrc1;
   rtl_update_ZFSF(s, s1, id_dest->width);
-  rtl_is_sub_carry(s, s0, ddest, dsrc1);
+  rtl_is_add_carry(s, s0, s1, ddest);
   //assert(!(*s0));
-  cpu.CF = *s0; //assert(!cpu.CF);
+  cpu.CF = *s0 ^ (0x1); //assert(!cpu.CF);
   *s2 = ~*dsrc1;
   rtl_is_add_overflow(s, s0, s1, ddest, s2, id_dest->width);
   cpu.OF = *s0 ; //assert(!cpu.OF);
