@@ -41,7 +41,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     //case CC_NS: *dest = (cpu.SF == 0)? 1 : 0; break;
     case CC_L: *dest = (cpu.SF != cpu.OF)? 1 : 0; break;
     //case CC_NL: *dest = (cpu.SF == cpu.OF)? 1 : 0; break;
-    case CC_LE: *dest = (cpu.ZF == 1 || cpu.SF != cpu.OF)? 1 : 0; break;
+    case CC_LE: *dest = (cpu.ZF == 1 || cpu.SF == cpu.OF)? 1 : 0; break;
     //case CC_NLE: *dest = (cpu.ZF == 1 || cpu.SF != cpu.OF)? 0 : 1; break;
        //TODO();
     default: panic("should not reach here"); break;
