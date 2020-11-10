@@ -55,13 +55,16 @@ static inline def_EHelper(not) {
 }
 
 static inline def_EHelper(sar) {
-  *s1 = *ddest >> (id_dest->width * 8 - 1) & 1;
+  // *s1 = *ddest >> (id_dest->width * 8 - 1) & 1;
   *s2 = *dsrc1;
-  *s0 = (*ddest) >> (*dsrc1);
+  // *s0 = (*ddest) >> (*dsrc1);
+  *s0 = *ddest;
   //printf("%d\n", id_dest->width);
   for ( ; *s2 > 0; (*s2) --) {
-    *s0 &= ~(1 << (id_dest -> width * 8 - *s2));
-    *s0 |= (*s1 << (id_dest -> width * 8 - *s2));
+    // *s0 &= ~(1 << (id_dest -> width * 8 - *s2));
+    // *s0 |= (*s1 << (id_dest -> width * 8 - *s2));
+    *s0 >>= 1;
+    rtl_sext(s, s0, s0, id_dest->width);
   }
   cpu.CF = cpu.OF = 0;
   rtl_update_ZFSF(s, s0, id_dest->width);
