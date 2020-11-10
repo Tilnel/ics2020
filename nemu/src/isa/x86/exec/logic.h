@@ -1,19 +1,19 @@
 #include "cc.h"
 
 static inline def_EHelper(test) {
-  *ddest &= *dsrc1;
+  *s0 = *ddest & *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest-> width);
+  rtl_update_ZFSF(s, s0, id_dest-> width);
   //TODO();
   print_asm_template2(test);
 }
 
 static inline def_EHelper(and) {
-  *ddest &= *dsrc1;
+  *s0 = *ddest & *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
-  operand_write(s, id_dest, ddest);
+  operand_write(s, id_dest, s0);
   print_asm_template2(and);
 }
 
@@ -47,10 +47,10 @@ static inline def_EHelper(orl) {
 
 static inline def_EHelper(not) {
   //TODO();
-  *ddest = ~(*ddest);
+  *s0 = ~(*ddest);
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
-  operand_write(s, id_dest, ddest);
+  rtl_update_ZFSF(s, s0, id_dest->width);
+  operand_write(s, id_dest, s0);
   print_asm_template1(not);
 }
 
@@ -71,12 +71,12 @@ static inline def_EHelper(sar) {
 }
 
 static inline def_EHelper(shl) {
-  *ddest <<= *dsrc1;
+  *s0 = *ddest << *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
-  operand_write(s, id_dest, ddest);
+  operand_write(s, id_dest, s0);
   print_asm_template2(shl);
 }
 
@@ -84,7 +84,7 @@ static inline def_EHelper(shr) {
   *s0 = *ddest;
   *s0 >>= *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
   //printf("%d\n", id_dest->width);
