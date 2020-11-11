@@ -108,6 +108,17 @@ static inline def_EHelper(rol) {
   //TODO();
 }
 
+static inline def_EHelper(ror) {
+  *s0 = *ddest;
+  *s1 = *dsrc1 & 0x1f;
+  for ( ; *s1 > 0; (*s1)--) {
+    *s2 = *s0 & 1;
+    *s0 = (*s0 >> 1) + (*s2 << (id_dest->width * 8 - 1)); 
+  }
+  operand_write(s, id_dest, s0);
+  //TODO();
+}
+
 static inline def_EHelper(bsr) {
   if (*dsrc1 == 0) cpu.ZF = 1;
   else {
