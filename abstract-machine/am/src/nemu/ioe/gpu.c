@@ -16,14 +16,14 @@ void __am_gpu_init() {
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
-    .width = inw(VGACTL_ADDR), .height = inw(VGACTL_ADDR + 2),
+    .width = inw(VGACTL_ADDR + 2), .height = inw(VGACTL_ADDR),
     .vmemsz = 0
   };
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  int W = inw(VGACTL_ADDR);
-  int H = inw(VGACTL_ADDR + 2);
+  int H = inw(VGACTL_ADDR);
+  int W = inw(VGACTL_ADDR + 2);
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
     int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
