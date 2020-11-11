@@ -265,6 +265,10 @@ static inline def_DHelper(a2O) {
   decode_op_O(s, id_dest, false);
 }
 
+static inline def_DHelper(I2O) {
+  decode_op_I(s, id_src1, true);
+  decode_op_O(s, id_dest, false);
+}
 static inline def_DHelper(J) {
   decode_op_SI(s, id_dest, false);
   // the target address can be computed in the decode stage
