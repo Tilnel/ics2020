@@ -30,7 +30,6 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
         outl (FB_ADDR + ((y + i) * 400 + (x + j)) * 4, *pixels);
         pixels ++;
       }
-    pixels += w;
     }
   }
 }
