@@ -65,7 +65,7 @@ int sprintf(char *out, const char *fmt, ...) {
             case '0':
                 addlen = fmt[i + 1] - '0';
                 d = va_arg(ap, int);
-                assert(d < 10000000);
+                // assert(d < 10000000);
                 len = itoa(d, out + pos);
                 if (len < addlen) {
                     addlen -= len;
