@@ -75,12 +75,12 @@ static inline def_EHelper(sar) {
 }
 
 static inline def_EHelper(shl) {
-  *ddest = *dsrc2 << *dsrc1;
+  *s0 = *ddest << *dsrc1;
   cpu.CF = cpu.OF = 0;
-  rtl_update_ZFSF(s, ddest, id_dest->width);
+  rtl_update_ZFSF(s, s0, id_dest->width);
   //TODO();
   // unnecessary to update CF and OF in NEMU
-  operand_write(s, id_dest, ddest);
+  operand_write(s, id_dest, s0);
   print_asm_template2(shl);
 }
 
