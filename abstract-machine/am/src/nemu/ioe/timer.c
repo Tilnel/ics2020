@@ -1,4 +1,5 @@
 #include <am.h>
+#include <stdio.h>
 #include <nemu.h>
 uint64_t UPTIME;
 void __am_timer_init() {
@@ -6,7 +7,8 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = inl(RTC_ADDR) + 0*(inl(RTC_ADDR + 4) * 1000000) - UPTIME;
+  uptime->us = inl(RTC_ADDR) + inl(RTC_ADDR + 4) * 1000000 - UPTIME;
+  printf("%d", uptime->us & 0xffffffff);
   // ioe_write(AM_TIMER_RTC, NULL);
 }
 
