@@ -213,7 +213,7 @@ again:
     IDEXW(0x7f, J, jcc, 1)
     IDEXW(0x80, I2E, gp1, 1)
     IDEX (0x81, I2E, gp1)
-    IDEX (0x83, SI2E, gp1)
+    IDEX (0x83, I2E, gp1)
     IDEXW(0x84, G2E, test, 1)
     IDEX (0x85, G2E, test)
     IDEX (0x86, G2E, xchg)
