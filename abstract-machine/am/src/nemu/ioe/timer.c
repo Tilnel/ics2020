@@ -1,8 +1,9 @@
 #include <am.h>
 #include <nemu.h>
+#include <stdio.h>
 uint64_t UPTIME;
 void __am_timer_init() {
-  UPTIME = inl(RTC_ADDR);
+  UPTIME = inl(RTC_ADDR) + inl(RTC_ADDR) * 1000000;
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
@@ -12,6 +13,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
   rtc->second = 0;
+  printf("%d", rtc->year);
   rtc->minute = 0;
   rtc->hour   = 0;
   rtc->day    = 0;
