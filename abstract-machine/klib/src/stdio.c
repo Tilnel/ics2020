@@ -56,7 +56,7 @@ int sprintf(char *out, const char *fmt, ...) {
         case '%':
             switch (fmt[++i]) {
             case 's':
-                s = (char *)va_arg(ap, char *);
+                s = va_arg(ap, char *);
                 assert((intptr_t)s < 0x200000);
                 len = strlen(s);
                 strncpy(out + pos, s, len);
@@ -65,6 +65,7 @@ int sprintf(char *out, const char *fmt, ...) {
             case '0':
                 addlen = fmt[i + 1] - '0';
                 d = va_arg(ap, int);
+                assert(d < 10000);
                 len = itoa(d, out + pos);
                 if (len < addlen) {
                     addlen -= len;
