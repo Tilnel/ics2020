@@ -13,7 +13,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
   rtc->second = 0;
-  printf("%d\n", 1);
+  printf("%s\n", "abcd");
   rtc->minute = 0;
   rtc->hour   = 0;
   rtc->day    = 0;
