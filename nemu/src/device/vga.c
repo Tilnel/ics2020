@@ -42,12 +42,18 @@ static inline void update_screen() {
   #endif
 }
 
-// static void vga_io_handler(uint32_t offset, int len, bool is_write) {
-//   // TODO: call `update_screen()` when writing to the sync register
-//   TODO();
+static inline void vga_io_handler(uint32_t offset, int len, bool is_write) {
+  // TODO: call `update_screen()` when writing to the sync register
+  //TODO();
+  if (is_write) update_screen();
+}
 void vga_update_screen() {
   //TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
+  if (vgactl_port_base[1]) {
+    update_screen();
+    vgactl_port_base[1] = 0;
+  }
 }
 
 void init_vga() {
