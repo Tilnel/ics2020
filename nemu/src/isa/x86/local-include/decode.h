@@ -251,7 +251,7 @@ static inline def_DHelper(cl_G2E) {
   operand_rm(s, id_dest, true, id_src2, true);
   // shift instructions will eventually use the lower
   // 5 bits of %cl, therefore it is OK to load %ecx
-  operand_reg(s, id_src1, true, R_ECX, 4);
+  operand_reg(s, id_src1, true, R_ECX, 1);
 }
 
 static inline def_DHelper(O2a) {
