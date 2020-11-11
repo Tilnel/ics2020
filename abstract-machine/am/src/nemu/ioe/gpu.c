@@ -32,9 +32,9 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     for (int i = 0; i < h && y + i < H; i ++) {
       for (int j = 0; j < w && x + j < W; j ++) {
         fb[(i + y) * W + j + x] = *pixels;
-
+        pixels++;
       }
-      pixels += W;
+
     }
   }
 }
