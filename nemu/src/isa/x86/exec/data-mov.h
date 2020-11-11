@@ -91,11 +91,7 @@ static inline def_EHelper(movsb) {//????????????
 }
 
 static inline def_EHelper(xchg) {
-  if (id_dest->width == 4) {
-    *s0  = *ddest;
-    *ddest = *dsrc1;
-    *dsrc1 = *s0;
-  } else {
-    TODO();
-  }
+  *s0 = *ddest;
+  operand_write(s, id_dest, dsrc1);
+  operand_write(s, id_src1, s0);
 }
