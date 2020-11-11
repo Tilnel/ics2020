@@ -22,7 +22,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *pixels = ctl->pixels;
   for (int i = 0; i < h && y + i < 300; i ++) {
     for (int j = 0; j < w && x + j < 400; j ++) {
-      *pixels = inl(VGACTL_ADDR + (i * 400 + j) * 4);
+      *pixels = inl(FB_ADDR + (i * 400 + j) * 4);
     }
     pixels += w;
   }
