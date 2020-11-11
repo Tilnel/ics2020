@@ -19,5 +19,5 @@ WP* new_wp();
 
 void free_wp(int id);
 
-void wp_check();
+bool wp_check();
 #endif

@@ -92,7 +92,8 @@ void wp_display(){
   return;
 }
 
-void wp_check() {
+bool wp_check() {
+  bool FLAG = true;
   bool check[NR_WP];
   word_t val;
   for (int i = 0;i < NR_WP;i ++) {
@@ -106,6 +107,7 @@ void wp_check() {
       printf("Watchpoint %d: %s\n", pt -> NO, pt -> EXPR);
       printf("Old value: %u\n", pt -> value);
       printf("New value: %u\n", val);
+      FLAG = false;
     }
     pt -> value = val;
     check[pt -> NO] = true;
@@ -116,5 +118,5 @@ void wp_check() {
     wp_pool[i].checked = check[i];
   }
   
-  return;
+  return FLAG;
 }
