@@ -5,7 +5,7 @@
 
 void __am_gpu_init() {
   int i;
-  int w = inw(VGACTL_ADDR);
+  int w = 800;//inw(VGACTL_ADDR);
   int h = inw(VGACTL_ADDR + 2) ;
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = i;
@@ -36,5 +36,5 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
-  status->ready = false;
+  status->ready = true;
 }
