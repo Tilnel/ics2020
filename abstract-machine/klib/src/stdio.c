@@ -8,7 +8,7 @@
 int itoa(int n, char *s);
 
 int printf(const char *fmt, ...) {
-    char buf[256];
+    char buf[1024];
     va_list ap;
     va_start(ap, fmt);
     vsprintf(buf, fmt, ap);
