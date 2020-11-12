@@ -176,8 +176,8 @@ static int cmd_d(char *args){
 
 
 void ui_mainloop() {
-  char lastbuf[256], lastcmd[256];
-  lastbuf[0] = lastcmd[0] = '\0';
+  char lastbuf[256];
+  lastbuf[0] = '\0';
   if (is_batch_mode()) {
     cmd_c(NULL);
     return;
@@ -192,7 +192,7 @@ void ui_mainloop() {
       strcpy(str, lastbuf); 
       cmd = strtok(str, " "); 
       if (cmd == NULL) { 
-        lastcmd[0] = '\0';
+        lastbuf[0] = '\0';
         continue; 
       }
     }
@@ -219,6 +219,5 @@ void ui_mainloop() {
     }
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
-    strcpy(lastcmd, lastbuf);
   }
 }
