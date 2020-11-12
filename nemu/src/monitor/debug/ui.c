@@ -183,12 +183,12 @@ void ui_mainloop() {
   }
 
   for (char *str; (str = rl_gets()) != NULL; ) {
-     
+     strcpy(lastbuf, str);
      char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
-    if (cmd == NULL) { cmd = strtok(lastbuf, " ");  continue; }
+    if (cmd == NULL) { cmd = strtok(lastbuf, " "); if (cmd == NULL) continue; }
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
