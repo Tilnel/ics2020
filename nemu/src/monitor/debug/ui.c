@@ -183,7 +183,7 @@ void ui_mainloop() {
     return;
   }
 
-  for (char *str; (str = rl_gets()) != NULL; ) {
+  for (char *str; (str = rl_gets());) {// != NULL; ) {
     char *str_end = str + strlen(str);
     if (str != NULL) strcpy(lastbuf, str);
     /* extract the first token as the command */
