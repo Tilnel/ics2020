@@ -13,45 +13,52 @@ static inline void set_width(DecodeExecState *s, int width) {
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
-    EXW(0, add, id_dest->width) EXW(1, or, id_dest->width) EXW(2, adc, id_dest->width) 
-    EXW(3, sbb, id_dest->width)
-    EXW(4, and, id_dest->width) EXW(6, xor, id_dest->width) EXW(7, cmp, id_dest->width)
-    EXW(5, sub, id_dest->width)
+    EXW(0, add, id_dest->width) EXW(1, or,  id_dest->width) 
+    EXW(2, adc, id_dest->width) EXW(3, sbb, id_dest->width)
+    EXW(4, and, id_dest->width) EXW(5, sub, id_dest->width)
+    EXW(6, xor, id_dest->width) EXW(7, cmp, id_dest->width)
+    
   }
 }
 
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 static inline def_EHelper(gp2) {
   switch (s->isa.ext_opcode) {
-    EX(0, rol) EX(1, ror) EMPTY(2) EMPTY(3)
-    EX(4, shl) EXW(5, shr, id_dest->width) EMPTY(6) EX(7, sar)
+    EX   (0, rol)  EX   (1, ror) 
+    EMPTY(2)       EMPTY(3)
+    EX   (4, shl)  EXW  (5, shr, id_dest->width) 
+    EMPTY(6)       EX   (7, sar)
   }
 }
 
 /* 0xf6, 0xf7 */
 static inline def_EHelper(gp3) {
   switch (s->isa.ext_opcode) {
-    IDEXW(0, test_I, test, id_dest->width) EMPTY(1) EX(2, not) EX(3, neg)
-    EX(4, mul)
-    EX(5, imul1)
-    EX(6, div)
-    EX(7, idiv)
+    IDEXW(0, test_I, test, id_dest->width) 
+    EMPTY(1)          EX(2, not) 
+    EX   (3, neg)     EX(4, mul)
+    EX   (5, imul1)   EX(6, div)
+    EX   (7, idiv)
   }
 }
 
 /* 0xfe */
 static inline def_EHelper(gp4) {
   switch (s->isa.ext_opcode) {
-    EX(0, inc) EXW(1, dec, id_dest->width) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EX   (0, inc)   EXW  (1, dec, id_dest->width) 
+    EMPTY(2)        EMPTY(3)
+    EMPTY(4)        EMPTY(5) 
+    EMPTY(6)        EMPTY(7)
   }
 }
 
 /* 0xff */
 static inline def_EHelper(gp5) {
   switch (s->isa.ext_opcode) {
-    EX(0, inc) EX(1, dec) EX(2, call_rm) EMPTY(3)
-    EX(4, jmp_rm) EMPTY(5) EX(6, push) EMPTY(7)
+    EX(0, inc)      EX   (1, dec) 
+    EX(2, call_rm)  EMPTY(3)
+    EX(4, jmp_rm)   EMPTY(5) 
+    EX(6, push)     EMPTY(7)
   }
 }
 
@@ -68,23 +75,23 @@ static inline def_EHelper(2byte_esc) {
   s->opcode = opcode;
   switch (opcode) {
   /* TODO: Add more instructions!!! */
-    IDEX (0x01, gp7_E, gp7)
-    IDEX (0x80, J, jcc)
-    IDEX (0x81, J, jcc)
-    IDEX (0x82, J, jcc)
-    IDEX (0x83, J, jcc)
-    IDEX (0x84, J, jcc)
-    IDEX (0x85, J, jcc)
-    IDEX (0x86, J, jcc)
-    IDEX (0x87, J, jcc)
-    IDEX (0x88, J, jcc)
-    IDEX (0x89, J, jcc)
-    IDEX (0x8a, J, jcc)
-    IDEX (0x8b, J, jcc)
-    IDEX (0x8c, J, jcc)
-    IDEX (0x8d, J, jcc)
-    IDEX (0x8e, J, jcc)
-    IDEX (0x8f, J, jcc)
+    IDEX (0x01,   gp7_E,   gp7   )
+    IDEX (0x80,       J,   jcc   )
+    IDEX (0x81,       J,   jcc   )
+    IDEX (0x82,       J,   jcc   )
+    IDEX (0x83,       J,   jcc   )
+    IDEX (0x84,       J,   jcc   )
+    IDEX (0x85,       J,   jcc   )
+    IDEX (0x86,       J,   jcc   )
+    IDEX (0x87,       J,   jcc   )
+    IDEX (0x88,       J,   jcc   )
+    IDEX (0x89,       J,   jcc   )
+    IDEX (0x8a,       J,   jcc   )
+    IDEX (0x8b,       J,   jcc   )
+    IDEX (0x8c,       J,   jcc   )
+    IDEX (0x8d,       J,   jcc   )
+    IDEX (0x8e,       J,   jcc   )
+    IDEX (0x8f,       J,   jcc   )
     IDEXW(0x90, setcc_E, setcc, 1)
     IDEXW(0x91, setcc_E, setcc, 1)
     IDEXW(0x92, setcc_E, setcc, 1)
@@ -101,12 +108,12 @@ static inline def_EHelper(2byte_esc) {
     IDEXW(0x9d, setcc_E, setcc, 1)
     IDEXW(0x9e, setcc_E, setcc, 1)
     IDEXW(0x9f, setcc_E, setcc, 1)
-    IDEX (0xa5, cl_G2E, shl)
-    IDEX (0xaf, E2G, imul2)
+    IDEX (0xa5,  cl_G2E,   shl   )
+    IDEX (0xaf,     E2G, imul2   )
     IDEXW(0xb6, mov_E2G, movzx, 1)
     IDEXW(0xb7, mov_E2G, movzx, 2)
     IDEXW(0xbe, mov_E2G, movsx, 1)
-    IDEX (0xbd, E2G, bsr)
+    IDEX (0xbd,     E2G,   bsr   )
     IDEXW(0xbf, mov_E2G, movsx, 2)
     default: exec_inv(s);
   }
