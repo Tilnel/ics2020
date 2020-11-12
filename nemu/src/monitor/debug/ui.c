@@ -177,6 +177,7 @@ static int cmd_d(char *args){
 
 void ui_mainloop() {
   char lastbuf[256], lastcmd[256];
+  lastbuf[0] = lastcmd[0] = '\0';
   if (is_batch_mode()) {
     cmd_c(NULL);
     return;
