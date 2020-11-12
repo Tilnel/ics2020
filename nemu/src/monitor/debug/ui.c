@@ -186,6 +186,7 @@ void ui_mainloop() {
   for (char *str; (str = rl_gets());) {// != NULL; ) {
     char *str_end = str + strlen(str);
     if (str != NULL) strcpy(lastbuf, str);
+    printf("%s", str);
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     if (cmd == NULL) { 
