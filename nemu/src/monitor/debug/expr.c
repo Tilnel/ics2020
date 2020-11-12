@@ -227,7 +227,7 @@ word_t eval (int p, int q, bool *flag) {
 
 word_t expr(char *e, bool *success) {
   if (e == NULL) {
-    printf("Please give an expression."); 
+    printf("Please give an expression.\n"); 
     *success = false; 
     return 0;
   }

@@ -183,8 +183,8 @@ void ui_mainloop() {
     return;
   }
 
-  for (char *str; (str = rl_gets());) {// != NULL; ) {
-    if (str != NULL) strcpy(lastbuf, str);
+  for (char *str; (str = rl_gets())!= NULL; ) {
+    if (str[0] != 0) strcpy(lastbuf, str);
     char *str_end = str + strlen(str);
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
