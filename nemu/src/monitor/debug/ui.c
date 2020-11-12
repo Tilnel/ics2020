@@ -186,14 +186,13 @@ void ui_mainloop() {
   for (char *str; (str = rl_gets());) {// != NULL; ) {
     if (str != NULL) strcpy(lastbuf, str);
     char *str_end = str + strlen(str);
-    printf("%d", str == NULL);
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     if (cmd == NULL) { 
       strcpy(str, lastcmd); 
       cmd = strtok(str, " "); 
       if (cmd == NULL) { 
-        lastbuf[0] = '\0';
+        lastbuf[0] = lastcmd[0] = '\0';
         continue; 
       }
     }
