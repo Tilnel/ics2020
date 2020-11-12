@@ -185,11 +185,11 @@ void ui_mainloop() {
 
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
-    if (str[0] != 0) strcpy(lastbuf, str);
+    if (str != NULL) strcpy(lastbuf, str);
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     if (cmd == NULL) { 
-      strcpy(str, lastcmd); 
+      strcpy(str, lastbuf); 
       cmd = strtok(str, " "); 
       if (cmd == NULL) { 
         lastcmd[0] = '\0';
