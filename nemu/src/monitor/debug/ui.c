@@ -176,21 +176,21 @@ static int cmd_d(char *args){
 
 
 void ui_mainloop() {
-  char lastbuf[256];
-  lastbuf[0] = '\0';
+  char lastbuf[256], lastcmd[256];
+  lastbuf[0] = lastcmd[0] = '\0';
   if (is_batch_mode()) {
     cmd_c(NULL);
     return;
   }
 
   for (char *str; (str = rl_gets());) {// != NULL; ) {
+    if (str != NULL) strcpy(lastbuf, str);
     char *str_end = str + strlen(str);
-    if (str == NULL) strcpy(lastbuf, str);
     printf("%d", str == NULL);
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     if (cmd == NULL) { 
-      strcpy(str, lastbuf); 
+      strcpy(str, lastcmd); 
       cmd = strtok(str, " "); 
       if (cmd == NULL) { 
         lastbuf[0] = '\0';
@@ -220,5 +220,6 @@ void ui_mainloop() {
     }
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+    strcpy(lastcmd, lastbuf);
   }
 }
