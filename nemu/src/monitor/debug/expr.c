@@ -7,7 +7,9 @@
 #include <stdlib.h>
 #include <memory/paddr.h>
 enum {
-  TK_NOTYPE = 256, TK_EQ = 255, TK_NUM = 254, TK_PLUS = '+', TK_SUBS = '-', TK_TIMES = '*', TK_DIVIDE = '/', TK_LPAREN = '(', TK_RPAREN = ')', TK_REG = 253, TK_HEX = 252, TK_DEREF = 251, TK_NEQ = 250, TK_AND = 249, TK_NEG = 248, 
+  TK_NOTYPE = 256, TK_EQ = 255, TK_NUM = 254, TK_PLUS = '+', TK_SUBS = '-', TK_TIMES = '*', 
+  TK_DIVIDE = '/', TK_LPAREN = '(', TK_RPAREN = ')', TK_REG = 253, TK_HEX = 252, TK_DEREF = 251, 
+  TK_NEQ = 250, TK_AND = 249, TK_NEG = 248, 
 
   /* TODO: Add more token types */
 
