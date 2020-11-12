@@ -5,10 +5,10 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+char buf[4096];
 int itoa(int n, char *s);
 
 int printf(const char *fmt, ...) {
-    char buf[4096];
     va_list ap;
     va_start(ap, fmt);
     vsprintf(buf, fmt, ap);
