@@ -176,17 +176,19 @@ static int cmd_d(char *args){
 
 
 void ui_mainloop() {
+  char lastbuf[256];
   if (is_batch_mode()) {
     cmd_c(NULL);
     return;
   }
 
   for (char *str; (str = rl_gets()) != NULL; ) {
-    char *str_end = str + strlen(str);
+     
+     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
-    if (cmd == NULL) { cmd_si("1");continue; }
+    if (cmd == NULL) { cmd = strtok(lastbuf, " ");  continue; }
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
