@@ -25,12 +25,18 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     size_t i = 0;
     int d;
     char *s;
+    char c;
     size_t pos = 0;
     size_t len, addlen;
     while (fmt[i] != '\0' && i < 256) {
         switch (fmt[i]) {
         case '%':
             switch (fmt[++i]) {
+            case 'c':
+                c = va_arg(ap, int);
+                strncpy(out + pos, &c, 1);
+                pos ++;
+                break;
             case 's':
                 s = va_arg(ap, char *);
                 assert((intptr_t)s < 0x200000);
