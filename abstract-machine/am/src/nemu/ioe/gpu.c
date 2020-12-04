@@ -36,7 +36,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int H = inw(VGACTL_ADDR);
   int W = inw(VGACTL_ADDR + 2);
   // if (ctl->sync) {
-    // outl(SYNC_ADDR, 1);
+    outl(SYNC_ADDR, 1);
     int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
     uint32_t *pixels = ctl->pixels; 
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
