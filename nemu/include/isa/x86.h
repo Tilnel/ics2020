@@ -55,7 +55,7 @@ typedef struct {
        uint8_t CF : 1;
       };
     };  
-    //  rtlreg_t cs, ss, ds, es, fs, gs;
+    rtlreg_t cs;//, ss, ds, es, fs, gs;
 } x86_CPU_state;
 
 // decode
