@@ -281,13 +281,13 @@ static inline void set_cr0(uintptr_t cr0) {
 }
 
 static inline void set_idt(void *idt, int size) {
-  // static volatile struct {
-  //   int16_t size;
-  //   void *idt;
-  // } __attribute__((packed)) data;
-  // data.size = size;
-  // data.idt = idt;
-  // asm volatile ("lidt (%0)" : : "r"(&data));
+  static volatile struct {
+    int16_t size;
+    void *idt;
+  } __attribute__((packed)) data;
+  data.size = size;
+  data.idt = idt;
+  asm volatile ("lidt (%0)" : : "r"(&data));
 }
 
 static inline void set_gdt(void *gdt, int size) {
