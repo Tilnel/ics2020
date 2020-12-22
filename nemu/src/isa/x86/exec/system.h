@@ -6,7 +6,6 @@ uint32_t pio_read_b(ioaddr_t);
 void pio_write_l(ioaddr_t, uint32_t);
 void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
-extern void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr);
 
 static inline def_EHelper(lidt) {
   *s0 = vaddr_read(*ddest, 2);
@@ -32,7 +31,12 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  raise_intr(s, *ddest, *s2);
+  *s0 = vaddr_read(cpu.ldtr.base + 8 * (*ddest), 2);
+  *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
+  *s2 = (*s0 << 16) + *s1;
+  rtl_push(s, &cpu.eflags);
+  rtl_push(s, &cpu.cs);
+  rtl_push(s, &cpu.pc);
   cpu.pc = *s2;
   //TODO();
   print_asm("int %s", id_dest->str);
