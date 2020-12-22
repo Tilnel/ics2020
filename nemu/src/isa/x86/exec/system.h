@@ -34,6 +34,7 @@ static inline def_EHelper(int) {
   *s0 = vaddr_read(cpu.ldtr.base + 8 * (*ddest), 2);
   *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
   *s2 = (*s0 << 16) + *s1;
+  printf("%d\n", *s2);
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
   rtl_push(s, &cpu.pc);
