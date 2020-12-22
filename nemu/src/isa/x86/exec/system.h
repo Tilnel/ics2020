@@ -10,7 +10,7 @@ void pio_write_b(ioaddr_t, uint32_t);
 static inline def_EHelper(lidt) {
   *s0 = vaddr_read(*ddest, 2);
   *s1 = vaddr_read(*ddest + 2, 4);
-  printf("%d %x\n", *ddest, *dsrc1);
+  printf("%x %x\n", *ddest, *dsrc1);
   cpu.ldtr.size = *s0;
   cpu.ldtr.base = *s1;
   //TODO();
