@@ -8,6 +8,7 @@ void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
 
 static inline def_EHelper(lidt) {
+  *ddest = cpu.gpr[*ddest & 0x7]._32;
   *s0 = vaddr_read(*ddest, 2);
   *s1 = vaddr_read(*ddest + 2, 4);
   printf("%x %x\n", *ddest, *dsrc1);
