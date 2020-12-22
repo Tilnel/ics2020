@@ -12,7 +12,6 @@ static inline def_EHelper(lidt) {
   *s1 = vaddr_read(*ddest + 2, 4);
   cpu.ldtr.size = *s0;
   cpu.ldtr.base = *s1;
-  assert(0);
   //TODO();
   print_asm_template1(lidt);
 }
