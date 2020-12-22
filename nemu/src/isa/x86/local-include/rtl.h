@@ -27,7 +27,7 @@ static inline def_rtl(sr, int r, const rtlreg_t* src1, int width) {
 static inline def_rtl(push, const rtlreg_t* src1) {
   int width = (s->isa.is_operand_size_16)? 2 : 4;
   if (ddest == &cpu.esp) {
-    vaddr_write(cpu.esp, *src1, width);
+    vaddr_write(cpu.esp - width, *src1, width);
     cpu.esp = cpu.esp - width;
   } else {
     cpu.esp = cpu.esp - width;

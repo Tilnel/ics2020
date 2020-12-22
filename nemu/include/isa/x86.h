@@ -34,6 +34,16 @@ typedef struct {
         struct {
             rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
         };
+        struct {
+            uint16_t tmp1, ax; 
+            uint16_t tmp2, cx; 
+            uint16_t tmp3, dx; 
+            uint16_t tmp4, bx; 
+            uint16_t tmp5, sp; 
+            uint16_t tmp6, bp; 
+            uint16_t tmp7, si; 
+            uint16_t tmp8, di; 
+        };
     };
 
     vaddr_t pc;
