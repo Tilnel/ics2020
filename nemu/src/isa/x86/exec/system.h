@@ -8,6 +8,7 @@ void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
 
 static inline def_EHelper(lidt) {
+  assert(0);
   *s0 = vaddr_read(*ddest, 2);
   *s1 = vaddr_read(*ddest + 2, 4);
   cpu.ldtr.size = *s0;
