@@ -39,7 +39,7 @@ static inline def_EHelper(int) {
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
   rtl_push(s, &cpu.pc);
-  cpu.pc = *s2;
+  rtl_j(s, *s2);
   //TODO();
   print_asm("int %s", id_dest->str);
 
