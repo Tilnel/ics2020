@@ -56,6 +56,10 @@ typedef struct {
       };
     };  
     rtlreg_t cs;//, ss, ds, es, fs, gs;
+    struct {
+        uint16_t size;
+        uint32_t base;
+    } ldtr;
 } x86_CPU_state;
 
 // decode

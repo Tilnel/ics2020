@@ -6,9 +6,13 @@ uint32_t pio_read_b(ioaddr_t);
 void pio_write_l(ioaddr_t, uint32_t);
 void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
-
+extern void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr);
 static inline def_EHelper(lidt) {
-  TODO();
+  *s0 = vaddr_read(*ddest, 2);
+  *s1 = vaddr_read(*ddest + 2, 4);
+  cpu.ldtr.size = *s0;
+  cpu.ldtr.base = *s1;
+  //TODO();
   print_asm_template1(lidt);
 }
 
@@ -27,7 +31,9 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  TODO();
+  raise_intr(s, *ddest, *s2);
+  cpu.pc = *s2;
+  //TODO();
   print_asm("int %s", id_dest->str);
 
 #ifndef __DIFF_REF_NEMU__
