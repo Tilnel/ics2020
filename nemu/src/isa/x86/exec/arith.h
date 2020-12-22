@@ -47,11 +47,7 @@ static inline def_EHelper(cmp) {
 
 static inline def_EHelper(inc) {
   *s1 = *ddest + 1;
-  rtl_is_add_carry(s, s0, s1, ddest);
-  cpu.CF = *s0;
-  *s2 = 1;
-  rtl_is_add_overflow(s, s0, s1, ddest, s2, id_dest->width);
-  cpu.OF = *s0;
+  cpu.OF = (*s1 == 0x80000000);
   rtl_update_ZFSF(s, s1, id_dest->width);
   operand_write(s, id_dest, s1);
   //TODO();
@@ -66,6 +62,7 @@ static inline def_EHelper(incl) {
 static inline def_EHelper(dec) {
   *s0 = *ddest - 1;
   rtl_update_ZFSF(s, s0, id_dest->width);
+  cpu.OF = (*s0 == 0x7fffffff);
   //TODO();
   operand_write(s, id_dest, s0);
   print_asm_template1(dec);
