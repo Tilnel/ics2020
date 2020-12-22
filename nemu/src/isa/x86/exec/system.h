@@ -7,6 +7,7 @@ void pio_write_l(ioaddr_t, uint32_t);
 void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
 extern void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr);
+
 static inline def_EHelper(lidt) {
   *s0 = vaddr_read(*ddest, 2);
   *s1 = vaddr_read(*ddest + 2, 4);
