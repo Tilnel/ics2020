@@ -288,7 +288,6 @@ static inline void set_idt(void *idt, int size) {
   } __attribute__((packed)) data;
   data.size = size;
   data.idt = idt;
-  printf("%d\n", (intptr_t) &data);
   asm volatile ("lidt (%0)" : : "r"(&data));
 }
 
