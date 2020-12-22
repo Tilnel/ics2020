@@ -11,7 +11,6 @@ static inline def_EHelper(lidt) {
   *ddest = cpu.gpr[*ddest & 0x7]._32;
   *s0 = vaddr_read(*ddest, 2);
   *s1 = vaddr_read(*ddest + 2, 4);
-  printf("%x %x\n", *ddest, *dsrc1);
   cpu.ldtr.size = *s0;
   cpu.ldtr.base = *s1;
   //TODO();
@@ -36,7 +35,6 @@ static inline def_EHelper(int) {
   *s0 = vaddr_read(cpu.ldtr.base + 8 * (*ddest), 2);
   *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
   *s2 = (*s1 << 16) + *s0;
-  printf("%d\n", cpu.ldtr.base);
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
   rtl_push(s, &cpu.pc);
