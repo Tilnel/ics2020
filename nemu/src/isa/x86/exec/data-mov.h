@@ -39,7 +39,15 @@ static inline def_EHelper(pusha) {
 }
 
 static inline def_EHelper(popa) {
-  TODO();
+  rtl_pop(s, &cpu.edi);
+  rtl_pop(s, &cpu.esi);
+  rtl_pop(s, &cpu.ebp);
+  rtl_pop(s, s0);
+  rtl_pop(s, &cpu.ebx);
+  rtl_pop(s, &cpu.edx);
+  rtl_pop(s, &cpu.ecx);
+  rtl_pop(s, &cpu.eax);
+  //TODO();
   print_asm("popa");
 }
 
