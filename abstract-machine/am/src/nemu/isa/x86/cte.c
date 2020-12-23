@@ -74,6 +74,18 @@ size_t write(int fd, const void *buf, size_t count) {
   return count;
 }
 
+void *sbrk(intptr_t increment) {
+  void *tmp = heap.end;
+  int ret = brk(tmp + increment);
+  if (!ret) return tmp + increment;
+  else return (void *)-1;
+}
+
+int brk(void *addr) {
+  heap.end = addr;
+  return 0;
+}
+
 bool ienabled() {
   return false;
 }
