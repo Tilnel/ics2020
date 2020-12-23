@@ -37,7 +37,7 @@ static inline def_EHelper(int) {
   *s2 = (*s1 << 16) + *s0;
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
-  rtl_push(s, &cpu.pc);
+  rtl_push(s, &(s->seq_pc));
   rtl_j(s, *s2);
   //TODO();
   print_asm("int %s", id_dest->str);
