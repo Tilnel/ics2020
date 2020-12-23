@@ -63,7 +63,7 @@ void yield() {
 }
 
 size_t write(int fd, const void *buf, size_t count) {
-  printf("%c\n", count);
+  printf("%d\n", count);
   // printf("Write got it\n");
 
   if (fd == 1 || fd == 2) {
