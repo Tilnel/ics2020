@@ -78,7 +78,7 @@ void *sbrk(intptr_t increment) {
   printf("%d\n", (intptr_t)(heap.start));
   void *tmp = heap.start;
   int ret = brk(tmp + increment);
-  if (!ret) return tmp;
+  if (!ret) return 0;
   else return (void *)0;
 }
 
