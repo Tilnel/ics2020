@@ -4,8 +4,8 @@
 struct Context {
   uintptr_t eflags, edi, esi, ebp, esp0, edx, ebx, ecx, eax;
   // uintptr_t eax, ecx, ebx, edx, esp0, ebp, esi, edi;
-  void *cr3;
   int irq;  
+  void *cr3;
   uintptr_t esp, cs;
 };
 
