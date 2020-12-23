@@ -79,7 +79,7 @@ void *sbrk(intptr_t increment) {
   //int ret = brk(tmp + increment);
   //printf("%d\n", (intptr_t)(tmp));
   //if (!ret) return tmp;
-  return (void *)-1;
+  return (void *)(-1);
 }
 
 int brk(void *addr) {
