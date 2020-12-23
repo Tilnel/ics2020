@@ -14,9 +14,17 @@ extern size_t get_ramdisk_size();
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
-  printf("%d\n", get_ramdisk_size());
-  ramdisk_read((void *)0x3000000, 0, get_ramdisk_size());
-  return 0;
+  Elf_Ehdr eh;
+  Elf_Phdr ph;
+  ramdisk_read((void *)(&eh), 0, sizeof(eh));
+  for (int i = 0; i < eh.e_phnum; i++) {
+    ramdisk_read((void *)(&ph), i * eh.e_phentsize, eh.e_phentsize);
+    if (ph.p_type == 1) {
+      ramdisk_read((void *)ph.p_vaddr, ph.p_offset, ph.p_filesz);
+      memset((void *)ph.p_vaddr + ph.p_filesz, 0, ph.p_memsz - ph.p_filesz);
+    }
+  }
+  return eh.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
