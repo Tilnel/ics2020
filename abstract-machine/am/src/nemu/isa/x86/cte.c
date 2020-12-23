@@ -84,7 +84,7 @@ void *sbrk(intptr_t increment) {
 
 int brk(void *addr) {
   heap.start = addr;
-  return -1;
+  return 0;
 }
 
 bool ienabled() {

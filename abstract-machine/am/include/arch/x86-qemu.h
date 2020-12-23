@@ -8,7 +8,7 @@ struct Context {
            eip, cs, eflags, esp, ss3;
 };
 
-#define GPR1 eax
+#define GPR1 edi
 #define GPR2 ebx
 #define GPR3 ecx
 #define GPR4 edx
