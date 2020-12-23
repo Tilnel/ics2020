@@ -16,10 +16,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
   Elf_Ehdr eh;
   Elf_Phdr ph;
-  ramdisk_read((void *)(&eh), 0, sizeof(Elf_Ehdr));
+  ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
   printf("%d %d\n", eh.e_phnum, eh.e_phentsize);
   for (int i = 0; i < eh.e_phnum; i++) {
-    ramdisk_read((void *)(&ph), i * eh.e_phentsize, eh.e_phentsize);
+    ramdisk_read(&ph, eh.e_phoff + i * eh.e_phentsize, eh.e_phentsize);
       printf("%d\n", ph.p_type);
     if (ph.p_type == 1) {
       assert(0);
