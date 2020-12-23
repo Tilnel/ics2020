@@ -71,7 +71,7 @@ size_t write(int fd, const void *buf, size_t count) {
       putch(((char *)buf)[i]);
     }
   }
-  return count;
+  return 1;//count;
 }
 
 void *sbrk(intptr_t increment) {
