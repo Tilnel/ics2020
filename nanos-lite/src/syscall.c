@@ -1,6 +1,5 @@
 #include <common.h>
 #include "syscall.h"
-size_t write(int fd, const void *buf, size_t count);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
