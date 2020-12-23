@@ -75,9 +75,9 @@ size_t write(int fd, const void *buf, size_t count) {
 }
 
 void *sbrk(intptr_t increment) {
+  printf("%d\n", (intptr_t)(heap.end));
   void *tmp = heap.end;
   int ret = brk(tmp + increment);
-  printf("%d\n", (intptr_t)(tmp));
   if (!ret) return tmp;
   else return (void *)-1;
 }
