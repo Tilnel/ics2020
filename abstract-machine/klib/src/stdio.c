@@ -39,7 +39,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                 break;
             case 's':
                 s = va_arg(ap, char *);
-                assert((intptr_t)s < 0x200000);
                 len = strlen(s);
                 strncpy(out + pos, s, len);
                 pos += len;
