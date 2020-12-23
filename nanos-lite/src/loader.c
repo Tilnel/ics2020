@@ -13,10 +13,7 @@ extern size_t get_ramdisk_size();
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
-  size_t MemSiz = get_ramdisk_size();
-  size_t Offset = 1000;
-  size_t VirtAddr = 0x03000000;
-  ramdisk_write((void *)VirtAddr, Offset, MemSiz);
+  printf("%d\n", get_ramdisk_size());
   return 0;
 }
 
