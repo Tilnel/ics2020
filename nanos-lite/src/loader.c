@@ -20,7 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   for (int i = 0; i < 100; i++) {
     char c;
     ramdisk_read(&c, i, 1);
-    printf("%d ", c);
+    printf("%c ", c);
 
   }
   printf("\n");
