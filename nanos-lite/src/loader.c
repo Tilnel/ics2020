@@ -12,13 +12,12 @@ extern size_t get_ramdisk_size();
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-  Elf_Ehdr eh;
-  Elf_Phdr ph;
 static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
+  Elf_Ehdr eh;
+  Elf_Phdr ph;
   ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
   printf("%d %d %d\n", (intptr_t)&eh, eh.e_phnum, eh.e_phentsize);
-  assert(0);
   for (int i = 0; i < eh.e_phnum; i++) {
     ramdisk_read(&ph, eh.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
     printf("%d\n", ph.p_type);
