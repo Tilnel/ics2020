@@ -79,7 +79,7 @@ void *sbrk(intptr_t increment) {
   void *tmp = heap.start;
   int ret = brk(tmp + increment);
   if (!ret) return tmp;
-  else return (void *)-1;
+  else return (void *)0;
 }
 
 int brk(void *addr) {
