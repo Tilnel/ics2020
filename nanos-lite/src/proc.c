@@ -1,4 +1,5 @@
 #include <proc.h>
+extern void naive_uload(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 
@@ -25,6 +26,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
+  naive_uload(NULL, NULL);
 
 }
 
