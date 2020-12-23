@@ -22,6 +22,8 @@ Context* __am_irq_handle(Context *c) {
       default: ev.event = EVENT_ERROR; break;
     }
 
+    printf("%d %d %d %d %d %d %d %d\n", c->eax, c->ecx, c->ebx, 
+      c->edx, c->esp0, c->ebp, c->esi, c->edi);
     c = user_handler(ev, c);
     assert(c != NULL);
   }
