@@ -83,7 +83,7 @@ void *sbrk(intptr_t increment) {
 }
 
 int brk(void *addr) {
-  heap.end = addr;
+  heap.start = addr;
   return 0;
 }
 
