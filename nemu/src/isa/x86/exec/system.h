@@ -48,9 +48,9 @@ static inline def_EHelper(int) {
 }
 
 static inline def_EHelper(iret) {
-  rtl_pop(s, &cpu.pc);  
+  rtl_pop(s, s0);  
+  rtl_j(s, *s0);
   // TODO();
-  printf("%d\n", cpu.pc);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__
