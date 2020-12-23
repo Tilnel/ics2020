@@ -75,15 +75,15 @@ size_t write(int fd, const void *buf, size_t count) {
 }
 
 void *sbrk(intptr_t increment) {
-  printf("%d\n", (intptr_t)(heap.end));
-  void *tmp = heap.end;
+  printf("%d\n", (intptr_t)(heap.start));
+  void *tmp = heap.start;
   int ret = brk(tmp + increment);
   if (!ret) return tmp;
   else return (void *)-1;
 }
 
 int brk(void *addr) {
-  heap.end = addr;
+  heap.start = addr;
   return 0;
 }
 
