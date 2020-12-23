@@ -61,6 +61,15 @@ void yield() {
   asm volatile("int $0x81");
 }
 
+size_t write(int fd, const void *buf, size_t count) {
+  if (fd == 1 || fd == 2) {
+    for (int i = 0; i < count; i++) {
+      putch(((char *)buf)[i]);
+    }
+  }
+  return count;
+}
+
 bool ienabled() {
   return false;
 }
