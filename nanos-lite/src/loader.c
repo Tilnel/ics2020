@@ -1,8 +1,8 @@
 #include <proc.h>
 #include <elf.h>
-extern size_t ramdisk_write(const void *buf, size_t offset, size_t len);
-extern size_t ramdisk_read(void *buf, size_t offset, size_t len);
-extern size_t get_ramdisk_size();
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t get_ramdisk_size();
 
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
