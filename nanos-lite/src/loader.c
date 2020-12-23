@@ -11,6 +11,7 @@
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   TODO();
+  // MemSiz = 
   return 0;
 }
 
