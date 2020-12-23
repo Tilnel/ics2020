@@ -13,6 +13,6 @@ struct Context {
 #define GPR2 ebx
 #define GPR3 ecx
 #define GPR4 edx
-#define GPRx esi
+#define GPRx esp
 
 #endif
