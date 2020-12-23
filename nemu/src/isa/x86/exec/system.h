@@ -48,7 +48,7 @@ static inline def_EHelper(int) {
 }
 
 static inline def_EHelper(iret) {
-  rtl_pop(s, &cpu.pc);
+  rtl_pop(s, &cpu.pc);  
   // TODO();
   print_asm("iret");
 
