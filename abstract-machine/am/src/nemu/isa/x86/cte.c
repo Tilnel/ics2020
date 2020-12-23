@@ -75,11 +75,11 @@ size_t write(int fd, const void *buf, size_t count) {
 }
 
 void *sbrk(intptr_t increment) {
-  void *tmp = heap.start;
-  int ret = brk(tmp + increment);
-  printf("%d\n", (intptr_t)(tmp));
-  if (!ret) return tmp;
-  else return (void *)-1;
+  //void *tmp = heap.start;
+  //int ret = brk(tmp + increment);
+  //printf("%d\n", (intptr_t)(tmp));
+  ////if (!ret) return tmp;
+  return (void *)-1;
 }
 
 int brk(void *addr) {
