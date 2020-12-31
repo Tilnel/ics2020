@@ -69,7 +69,7 @@ extern void *_end;
 void *_sbrk(intptr_t increment) {
   void *tmp = _end;
   _end = _end + increment;
-  _syscall_(SYS_brk, (intptr_t)new, 0, 0);
+  _syscall_(SYS_brk, (intptr_t)_end, 0, 0);
   return tmp;
 }
 
