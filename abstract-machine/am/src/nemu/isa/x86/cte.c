@@ -75,6 +75,7 @@ size_t write(int fd, const void *buf, size_t count) {
 }
 
 void *sbrk(intptr_t increment) {
+  assert(0);
   return (void *)0;
 }
 
