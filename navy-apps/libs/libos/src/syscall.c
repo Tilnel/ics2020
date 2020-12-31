@@ -65,10 +65,10 @@ int _write(int fd, void *buf, size_t count) {
 
 }
 
-extern end;
+extern void *_end;
 void *_sbrk(intptr_t increment) {
-  void *tmp = end;
-  void *new = end + increment;
+  void *tmp = _end;
+  void *new = _end + increment;
   _syscall_(SYS_brk, (intptr_t)new, 0, 0);
   return tmp;
 }
