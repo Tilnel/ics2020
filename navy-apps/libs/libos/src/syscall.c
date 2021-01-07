@@ -73,7 +73,7 @@ void *_sbrk(intptr_t increment) {
     myend = myend + increment;
   else
     return (void *)-1;
-  return (void *)-1;
+  return tmp;
 }
 
 int _read(int fd, void *buf, size_t count) {
