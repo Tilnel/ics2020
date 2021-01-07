@@ -69,8 +69,8 @@ extern char _end;
 static void* myend = &_end;
 void *_sbrk(intptr_t increment) {
   void *tmp = myend;
-  myend = myend + increment;
-  _syscall_(SYS_brk, (intptr_t)myend, 0, 0);
+  if (_syscall_(SYS_brk, (intptr_t)myend + increment, 0, 0) == 0)
+    myend = myend + increment;
   return tmp;
 }
 
