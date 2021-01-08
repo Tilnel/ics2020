@@ -10,6 +10,8 @@
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 
+static char dispinfo[256];
+
 static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
@@ -27,10 +29,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  AM_GPU_FBDRAW_T ctl;
-  ctl = io_read(AM_GPU_FBDRAW);
-  sprintf(buf, "WIDTH: %d\nHEIGHT: %d\n", ctl.w, ctl.h);
-  return 0;
+  strncpy(buf, dispinfo, len);
+  return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
@@ -44,6 +44,8 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 void init_device() {
+  AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
+  sprintf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", ctl.w, ctl.h);
   Log("Initializing devices...");
   ioe_init();
 }
