@@ -11,6 +11,7 @@
   [AM_KEY_##key] = #key,
 
 static char dispinfo[256];
+size_t fs_lseek(int fd, size_t offset, int whence);
 
 static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
@@ -37,6 +38,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   int w = gpuconf.width; 
   int h = gpuconf.height;
+  offset = fs_lseek(5, 0, 1);
   printf("%d %d\n", w, h);
   int y = offset / (4 * w);
   int x = offset / 4 % w;
