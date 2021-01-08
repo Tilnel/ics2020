@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <sys/time.h>
 #include ARCH_H // this macro is defined in $CFLAGS
                 // examples: "arch/x86-qemu.h", "arch/native.h", ...
 
@@ -64,6 +65,7 @@ size_t   fs_lseek    (int fd, size_t offset, int whence);
 int      fs_close    (int fd);
 int      brk         (void *addr);
 void     *sbrk       (intptr_t increment);
+int      sys_gettimeofday(struct timeval *tv, struct timezone *tz);
 bool     ienabled    (void);
 void     iset        (bool enable);
 Context *kcontext    (Area kstack, void (*entry)(void *), void *arg);
