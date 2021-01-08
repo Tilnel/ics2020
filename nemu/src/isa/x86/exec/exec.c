@@ -135,6 +135,7 @@ again:
     IDEX (0x09, G2E, or)
     IDEXW(0x0a, E2G, or, 1)
     IDEX (0x0b, E2G, or)
+    IDEXW(0x0c, I2a, or, 1)
     IDEX (0x0d, I2a, or)
     EX   (0x0f, 2byte_esc)
     IDEXW(0x10, G2E, adc, 1)
