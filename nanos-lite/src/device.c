@@ -38,7 +38,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int w = gpuconf.width; 
   int y = offset / (4 * w);
   int x = offset / 4 % w;
-  io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf, len / 4, 1, true);
+  io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf, len / 4, 1, false);
   return 0;
 }
 
@@ -51,7 +51,6 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 void init_device() {
   gpuconf = io_read(AM_GPU_CONFIG);
   sprintf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", gpuconf.width, gpuconf.height);
-  printf("WIDTH: %d\nHEIGHT: %d\n", gpuconf.width, gpuconf.height);
   Log("Initializing devices...");
   ioe_init();
 }

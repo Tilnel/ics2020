@@ -28,6 +28,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     int fbctl = 4;
     fbdev = 5;
     screen_w = *w; screen_h = *h;
+    printf("%d %d\n", *w, *h);
     char buf[64];
     int len = sprintf(buf, "%d %d", screen_w, screen_h);
     // let NWM resize the window and create the frame buffer
@@ -45,7 +46,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = _open("/dev/fb", 0, 0);
-  write(fd, *pixels, w * y + x);
+  write(fd, pixels, w * y + x);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
