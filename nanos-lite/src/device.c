@@ -21,6 +21,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
+  assert(0);
   size_t off = 0;
   for (int i = 0; i < len; i++) {
     int keycode = io_read(AM_INPUT_KEYBRD).keycode;
@@ -28,7 +29,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     off += sprintf(buf + off,"%s %s\n", keydown ? "kd" : "ku", keyname[keycode]);
     if (off >= len) break;
   }
-  assert(0);
   return off;
 }
 
