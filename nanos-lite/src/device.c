@@ -38,13 +38,12 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
-  printf("%s\n", buf);
   strncpy(dispinfo, buf, len);
-  printf("%s\n", dispinfo);
   return strlen(dispinfo);
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
   int w = gpuconf.width; 
   int h = gpuconf.height;
   offset = fs_lseek(5, 0, 1);
