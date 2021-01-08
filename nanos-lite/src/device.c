@@ -16,6 +16,7 @@ static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
 };
+AM_GPU_FBDRAW_T gpuctl;
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   for (int i = 0; i < len; i++) putch(((char *)buf)[i]); 
@@ -44,8 +45,8 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 void init_device() {
-  AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
-  sprintf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", ctl.w, ctl.h);
+  gpuctl = io_read(AM_GPU_FBDRAW);
+  sprintf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", gpuctl.w, gpuctl.h);
   Log("Initializing devices...");
   ioe_init();
 }
