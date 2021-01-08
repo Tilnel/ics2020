@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <assert.h>
 // int _read(int fd, void *buf, size_t count);
 int _open(const char* name, int flags, int mode);
 
@@ -41,6 +42,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   } else {
+    assert(0);
     screen_w = *w;
     screen_h = *h;
     char buf[64];
