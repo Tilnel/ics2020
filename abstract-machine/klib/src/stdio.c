@@ -8,6 +8,39 @@
 char buf[4096];
 int itoa(int n, char *s, int base);
 
+int sscanf(const char *src, const char *str, ...) {
+    va_list vl;
+    int i = 0, j = 0, ret = 0;
+    char buff[100] = {0};
+    strcpy(buff, src);
+    va_start(vl, str);
+    i = 0;
+    while (str && str[i]) {
+        if (str[i] == '%') {
+            i++;
+            switch (str[i]) {
+            case 'c': {
+                *(char *)va_arg(vl, char *) = buff[j];
+                j++;
+                ret++;
+                break;
+            }
+            case 'd': {
+                j += atoi_b(&buff[j], (int *)va_arg(vl, int *)) - &buff[j];
+                ret++;
+                break;
+            }
+            }
+        } else {
+            buff[j] = str[i];
+            j++;
+        }
+        i++;
+    }
+    va_end(vl);
+    return ret;
+}
+
 int printf(const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -35,7 +68,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             case 'c':
                 c = va_arg(ap, int);
                 strncpy(out + pos, &c, 1);
-                pos ++;
+                pos++;
                 break;
             case 's':
                 s = va_arg(ap, char *);
@@ -104,22 +137,30 @@ int itoa(int n, char *s, int base) {
     }
 
     for (j = i - 1; j >= 0; j--) {
-        s[j] = (buf[i - 1 - j] <= '9' || buf[i - 1 - j] == '-') ? buf[i - 1 - j] : buf[i - 1 - j] - '9' + 'a' - 1;
+        s[j] = (buf[i - 1 - j] <= '9' || buf[i - 1 - j] == '-')
+                   ? buf[i - 1 - j]
+                   : buf[i - 1 - j] - '9' + 'a' - 1;
     }
     s[i] = '\0';
     return i;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-   va_list ap;
-   va_start(ap, fmt);
-   int ret = vsprintf(out, fmt, ap); 
-   va_end(ap);
-   return ret;
+    va_list ap;
+    va_start(ap, fmt);
+    int ret = vsprintf(out, fmt, ap);
+    va_end(ap);
+    return ret;
 }
 
-int snprintf(char *out, size_t n, const char *fmt, ...) { assert(0);return 0; }
+int snprintf(char *out, size_t n, const char *fmt, ...) {
+    assert(0);
+    return 0;
+}
 
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) { assert(0);return 0; }
+int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
+    assert(0);
+    return 0;
+}
 
 #endif

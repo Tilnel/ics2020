@@ -19,6 +19,17 @@ int abs(int x) {
   return (x < 0 ? -x : x);
 }
 
+char* atoi_b(char* nptr, int *num) {
+  int x = 0;
+  while (*nptr == ' ') { nptr ++; }
+  while (*nptr >= '0' && *nptr <= '9') {
+    x = x * 10 + *nptr - '0';
+    nptr ++;
+  }
+  *num = x;
+  return nptr;
+}
+
 int atoi(const char* nptr) {
   int x = 0;
   while (*nptr == ' ') { nptr ++; }
