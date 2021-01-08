@@ -64,7 +64,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                 len = itoa(d, out + pos, 10);
                 pos += len;
                 break;
-            case 'h':
+            case 'u':
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos, 16);
                 pos += len;
