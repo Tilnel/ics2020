@@ -33,6 +33,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 }
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
+  printf("%d", &tv);
   tv->tv_sec = io_read(AM_TIMER_UPTIME).us / 1000000;
   tv->tv_usec = io_read(AM_TIMER_UPTIME).us % 1000000;
   return 0;

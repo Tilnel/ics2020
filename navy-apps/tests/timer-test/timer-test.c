@@ -10,6 +10,7 @@ int main() {
     while (1) {
         if (j == 100000) {
             gettimeofday(tv, tz);
+            printf("%d\n", &tv);
             if (sec != tv->tv_sec)
                 printf("DIO: %d %d seconds passed.\n", sec, tv->tv_sec);
             sec = tv->tv_sec;
