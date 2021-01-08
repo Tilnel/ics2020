@@ -17,7 +17,7 @@ typedef struct {
   ReadFn read;
   WriteFn write;
 } Finfo;
-AM_GPU_FBDRAW_T gpuctl;
+AM_GPU_CONFIG_T gpuconf;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENT, FD_DISP, FD_FB};
 
@@ -43,7 +43,7 @@ static Finfo file_table[] __attribute__((used)) = {
 };
 
 void init_fs() {
-  file_table[FD_FB].size = gpuctl.w * gpuctl.h;
+  file_table[FD_FB].size = gpuconf.width * gpuconf.height;
   // TODO: initialize the size of /dev/fb
 }
 
