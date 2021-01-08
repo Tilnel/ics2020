@@ -41,7 +41,7 @@ int fs_open(const char *pathname, int flags, int mode) {
     if (!strcmp(pathname, file_table[i].name)) 
       return i;
   }
-  assert(sizeof(Finfo) * i <= sizeof(file_table));
+  assert(0);
   return 0;
 }
 
