@@ -6,7 +6,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 char buf[4096];
-int itoa(int n, char *s);
+int itoa(int n, char *s, int base);
 
 int printf(const char *fmt, ...) {
     va_list ap;
@@ -46,7 +46,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             case '0':
                 addlen = fmt[i + 1] - '0';
                 d = va_arg(ap, int);
-                len = itoa(d, out + pos);
+                len = itoa(d, out + pos, 10);
                 if (len < addlen) {
                     addlen -= len;
                     while (addlen > 0) {
@@ -54,16 +54,20 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                         pos++;
                         addlen--;
                     }
-                    itoa(d, out + pos);
+                    itoa(d, out + pos, 10);
                 }
                 pos += len;
                 i += 2;
                 break;
             case 'd':
                 d = va_arg(ap, int);
-                len = itoa(d, out + pos);
+                len = itoa(d, out + pos, 10);
                 pos += len;
                 break;
+            case 'x':
+                d = va_arg(ap, int);
+                len = itoa(d, out + pos, 16);
+                pos += len;
             }
             break;
 
@@ -78,23 +82,23 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     return pos;
 }
 
-int itoa(int n, char *s) {
+int itoa(int n, char *s, int base) {
     int i, j, sign;
     char buf[12];
     if ((sign = n) < 0)
         n = -n;
     i = 0;
     do {
-        buf[i] = n % 10 + '0';
+        buf[i] = n % base + '0';
         i++;
-    } while ((n /= 10) > 0);
+    } while ((n /= base) > 0);
     if (sign < 0) {
         s[i] = '-';
         i++;
     }
 
     for (j = i - 1; j >= 0; j--) {
-        s[j] = buf[i - 1 - j];
+        s[j] = buf[i - 1 - j] > '9' ? buf[i - 1 - j] - '0' + 'a' : buf[i - 1 - j];
     }
     s[i] = '\0';
     return i;
