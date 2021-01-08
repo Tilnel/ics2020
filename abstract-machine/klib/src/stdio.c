@@ -11,14 +11,14 @@ int itoa(int n, char *s);
 int printf(const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    vsprintf(buf, fmt, ap);
+    int ret = vsprintf(buf, fmt, ap);
     va_end(ap);
     size_t i = 0;
     while (buf[i] != '\0') {
         putch(buf[i]);
         i++;
     }
-    return 0;
+    return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -76,7 +76,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     out[pos] = '\0';
     va_end(ap);
     return pos;
-    return 0; 
 }
 
 int itoa(int n, char *s) {
@@ -104,9 +103,9 @@ int itoa(int n, char *s) {
 int sprintf(char *out, const char *fmt, ...) {
    va_list ap;
    va_start(ap, fmt);
-   vsprintf(out, fmt, ap); 
+   int ret = vsprintf(out, fmt, ap); 
    va_end(ap);
-   return 0;
+   return ret;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) { assert(0);return 0; }
