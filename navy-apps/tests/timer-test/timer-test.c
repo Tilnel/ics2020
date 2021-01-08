@@ -10,7 +10,7 @@ int main() {
   while (1) {
     if (j == 100000) {
 	  gettimeofday(tv, tz);
-	  if (sec != tv->tv_sec) printf("It's the %d's second.\n", sec); 
+	  if (sec != tv->tv_sec) printf("It's the %d's second.\n", tv->tv_sec); 
 	  sec = tv->tv_sec;
     j = 0;
     }
