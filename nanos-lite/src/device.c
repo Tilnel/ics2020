@@ -36,16 +36,17 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  int w = gpuconf.width; 
-  int h = gpuconf.height;
-  offset = fs_lseek(5, 0, 1);
-  printf("%d %d ", w, h);
-  printf("%d ", offset);
-  int y = offset / 4 / w;
-  int x = offset / 4 % w;
-  printf("%d %d\n", x, y);
+  // int w = gpuconf.width; 
+  // int h = gpuconf.height;
+  // offset = fs_lseek(5, 0, 1);
+  // printf("%d %d ", w, h);
+  // printf("%d ", offset);
+  // int y = offset / 4 / w;
+  // int x = offset / 4 % w;
+  // printf("%d %d\n", x, y);
 
-  io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf + offset / 38, len / 4, 1, true);
+  // io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf + offset / , len / 4, 1, true);
+  io_write(AM_GPU_FBDRAW, 0, 0, (uint32_t *)buf, 400, 300, true);
   return 0;
 }
 
