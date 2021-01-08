@@ -27,7 +27,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  
+  AM_GPU_FBDRAW_T ctl;
+  ctl = io_read(AM_GPU_FBDRAW);
+  sprintf(buf, "WIDTH: %d\nHEIGHT: %d\n", ctl.w, ctl.h);
   return 0;
 }
 
