@@ -23,6 +23,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   assert(0);
   int keycode = io_read(AM_INPUT_KEYBRD).keycode;
+  if (keycode == AM_KEY_NONE) memset(buf, 0, len);
   printf("%d\n", keycode);
   bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
   return sprintf(buf,"%s %s\n", keydown ? "kd" : "ku", keyname[keycode]);
