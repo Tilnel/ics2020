@@ -48,10 +48,10 @@ size_t fs_write(int fd, const void *buf, size_t count) {
   // printf("%d %d %d\n", fd, (intptr_t)buf, count);
   // printf("Write got it\n");
 
-  if (fd == 1 || fd == 2) {
-    for (int i = 0; i < count; i++) {
-      putch(((char *)buf)[i]);
-    }
+  if (fd == 1 || fd == 2) 
+    for (int i = 0; i < count; i++) putch(((char *)buf)[i]); 
+  else {
+    
   }
   return count;
 }
