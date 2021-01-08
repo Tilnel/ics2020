@@ -62,22 +62,6 @@ void yield() {
   asm volatile("int $0x81");
 }
 
-int fs_open(const char *pathname, int flags, int mode) {
-  return 0;
-}
-
-size_t fs_write(int fd, const void *buf, size_t count) {
-  // printf("%d %d %d\n", fd, (intptr_t)buf, count);
-  // printf("Write got it\n");
-
-  if (fd == 1 || fd == 2) {
-    for (int i = 0; i < count; i++) {
-      putch(((char *)buf)[i]);
-    }
-  }
-  return count;
-}
-
 void *sbrk(intptr_t increment) {
   return (void *)0;
 }
