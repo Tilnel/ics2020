@@ -42,13 +42,13 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   } else {
-    assert(0);
     screen_w = *w;
     screen_h = *h;
     char buf[64];
     printf("%d %d\n", *w, *h);
     sprintf(buf, "WIDTH: %d\nHEIGHT: %d\n", *w, *h);
     write(4, buf, 64);
+    assert(0);
   }
 }
 
