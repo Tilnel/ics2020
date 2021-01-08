@@ -104,7 +104,7 @@ int itoa(int n, char *s, int base) {
     }
 
     for (j = i - 1; j >= 0; j--) {
-        s[j] = buf[i - 1 - j] > '9' ? buf[i - 1 - j] - '9' + 'a' : buf[i - 1 - j];
+        s[j] = buf[i - 1 - j] > '9' ? buf[i - 1 - j] - '9' + 'a' - 1 : buf[i - 1 - j];
     }
     s[i] = '\0';
     return i;
