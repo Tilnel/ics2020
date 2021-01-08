@@ -16,17 +16,17 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
   Elf_Ehdr eh;
   Elf_Phdr ph;
-  int fd = fs_open(filename, 0, 3); // 0b11, rw
+  int fd = fs_open(filename, 0, 0); // 0b11, rw
   // ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
   fs_read(fd, &eh, sizeof(Elf_Ehdr));
 
-  // printf("%d %d %d", eh.e_ident[0], eh.e_ident[1], eh.e_ident[2]);
   printf("%d %d\n", eh.e_entry, eh.e_phnum);
   for (int i = 0; i < eh.e_phnum; i++) {
-    ramdisk_read(&ph, eh.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
-    //fs_read(fd, &ph, )
+    fs_lseek(fd, eh.e_phoff + i * sizeof(Elf_Phdr), 0);
+    fs_read(fd, &ph, sizeof(Elf_Phdr));
     if (ph.p_type == 1) {
-      ramdisk_read((void *)ph.p_vaddr, ph.p_offset, ph.p_filesz);
+      fs_lseek(fd, ph.p_offset, 0);
+      fs_read(fd, (void *)ph.p_vaddr, ph.p_filesz);
       memset((void *)ph.p_vaddr + ph.p_filesz, 0, ph.p_memsz - ph.p_filesz);
     }
   }
