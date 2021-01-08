@@ -28,6 +28,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     off += sprintf(buf + off,"%s %s\n", keydown ? "kd" : "ku", keyname[keycode]);
     if (off >= len) break;
   }
+  assert(0);
   return off;
 }
 
