@@ -13,7 +13,7 @@ void do_syscall(Context *c) {
     case SYS_yield : yield(); break;
     case SYS_open : c->GPRx = fs_open((char *) a[3], a[2], a[1]); break;
     case SYS_read : c->GPRx = fs_read(a[3], (void *)a[2], a[1]); break;
-    case SYS_write : c->GPRx = fs_write(a[1], (void *)a[2], a[3]); break;
+    case SYS_write : c->GPRx = fs_write(a[3], (void *)a[2], a[1]); break;
     case SYS_lseek : c->GPRx = fs_lseek(a[3], a[2], a[1]); break;
     case SYS_close : c->GPRx = fs_close(a[3]); break;
     case SYS_gettimeofday : c->GPRx = sys_gettimeofday((void *)a[3], (void *)a[2]); break;
