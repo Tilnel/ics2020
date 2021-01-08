@@ -43,6 +43,8 @@ int fs_open(const char *pathname, int flags, int mode) {
   int i;
   for (i = 3; i * sizeof(Finfo) < sizeof(file_table); i++) {
     if (!strcmp(pathname, file_table[i].name)) {
+      file_table[i].read = ramdisk_read;
+      file_table[i].write = ramdisk_write;
       return i;
     }
   }
