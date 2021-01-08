@@ -11,7 +11,7 @@ int main() {
         if (j == 100000) {
             gettimeofday(tv, tz);
             if (sec != tv->tv_sec)
-                printf("It's the %d's second.\n", tv->tv_sec);
+                printf("DIO: %d %d seconds passed.\n", sec, tv->tv_sec);
             sec = tv->tv_sec;
             j = 0;
         } else
