@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include "syscall.h"
+int _read(int fd, void *buf, size_t count);
 
 static int evtdev = -1;
 static int fbdev = -1;
