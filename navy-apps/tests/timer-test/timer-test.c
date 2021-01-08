@@ -3,17 +3,17 @@
 #include <unistd.h>
 
 int main() {
-    struct timeval *tv;
-    struct timezone *tz;
+    struct timeval tv;
+    struct timezone tz;
     int sec = 1;
     int j = 0;
     while (1) {
         if (j == 100000) {
-            gettimeofday(tv, tz);
+            gettimeofday(&tv, &tz);
             printf("%d\n", &tv);
-            if (sec != tv->tv_sec)
-                printf("DIO: %d %d seconds passed.\n", sec, tv->tv_sec);
-            sec = tv->tv_sec;
+            if (sec != tv.tv_sec)
+                printf("DIO: %d %d seconds passed.\n", sec, tv.tv_sec);
+            sec = tv.tv_sec;
             j = 0;
         } else
             j++;
