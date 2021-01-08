@@ -62,7 +62,11 @@ void yield() {
   asm volatile("int $0x81");
 }
 
-size_t write(int fd, const void *buf, size_t count) {
+int fs_open(const char *pathname, int flags, int mode) {
+  return 0;
+}
+
+size_t fs_write(int fd, const void *buf, size_t count) {
   // printf("%d %d %d\n", fd, (intptr_t)buf, count);
   // printf("Write got it\n");
 

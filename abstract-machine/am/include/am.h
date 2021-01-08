@@ -57,7 +57,8 @@ void     ioe_write   (int reg, void *buf);
 // ---------- CTE: Interrupt Handling and Context Switching ----------
 bool     cte_init    (Context *(*handler)(Event ev, Context *ctx));
 void     yield       (void);
-size_t   write       (int fd, const void *buf, size_t count);
+size_t   fs_write    (int fd, const void *buf, size_t count);
+int      fs_open     (const char *pathname, int flags, int mode); 
 int      brk         (void *addr);
 void     *sbrk       (intptr_t increment);
 bool     ienabled    (void);
