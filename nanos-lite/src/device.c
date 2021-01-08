@@ -39,8 +39,8 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int w = gpuconf.width; 
   int h = gpuconf.height;
   offset = fs_lseek(5, 0, 1);
-  printf("%d ", offset);
   printf("%d %d ", w, h);
+  printf("%d ", offset);
   int y = offset / 4 / w;
   int x = offset / 4 % w;
   printf("%d %d\n", x, y);
