@@ -51,6 +51,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 void init_device() {
   gpuconf = io_read(AM_GPU_CONFIG);
   sprintf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", gpuconf.width, gpuconf.height);
+  printf("WIDTH: %d\nHEIGHT: %d\n", gpuconf.width, gpuconf.height);
   Log("Initializing devices...");
   ioe_init();
 }
