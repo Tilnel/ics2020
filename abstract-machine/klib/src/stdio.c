@@ -64,10 +64,16 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                 len = itoa(d, out + pos, 10);
                 pos += len;
                 break;
-            case 'u':
+            case 'x':
                 d = va_arg(ap, int);
                 len = itoa(d, out + pos, 16);
                 pos += len;
+                break;
+            case 'p':
+                d = va_arg(ap, int);
+                len = itoa(d, out + pos, 16);
+                pos += len;
+                break;
             }
             break;
 
