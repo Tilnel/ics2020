@@ -39,8 +39,8 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
   printf("%s\n", buf);
-  printf("%d\n", len);
   strncpy(dispinfo, buf, len);
+  printf("%s\n", dispinfo);
   return strlen(dispinfo);
 }
 
