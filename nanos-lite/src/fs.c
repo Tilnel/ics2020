@@ -2,6 +2,7 @@
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -38,15 +39,20 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
   int i;
   for (i = 3; i * sizeof(Finfo) < sizeof(file_table); i++) {
-    if (!strcmp(pathname, file_table[i].name)) 
+    if (!strcmp(pathname, file_table[i].name)) {
+      // file_table[i].read = (mode / 2)? ramdisk_read : invalid_read;
+      // file_table[i].write = (mode & 1)? ramdisk_write : invalid_write;
       return i;
+    }
   }
   assert(0);
   return 0;
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
-  
+  // assert(file_table[fd].read == 1);
+  size_t offset = file_table[fd].disk_offset;
+  ramdisk_read(buf, offset, len);
   return len;
 }
 

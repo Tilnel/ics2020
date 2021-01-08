@@ -16,7 +16,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
   Elf_Ehdr eh;
   Elf_Phdr ph;
-  ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
+  int fd = fs_open(filename, 0, 3); // 0b11, rw
+  // ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
+  fs_read(fd, &eh, sizeof(Elf_Ehdr));
 
   for (int i = 0; i < eh.e_phnum; i++) {
     ramdisk_read(&ph, eh.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
