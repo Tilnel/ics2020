@@ -5,7 +5,7 @@
 int main() {
     struct timeval *tv;
     struct timezone *tz;
-    int sec = 0;
+    int sec = 1;
     int j = 0;
     while (1) {
         if (j == 100000) {
