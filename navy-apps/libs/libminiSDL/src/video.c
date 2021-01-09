@@ -113,6 +113,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             rec.x = x;
             rec.y = y;
             SDL_BlitSurface(s, NULL, t, &rec);
+            NDL_DrawRect((uint32_t *)t->pixels, x, y, w, h);
         }
     }
 }
