@@ -16,7 +16,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int Wd = dst->w;
     int Hd = dst->h;
     int ws, hs, xs, ys;
-    if (!srcrect) {
+    if (srcrect == NULL) {
       ws = Ws;
       hs = Hs;
       xs = 0;
