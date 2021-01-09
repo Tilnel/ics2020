@@ -18,10 +18,10 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   //   printf("eflags %d %d\n", ref_r->eflags, cpu.eflags);
   //   return false;
   // }
-  if (cpu.eflags >= 0x2000000) {
-    printf("ef over %x\n", cpu.pc);
-    return false;
-  }
+  // if (cpu.eflags >= 0x2000000) {
+  //   printf("ef over %x\n", cpu.pc);
+  //   return false;
+  // }
   if ((*ref_r).pc != cpu.pc) {
     printf("pc %d %d\n", ref_r->pc, cpu.pc);
     return false;
