@@ -110,10 +110,11 @@ static inline def_EHelper(lea) {
 }
 
 static inline def_EHelper(movsb) {//????????????
-  *s0 = vaddr_read(cpu.esi, 1);
-  vaddr_write(cpu.edi, *s0, 1);
-  cpu.edi++;
-  cpu.esi++;
+  *s1 = s->dest.width;
+  *s0 = vaddr_read(cpu.esi, *s1);
+  vaddr_write(cpu.edi, *s0, *s1);
+  cpu.edi += *s1;
+  cpu.esi += *s1;
   print_asm_template2(mov);
 }
 
