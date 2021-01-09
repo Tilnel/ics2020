@@ -15,7 +15,7 @@
 #include <SDL_bmp.h>
 #include <SDL_bdf.h>
 
-const char *font_fname = "/share/fonts/Courier-8.bdf";
+const char *font_fname = "/share/fonts/Courier-10.bdf";
 static BDF_Font *font;
 static SDL_Surface *screen = NULL;
 static SDL_Surface *logo_sf = NULL;
