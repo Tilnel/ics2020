@@ -70,6 +70,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     // SDL_UpdateRect(dst, x, y, w, h);
 }
 
+uint32_t pixelbuf[120000];
+
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
         if (w == 0)
@@ -84,16 +86,14 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         if (s->format->BytesPerPixel == 4) {
             NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
         } else {
-            uint32_t *buf = malloc(w * h * 4);
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
-                    buf[i * w + j] =
+                    pixelbuf[i * w + j] =
                         s->format->palette->colors[s->pixels[i * w + j]].val;
                 }
             }
-            ConvertPixelsARGB_ABGR(buf, buf, w * h);
-            NDL_DrawRect(buf, x, y, w, h);
-            free(buf);
+            ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
+            NDL_DrawRect(pixelbuf, x, y, w, h);
         }
     }
 }
