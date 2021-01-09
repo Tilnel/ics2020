@@ -80,9 +80,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         if (h == 0)
             h = s->h;
         if ((int)(x + w) > s->w)
-            return;
+            w = s->w - x;
         if ((int)(y + h) > s->h)
-            return;
+            h = s->h - y;
 
         if (s->format->BytesPerPixel != 4) {
             for (int i = 0; i < h; i++) {
