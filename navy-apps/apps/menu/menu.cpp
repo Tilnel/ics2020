@@ -15,7 +15,7 @@
 #include <SDL_bmp.h>
 #include <SDL_bdf.h>
 
-const char *font_fname = "/share/fonts/Courier-7.bdf";
+const char *font_fname = "/share/fonts/Courier-8.bdf";
 static BDF_Font *font;
 static SDL_Surface *screen = NULL;
 static SDL_Surface *logo_sf = NULL;
@@ -72,7 +72,6 @@ int main(int argc, char *argv[], char *envp[]) {
   screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
 
   font = new BDF_Font(font_fname);
-  printf("%d %d %d\n", (int)font->font[0], (int)font->name, font->w);
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(logo_sf);
   set_i_max();
