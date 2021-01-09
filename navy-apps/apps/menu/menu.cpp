@@ -120,7 +120,7 @@ int main(int argc, char *argv[], char *envp[]) {
 
 static void draw_ch(BDF_Font *font, int x, int y, char ch, uint32_t fg, uint32_t bg) {
   SDL_Surface *s = BDF_CreateSurface(font, ch, fg, bg);
-  printf("%d\n", (ints));
+  printf("%d\n", (int)s);
   
   SDL_Rect dstrect = { .x = x, .y = y };
   // printf("char %d %d\n", x, y);
