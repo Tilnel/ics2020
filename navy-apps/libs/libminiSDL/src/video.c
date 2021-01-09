@@ -37,8 +37,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     if (src->format->BytesPerPixel == 4) {
         for (int i = 0; i < hs; i++) {
             for (int j = 0; j < ws; j++) {
-                ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-                    ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+                ((uint32_t *)(dst->pixels))[(i) * Wd +  j] =
+                    ((uint32_t *)(src->pixels))[(i) * Ws + j];
             }
             // }
             // SDL_UpdateRect(dst, xd, yd, wd, hd);
@@ -97,7 +97,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
         } else {
             SDL_Surface *t =
-                SDL_CreateRGBSurface(s->flags, w, h, 32, 0x00ff0000,
+                SDL_CreateRGBSurface(0, w, h, 32, 0x00ff0000,
                                      0x0000ff00, 0x000000ff, 0xff000000);
             SDL_Rect rec;
             rec.h = h;
