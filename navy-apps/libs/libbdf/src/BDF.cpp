@@ -24,13 +24,13 @@ BDF_Font::BDF_Font(const char *fname) {
   memset(font, 0, sizeof(font));
   FILE *fp = fopen(fname, "r");
   if (!fp) return;
-  char a[256];
-  for (int i = 0; i < 100; i++) {
-    fgets(a, 256, fp);
-    //fscanf(fp, "%c", &a);
-    printf("%s", a);
-  }
-  printf("\n");
+  // char a[256];
+  // for (int i = 0; i < 100; i++) {
+  //   fgets(a, 256, fp);
+  //   //fscanf(fp, "%c", &a);
+  //   printf("%s", a);
+  // }
+  // printf("\n");
 
   char buf[256], cmd[32];
   bool valid_file = false, in_bitmap = false;
