@@ -23,10 +23,13 @@ void BDF_Font::create(uint32_t ch, int *bbx, uint32_t *bitmap, int count) {
 BDF_Font::BDF_Font(const char *fname) {
   memset(font, 0, sizeof(font));
   FILE *fp = fopen(fname, "r");
-  for (char *i = (char *)fp; i < (char *)fp + 1000; i++) {
-    printf("%c", *i);
-  }
   if (!fp) return;
+  char a;
+  for (int i = 0; i < 1000; i++) {
+    fgets(&a, 1, fp);
+    printf("%c", a);
+  }
+  printf("\n");
 
   char buf[256], cmd[32];
   bool valid_file = false, in_bitmap = false;
