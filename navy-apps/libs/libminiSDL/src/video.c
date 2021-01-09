@@ -26,8 +26,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
       xs = srcrect->x;
       ys = srcrect->y;
     }
-    int wd = dstrect->w;
-    int hd = dstrect->h;
+    int wd = ws;//dstrect->w;
+    int hd = wd;//dstrect->h;
     int xd = dstrect->x;
     int yd = dstrect->y;
     printf("%d\n", (int)dstrect);
