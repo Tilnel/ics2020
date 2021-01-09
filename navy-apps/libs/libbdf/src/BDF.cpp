@@ -1,6 +1,7 @@
 #include <BDF.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 void BDF_Font::create(uint32_t ch, int *bbx, uint32_t *bitmap, int count) {
   font[ch] = new uint32_t[h];
@@ -25,7 +26,8 @@ BDF_Font::BDF_Font(const char *fname) {
   FILE *fp = fopen(fname, "r");
   if (!fp) return;
   char a;
-  for (int i = 0; i < 1000; i++) {
+  assert(0);
+  for (int i = 0; i < 1000000; i++) {
     fgets(&a, 1, fp);
     printf("%c", a);
   }
