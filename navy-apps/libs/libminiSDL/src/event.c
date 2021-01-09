@@ -14,16 +14,17 @@ int SDL_WaitEvent(SDL_Event *event) {
     char buf[64];
     char state;
     char name[20];
+    memset(name, 0, sizeof(name));
     NDL_PollEvent(buf, 64);
     sscanf(buf, "k%c %s\n", state, name);
     printf("%s\n", name);
     event->key.type = event->type = (state == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
-    // for (int i = 0; i <128; i++) {
-    //     if (!strcmp(keyname[i], name)) {
-    //         event->key.keysym = (SDL_keysym){i};
-    //         break;
-    //     }
-    // }
+    for (int i = 0; i <128; i++) {
+        if (!strcmp(keyname[i], name)) {
+            event->key.keysym = (SDL_keysym){i};
+            break;
+        }
+    }
 
     return 1;
 }
