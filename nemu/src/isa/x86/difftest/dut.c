@@ -15,11 +15,11 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
 	}
   }
   if (ref_r->eflags != cpu.eflags) {
-    printf("eflags %d %d", ref_r->eflags, cpu.eflags);
+    printf("eflags %d %d\n", ref_r->eflags, cpu.eflags);
     return false;
   }
   if ((*ref_r).pc != cpu.pc) {
-    printf("pc %d %d", ref_r->pc, cpu.pc);
+    printf("pc %d %d\n", ref_r->pc, cpu.pc);
     return false;
   }
   //printf("cpu :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", cpu.OF, cpu.ZF, cpu.SF, cpu.CF, cpu.IF);
