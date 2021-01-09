@@ -8,9 +8,37 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
                      SDL_Rect *dstrect) {
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+    int Ws = src->w;
+    int Hs = src->h;
+    int Wd = dst->w;
+    int Hd = dst->h;
+    int ws = srcrect->w;
+    int hs = srcrect->h;
+    int xs = srcrect->x;
+    int ys = srcrect->y;
+    int xd = dstrect->x;
+    int yd = dstrect->y;
+    for (int i = 0; i < hs; i++) {
+      for (int j = 0; j < ws; j++) {
+        ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd] = ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs];
+      }
+    }
 }
 
-void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {}
+void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  int w = dstrect->w;
+  int h = dstrect->h;
+  int x = dstrect->x;
+  int y = dstrect->y;
+  int W = dst->w;
+  
+  for (int i = 0; i < h; i++) {
+    for (int j = 0; j < w; j++) {
+      ((uint32_t *)(dst->pixels))[(y + i) * W + x] = color;
+    }
+  }
+  // SDL_UpdateRect(dst, x, y, w, h);
+}
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
