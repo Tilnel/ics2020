@@ -68,7 +68,7 @@ static void clear_display(void) {
 }
 
 int main(int argc, char *argv[], char *envp[]) {
-  printf("RESULTOFCMP%d\n", strcmp("BNDPROPERTIES", "ENDFONT"));
+  printf("RESULTOFCMP%d\n", strcmp("CKADHDKNRF", "ENDFONT"));
   SDL_Init(0);
   screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
 
