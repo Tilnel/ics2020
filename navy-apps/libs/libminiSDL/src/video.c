@@ -37,6 +37,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     if (src->format->BytesPerPixel == 4) {
         for (int i = 0; i < hs; i++) {
             for (int j = 0; j < ws; j++) {
+                if (yd + i >= Hd || xd + j >= Wd) continue;
                 ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
                     ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
             }
