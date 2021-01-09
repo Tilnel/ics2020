@@ -92,7 +92,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
                         // s->format->palette->colors[s->pixels[i * w + j]].val;
                 }
             }
-            ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
+            // ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
             NDL_DrawRect(pixelbuf, x, y, w, h);
         }
     }
