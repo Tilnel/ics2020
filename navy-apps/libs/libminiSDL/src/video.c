@@ -34,7 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int yd = dstrect->y;
     // printf("%d\n", (int)dstrect);
     // printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws,
-           hs, xd, yd, wd, hd);
+        //    hs, xd, yd, wd, hd);
     for (int i = 0; i < hs; i++) {
         for (int j = 0; j < ws; j++) {
             if (yd + i >= Hd || xd + j >= Wd)
