@@ -48,8 +48,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
         for (int i = 0; i < hs; i++) {
             for (int j = 0; j < ws; j++) {
                 ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-                    ((uint16_t *)(src->pixels))[(ys + i) * Ws + xs + j];
-                    // col[((uint16_t *)(src->pixels))[(ys + i) * Ws + xs + j]].val;
+                    // ((uint16_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+                    col[((uint8_t *)(src->pixels))[(ys + i) * Ws + xs + j]].val;
             }
             // }
             // SDL_UpdateRect(dst, xd, yd, wd, hd);
