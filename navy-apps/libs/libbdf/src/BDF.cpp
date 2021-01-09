@@ -38,6 +38,7 @@ BDF_Font::BDF_Font(const char *fname) {
   int bm_idx, bm_bbx[4];
 
   while (fgets(buf, 256, fp)) {
+    printf("%s\n", buf);
     sscanf(buf, "%s ", cmd);
     if (strcmp(cmd, "STARTFONT") == 0) {
       valid_file = true;
@@ -77,7 +78,6 @@ BDF_Font::BDF_Font(const char *fname) {
       bm_idx ++;
     }
     if (strcmp(cmd, "ENDFONT") == 0) {
-      printf(cmd);
       break;
     }
   }
