@@ -166,7 +166,7 @@ again:
     IDEX (0x35, I2a, xor)
     IDEXW(0x38, G2E, cmp, 1)
     IDEX (0x39, G2E, cmp)
-    IDEX (0x3a, E2G, cmp)
+    IDEXW(0x3a, E2G, cmp, 1)
     IDEX (0x3b, E2G, cmp)
     IDEXW(0x3c, I2a, cmp, 1)
     IDEX (0x3d, I2a, cmp)
