@@ -102,7 +102,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             srec.h = trec.h = h;
             srec.w = trec.w = w;
             srec.x = trec.x = x;
-            srec.w = trec.y = y;
+            srec.y = trec.y = y;
             // printf("%d %d %d %d\n", h, w, x, y);
             SDL_BlitSurface(s, &srec, t, &trec);
             NDL_DrawRect((uint32_t *)t->pixels, x, y, w, h);
