@@ -74,7 +74,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-        printf("hw %d %d\n", h, w);
     if (s) {
         if (w == 0)
             w = s->w;
