@@ -60,7 +60,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;//dst->format->palette->colors[color].val;
+            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
         }
     }
     // SDL_UpdateRect(dst, x, y, w, h);
@@ -68,22 +68,33 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
-        // if (s->format->BytesPerPixel == 4) {
+        if (w == 0)
+            w = s->w;
+        if (h == 0)
+            h = s->h;
+        if ((int)(x + w) > s->w)
+            return;
+        if ((int)(y + h) > s->h)
+            return;
+        if (s->format->BytesPerPixel == 4) {
             /* Perform some checking */
-            if (w == 0)
-                w = s->w;
-            if (h == 0)
-                h = s->h;
-            if ((int)(x + w) > s->w)
-                return;
-            if ((int)(y + h) > s->h)
-                return;
 
             /* Fill the rectangle */
             NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
-        // } else {
-
-        // }
+        } else {
+            SDL_PixelFormat fmt;
+            fmt.palette = NULL;
+            fmt.Rmask = 0x00ff0000;
+            fmt.Rloss = 0;
+            fmt.Gmask = 0x0000ff00;
+            fmt.Gloss = 0;
+            fmt.Bmask = 0x000000ff;
+            fmt.Bloss = 0;
+            fmt.Amask = 0xff000000;
+            fmt.Aloss = 0;
+            SDL_Surface *t = SDL_ConvertSurface(s, &fmt, s->flags);
+            NDL_DrawRect((uint32_t *)t->pixels, x, y, w, h);
+        }
     }
 }
 
