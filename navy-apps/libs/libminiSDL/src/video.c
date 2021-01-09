@@ -44,11 +44,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
             // SDL_UpdateRect(dst, xd, yd, wd, hd);
         }
     } else {
-        SDL_Palette *pal = src->format->palette;
+        SDL_Color *col = src->format->palette->colors;
         for (int i = 0; i < hs; i++) {
             for (int j = 0; j < ws; j++) {
                 ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-                    pal[((uint8_t *)(src->pixels))[(ys + i) * Ws + xs + j]].ncolors;
+                   col[((uint8_t *)(src->pixels))[(ys + i) * Ws + xs + j]].val;
             }
             // }
             // SDL_UpdateRect(dst, xd, yd, wd, hd);
