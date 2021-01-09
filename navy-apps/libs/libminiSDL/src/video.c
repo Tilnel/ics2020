@@ -60,7 +60,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = dst->format->palette->colors[color].val;
+            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] =
+                dst->format->palette->colors[color].val;
         }
     }
     // SDL_UpdateRect(dst, x, y, w, h);
@@ -68,14 +69,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
-        if (s->format->BytesPerPixel == 4) {
 
-        } else {
-            SDL_Surface *s1 = SDL_CreateRGBSurfaceFrom(
-                s->pixels, w, h, 32, s->pitch, s->format->Rmask,
-                s->format->Gmask, s->format->Bmask, s->format->Amask);
-            s = s1;
-        }
         /* Perform some checking */
         if (w == 0)
             w = s->w;
