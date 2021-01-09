@@ -92,6 +92,7 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
     default:
       assert(0);
   }
+  if (fd >= 6 && offset > file_table[fd].size) return -1;
   return file_table[fd].open_offset;
 }
 
