@@ -7,7 +7,7 @@
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
                      SDL_Rect *dstrect) {
-    assert(dst && src);
+    // assert(dst && src);
     // assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
     if (dst && src) {
     int Ws = src->w;
@@ -18,9 +18,9 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int hs = srcrect->h;
     int xs = srcrect->x;
     int ys = srcrect->y;
-    int wd = srcrect->w;
-    int hd = srcrect->h;
-    int xd = dstrect->x + Wd;
+    int wd = dstrect->w;
+    int hd = dstrect->h;
+    int xd = dstrect->x;
     int yd = dstrect->y;
     printf("%d\n", (int)src);
     printf("%d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws, hs);
@@ -29,7 +29,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
         ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd] = ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs];
       }
     }
-    SDL_UpdateRect(dst, xd, yd, wd, hd);
+    //SDL_UpdateRect(dst, xd, yd, wd, hd);
     }
 }
 
@@ -45,7 +45,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       ((uint32_t *)(dst->pixels))[(y + i) * W + x] = color;
     }
   }
-  SDL_UpdateRect(dst, x, y, w, h);
+  //SDL_UpdateRect(dst, x, y, w, h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
