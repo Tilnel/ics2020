@@ -44,13 +44,9 @@ size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
   int w = gpuconf.width; 
-  int h = gpuconf.height;
   offset = fs_lseek(5, 0, 1);
-  printf("%d %d ", w, h);
-  printf("%d ", offset);
   int y = offset / 4 / w;
   int x = offset / 4 % w;
-  printf("%d %d\n", x, y);
 
   io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf + offset / 4, len / 4, 1, true);
   return 0;
