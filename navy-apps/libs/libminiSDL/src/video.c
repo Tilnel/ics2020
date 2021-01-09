@@ -83,7 +83,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             w = s->w - x;
         if ((int)(y + h) > s->h)
             h = s->h - y;
-            printf("rect %d %d\n", h, w);
+            printf("rect %d %d %d %d\n", h, w);
 
         if (s->format->BytesPerPixel != 4) {
             for (int i = 0; i < h; i++) {
