@@ -310,9 +310,8 @@ SDL_Surface *SDL_ConvertSurface(SDL_Surface *src, SDL_PixelFormat *fmt,
 
     assert(fmt->Gmask == src->format->Gmask);
     assert(fmt->Amask == 0 || src->format->Amask == 0 ||
-           (fmt->Amask == src->format->Amask));
-    ConvertPixelsARGB_ABGR(ret->pixels, src->pixels, src->w * src->h);
-
+           (fmt->Amask == src->format->Amask)); ConvertPixelsARGB_ABGR(ret->pixels, src->pixels, src->w * src->h);
+   
     return ret;
 }
 
