@@ -42,6 +42,9 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   } else {
+    if (*w == 0 && *h == 0) {
+      *w = 400; *h = 300;
+    }
     screen_w = *w;
     screen_h = *h;
     char buf[64];
