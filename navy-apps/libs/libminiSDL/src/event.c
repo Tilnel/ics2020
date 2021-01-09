@@ -15,6 +15,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     char state;
     char name[20];
     NDL_PollEvent(buf, 64);
+    if (buf[0] == 0) return 0;
     sscanf(buf, "k%c %s\n", state, name);
     printf("%s\n", buf);
     // printf("%c\n", state);
