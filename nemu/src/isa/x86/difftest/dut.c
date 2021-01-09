@@ -8,15 +8,20 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   // printf("ebp: %x %x", ref_r->ebp, cpu.ebp);
   // printf("eax: %x %x", ref_r->eax, cpu.eax);
   for (int i = 0; i < 8; i++) {
-    printf("%d %x %x\n", i, ref_r->gpr[i]._32, cpu.gpr[i]._32);
+    // printf("%d %x %x\n", i, ref_r->gpr[i]._32, cpu.gpr[i]._32);
     if (ref_r->gpr[i]._32 != cpu.gpr[i]._32) {
       printf("%d %x %x\n", i, ref_r->gpr[i]._32, cpu.gpr[i]._32);
 	  return false;
 	}
   }
-  printf("%d %d\n", ref_r->eflags, cpu.eflags);
-  if (ref_r->eflags != cpu.eflags) return false;
-  if ((*ref_r).pc != cpu.pc) return false;
+  if (ref_r->eflags != cpu.eflags) {
+    printf("eflags %d %d", ref_r->eflags, cpu.eflags);
+    return false;
+  }
+  if ((*ref_r).pc != cpu.pc) {
+    printf("pc %d %d", ref_r->pc, cpu.pc);
+    return false;
+  }
   //printf("cpu :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", cpu.OF, cpu.ZF, cpu.SF, cpu.CF, cpu.IF);
   //printf("ref :OF:%x ZF:%x SF:%x CF:%x IF:%x\n", ref_r->OF, ref_r->ZF, ref_r->SF, ref_r->CF, ref_r->IF);
   // if ((*ref_r).OF != cpu.OF) return false;
