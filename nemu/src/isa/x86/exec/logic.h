@@ -25,14 +25,7 @@ static inline def_EHelper(andl) {
 static inline def_EHelper(xor) {
   *s0 = *ddest ^ *dsrc1;
   cpu.CF = cpu.OF = 0;
-  cpu.CF = 1;
-  printf("set1 efl %d\n", cpu.eflags);
-  cpu.CF = 0;
-  printf("set0 efl %d\n", cpu.eflags);
-  cpu.CF = 1;
-  printf("set1 efl %d\n", cpu.eflags);
   rtl_update_ZFSF(s, s0, id_dest->width);
-  printf("efl %d\n", cpu.eflags);
   //TODO();
   operand_write(s, id_dest, s0);
   print_asm_template2(xor);
