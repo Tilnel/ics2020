@@ -1,73 +1,81 @@
 #include <NDL.h>
 #include <assert.h>
 #include <sdl-video.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
                      SDL_Rect *dstrect) {
     // assert(dst && src);
     // assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
     // printf("dd%d ss%d\n", (int)dst, (int)src);
-  // if (dst && src) {
+    // if (dst && src) {
     int Ws = src->w;
     int Hs = src->h;
     int Wd = dst->w;
     int Hd = dst->h;
     int ws, hs, xs, ys;
     if (srcrect == NULL) {
-      ws = Ws;
-      hs = Hs;
-      xs = 0;
-      ys = 0;
+        ws = Ws;
+        hs = Hs;
+        xs = 0;
+        ys = 0;
     } else {
-      ws = srcrect->w;
-      hs = srcrect->h;
-      xs = srcrect->x;
-      ys = srcrect->y;
+        ws = srcrect->w;
+        hs = srcrect->h;
+        xs = srcrect->x;
+        ys = srcrect->y;
     }
     int wd = dstrect->w;
     int hd = dstrect->h;
     int xd = dstrect->x;
     int yd = dstrect->y;
     // printf("%d\n", (int)dstrect);
-    // printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws, hs, xd, yd, wd, hd);
+    // printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys,
+    // ws, hs, xd, yd, wd, hd);
     for (int i = 0; i < hs; i++) {
-      for (int j = 0; j < ws; j++) {
-        ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] = ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
-      }
-    // }
-    //SDL_UpdateRect(dst, xd, yd, wd, hd);
-  }
+        for (int j = 0; j < ws; j++) {
+            ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+                ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+        }
+        // }
+        // SDL_UpdateRect(dst, xd, yd, wd, hd);
+    }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  int W = dst->w;
-  int w, h, x, y;
-  if (dstrect) {
-    w = dstrect->w;
-    h = dstrect->h;
-    x = dstrect->x;
-    y = dstrect->y;
-  } else {
-    w = W;
-    h = dst->h;
-    x = y = 0; 
-  }
-  
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < w; j++) {
-      ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
+    int W = dst->w;
+    int w, h, x, y;
+    if (dstrect) {
+        w = dstrect->w;
+        h = dstrect->h;
+        x = dstrect->x;
+        y = dstrect->y;
+    } else {
+        w = W;
+        h = dst->h;
+        x = y = 0;
     }
-  }
-  // SDL_UpdateRect(dst, x, y, w, h);
+
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = dst->format->palette->colors[color].val;
+        }
+    }
+    // SDL_UpdateRect(dst, x, y, w, h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
-        SDL_Rect rect;
+        if (s->format->BytesPerPixel == 4) {
 
+        } else {
+            SDL_Surface *s1 = SDL_CreateRGBSurfaceFrom(
+                s->pixels, w, h, 32, s->pitch, s->format->Rmask,
+                s->format->Gmask, s->format->Bmask, s->format->Amask);
+            s = s1;
+        }
         /* Perform some checking */
         if (w == 0)
             w = s->w;
@@ -79,10 +87,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             return;
 
         /* Fill the rectangle */
-        rect.x = (int16_t)x;
-        rect.y = (int16_t)y;
-        rect.w = (uint16_t)w;
-        rect.h = (uint16_t)h;
         NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
     }
 }
