@@ -16,7 +16,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int Wd = dst->w;
     int Hd = dst->h;
     int ws, hs, xs, ys;
-    if (!srcrect) {
+    if (srcrect == NULL) {
       ws = Ws;
       hs = Hs;
       xs = 0;
@@ -33,8 +33,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int yd = dstrect->y;
     printf("%d\n", (int)dstrect);
     printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws, hs, xd, yd, wd, hd);
-    for (int i = 0; i < hs; i++) {
-      for (int j = 0; j < ws; j++) {
+    for (int i = 0; i < hd; i++) {
+      for (int j = 0; j < wd; j++) {
         ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] = ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
       }
     // }
