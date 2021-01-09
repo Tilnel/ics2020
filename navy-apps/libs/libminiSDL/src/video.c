@@ -34,13 +34,34 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     // printf("%d\n", (int)dstrect);
     // printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys,
     // ws, hs, xd, yd, wd, hd);
-    for (int i = 0; i < hs; i++) {
-        for (int j = 0; j < ws; j++) {
-            ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-                ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+    if (src->format->BytesPerPixel == 4) {
+        for (int i = 0; i < hs; i++) {
+            for (int j = 0; j < ws; j++) {
+                ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+                    ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+            }
+            // }
+            // SDL_UpdateRect(dst, xd, yd, wd, hd);
         }
-        // }
-        // SDL_UpdateRect(dst, xd, yd, wd, hd);
+    } else {
+        SDL_Palette *pal = src->format->palette;
+        for (int i = 0; i < hs; i++) {
+            for (int j = 0; j < ws; j++) {
+                ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+                    pal[((uint8_t *)(src->pixels))[(ys + i) * Ws + xs + j]].ncolors;
+            }
+            // }
+            // SDL_UpdateRect(dst, xd, yd, wd, hd);
+        }
+        for (int i = 0; i < hs; i++) {
+            for (int j = 0; j < ws; j++) {
+                ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+                    ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+            }
+            // }
+            // SDL_UpdateRect(dst, xd, yd, wd, hd);
+        }
+
     }
 }
 
@@ -76,24 +97,22 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             return;
         if ((int)(y + h) > s->h)
             return;
+
         if (s->format->BytesPerPixel == 4) {
             /* Perform some checking */
 
             /* Fill the rectangle */
             NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
         } else {
-            SDL_PixelFormat fmt;
-            fmt.palette = NULL;
-            fmt.Rmask = 0x00ff0000;
-            fmt.Rloss = 0;
-            fmt.Gmask = 0x0000ff00;
-            fmt.Gloss = 0;
-            fmt.Bmask = 0x000000ff;
-            fmt.Bloss = 0;
-            fmt.Amask = 0xff000000;
-            fmt.Aloss = 0;
-            SDL_Surface *t = SDL_ConvertSurface(s, &fmt, s->flags);
-            NDL_DrawRect((uint32_t *)t->pixels, x, y, w, h);
+            SDL_Surface *t =
+                SDL_CreateRGBSurface(s->flags, w, h, 32, 0x00ff0000,
+                                     0x0000ff00, 0x000000ff, 0xff000000);
+            SDL_Rect rec;
+            rec.h = h;
+            rec.w = w;
+            rec.x = x;
+            rec.y = y;
+            SDL_BlitSurface(s, NULL, t, &rec);
         }
     }
 }
