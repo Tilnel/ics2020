@@ -47,7 +47,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
         SDL_Color *col = src->format->palette->colors;
         for (int i = 0; i < hs; i++) {
             for (int j = 0; j < ws; j++) {
-                ((uint16_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+                ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
                    col[((uint8_t *)(src->pixels))[(ys + i) * Ws + xs + j]].val;
             }
             // }
