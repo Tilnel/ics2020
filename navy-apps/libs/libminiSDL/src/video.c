@@ -98,13 +98,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             SDL_Surface *t =
                 SDL_CreateRGBSurface(0, w, h, 32, 0x00ff0000,
                                      0x0000ff00, 0x000000ff, 0xff000000);
-            SDL_Rect rec;
-            rec.h = h;
-            rec.w = w;
-            rec.x = 0;
-            rec.y = 0;
+            SDL_Rect srec, trec;
+            srec.h = trec.h = h;
+            srec.w = trec.w = w;
+            srec.x = trec.x = x;
+            srec.w = trec.y = y;
             // printf("%d %d %d %d\n", h, w, x, y);
-            SDL_BlitSurface(s, NULL, t, &rec);
+            SDL_BlitSurface(s, &srec, t, &trec);
             NDL_DrawRect((uint32_t *)t->pixels, x, y, w, h);
         }
     }
