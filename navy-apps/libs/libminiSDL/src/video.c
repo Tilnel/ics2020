@@ -38,7 +38,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
         for (int i = 0; i < hs; i++) {
             for (int j = 0; j < ws; j++) {
                 ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-                    ((uint16_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+                    ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
             }
             // }
             // SDL_UpdateRect(dst, xd, yd, wd, hd);
@@ -104,7 +104,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             srec.y = trec.y = y;
             // printf("%d %d %d %d\n", h, w, x, y);
             SDL_BlitSurface(s, &srec, t, &trec);
-            NDL_DrawRect((uint32_t *)t->pixels, x, y, w, h);
+            NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
             SDL_FreeSurface(t);
         }
     }
