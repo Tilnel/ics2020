@@ -16,10 +16,10 @@ int SDL_PollEvent(SDL_Event *ev) {
     if (buf[0] == 0)
         return 0;
     sscanf(buf, "%s %s\n", state, name);
-    event->key.type = event->type = (state[1] == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
+    ev->key.type = ev->type = (state[1] == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
     for (int i = 0; i < 83; i++) {
         if (!strcmp(keyname[i], name)) {
-            event->key.keysym.sym = i;
+            ev->key.keysym.sym = i;
             break;
         }
     }
