@@ -49,7 +49,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
             for (int j = 0; j < ws; j++) {
                 ((uint32_t *)(dst->pixels))[((yd + i) * Wd + xd + j)] =
                     // ((uint16_t *)(src->pixels))[(ys + i) * Ws + xs + j];
-                    col[(uint16_t)(*((src->pixels) + ((ys + i) * Ws + xs + j) ))].val;
+                    col[(uint32)(*((src->pixels) + ((ys + i) * Ws + xs + j) * 2))].val;
                     // printf("%d ",(uint8_t)((src->pixels) + (ys + i) * Ws + xs + j));
             }
             // }
