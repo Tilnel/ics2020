@@ -69,19 +69,22 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
+        if (s->format->BytesPerPixel == 4) {
+            /* Perform some checking */
+            if (w == 0)
+                w = s->w;
+            if (h == 0)
+                h = s->h;
+            if ((int)(x + w) > s->w)
+                return;
+            if ((int)(y + h) > s->h)
+                return;
 
-        /* Perform some checking */
-        if (w == 0)
-            w = s->w;
-        if (h == 0)
-            h = s->h;
-        if ((int)(x + w) > s->w)
-            return;
-        if ((int)(y + h) > s->h)
-            return;
+            /* Fill the rectangle */
+            NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+        } else {
 
-        /* Fill the rectangle */
-        NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+        }
     }
 }
 
