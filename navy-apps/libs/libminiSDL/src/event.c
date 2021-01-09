@@ -12,14 +12,14 @@ int SDL_PollEvent(SDL_Event *ev) { return 0; }
 
 int SDL_WaitEvent(SDL_Event *event) {
     char buf[64];
-    char state;
+    char state[2];
     char name[20];
     NDL_PollEvent(buf, 64);
     if (buf[0] == 0) return 0;
-    sscanf(buf, "k%c %s\n", state, name);
-    printf("%c\n", state);
+    sscanf(buf, "%s %s\n", state, name);
+    printf("%s\n", state);
     // printf("%c\n", state);
-    event->key.type = event->type = (state == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
+    event->key.type = event->type = (state[1] == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
     for (int i = 0; i <83; i++) {
         if (!strcmp(keyname[i], name)) {
             // printf("%d\n", i);
