@@ -19,7 +19,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   //   return false;
   // }
   if (cpu.eflags >= 0x2000000) {
-    printf("%d\n", cpu.pc);
+    printf("ef over %x\n", cpu.pc);
     return false;
   }
   if ((*ref_r).pc != cpu.pc) {
