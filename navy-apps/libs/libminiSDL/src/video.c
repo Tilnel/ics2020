@@ -74,6 +74,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+        printf("hw %d %d\n", h, w);
     if (s) {
         if (w == 0)
             w = s->w;
@@ -88,7 +89,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     pixelbuf[i * w + j] = 
-                        s->format->palette->colors[(uint8_t)s->pixels[i * w + j]].val;
+                        s->format->palette->colors[s->pixels[i * w + j]].val;
                 }
             }
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
