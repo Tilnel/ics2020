@@ -14,10 +14,18 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int Hs = src->h;
     int Wd = dst->w;
     int Hd = dst->h;
-    int ws = srcrect->w;
-    int hs = srcrect->h;
-    int xs = srcrect->x;
-    int ys = srcrect->y;
+    int ws, hs, xs, ys;
+    if (!srcrect) {
+      ws = Ws;
+      hs = Hs;
+      xs = 0;
+      ys = 0;
+    } else {
+      ws = srcrect->w;
+      hs = srcrect->h;
+      xs = srcrect->x;
+      ys = srcrect->y;
+    }
     int wd = dstrect->w;
     int hd = dstrect->h;
     int xd = dstrect->x;
