@@ -51,9 +51,7 @@ typedef struct {
     union {
       rtlreg_t eflags;
       struct {
-       uint8_t : 8;
-       uint8_t : 8;
-       uint8_t : 4;
+       uint32_t : 20;
        uint8_t OF : 1;
        uint8_t : 1;
        uint8_t IF : 1;
