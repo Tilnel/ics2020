@@ -19,7 +19,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     sscanf(buf, "k%c %s\n", state, name);
     printf("%s\n", name);
     event->key.type = event->type = (state == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
-    for (int i = 0; i <128; i++) {
+    for (int i = 0; i <83; i++) {
         if (!strcmp(keyname[i], name)) {
             event->key.keysym = (SDL_keysym){i};
             break;
