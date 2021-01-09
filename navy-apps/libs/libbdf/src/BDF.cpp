@@ -77,6 +77,7 @@ BDF_Font::BDF_Font(const char *fname) {
       bm_idx ++;
     }
     if (strcmp(cmd, "ENDFONT") == 0) {
+      printf(cmd);
       break;
     }
   }
