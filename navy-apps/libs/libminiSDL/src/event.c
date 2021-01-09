@@ -17,7 +17,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     NDL_PollEvent(buf, 64);
     if (buf[0] == 0) return 0;
     sscanf(buf, "k%c %s\n", state, name);
-    printf("%s\n", buf);
+    printf("%c\n", state);
     // printf("%c\n", state);
     event->key.type = event->type = (state == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
     for (int i = 0; i <83; i++) {
