@@ -22,7 +22,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int hd = dstrect->h;
     int xd = dstrect->x;
     int yd = dstrect->y;
-    printf("%d\n", (int)dstrect);
+    printf("%d\n", (int)srcrect);
     printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws, hs, xd, yd, wd, hd);
     for (int i = 0; i < hs; i++) {
       for (int j = 0; j < ws; j++) {
