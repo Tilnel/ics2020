@@ -25,7 +25,7 @@ BDF_Font::BDF_Font(const char *fname) {
   FILE *fp = fopen(fname, "r");
   if (!fp) return;
   char a;
-  for (int i = 0; i < 1000000; i++) {
+  for (int i = 0; i < 1000; i++) {
     // fgets(&a, 1, fp);
     fscanf(fp, "%c", &a);
     printf("%c", a);
