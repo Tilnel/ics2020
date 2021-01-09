@@ -3,7 +3,6 @@
 #include <assert.h>
 
 SDL_Surface* BDF_CreateSurface(BDF_Font *font, char ch, uint32_t fg, uint32_t bg) {
-  assert(0);
   uint32_t *bm = font->font[ch];
   if (!bm) return NULL;
   int w = font->w, h = font->h;
@@ -16,5 +15,6 @@ SDL_Surface* BDF_CreateSurface(BDF_Font *font, char ch, uint32_t fg, uint32_t bg
   }
   SDL_Surface *s = SDL_CreateRGBSurfaceFrom(pixels, w, h, 32, w * sizeof(uint32_t),
       DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);
+  assert(s);
   return s;
 }
