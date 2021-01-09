@@ -87,8 +87,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         if (s->format->BytesPerPixel != 4) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
-                    pixelbuf[(i + y) * s->w + j + x] = 
+                    int tmp = pixelbuf[(i + y) * s->w + j + x] = 
                         s->format->palette->colors[*(uint8_t *)(s->pixels + (i + y) * s->w + j + x)].val;
+                        printf("%x ", tmp);
+
                 }
             }
             // ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
