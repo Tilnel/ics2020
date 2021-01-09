@@ -3,6 +3,7 @@
 #include <sdl-video.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
                      SDL_Rect *dstrect) {
@@ -21,6 +22,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int hd = srcrect->h;
     int xd = dstrect->x;
     int yd = dstrect->y;
+    printf("%d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, ws, hs, wd, hd);
     for (int i = 0; i < hs; i++) {
       for (int j = 0; j < ws; j++) {
         ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd] = ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs];
