@@ -16,7 +16,7 @@ static void restart() {
 
   /* The zero register is always 0. */
   cpu.gpr[0]._32 = 0;
-  cpu.eflags = 0;
+  cpu.eflags = 2;
   cpu.cs = 8;
 }
 
