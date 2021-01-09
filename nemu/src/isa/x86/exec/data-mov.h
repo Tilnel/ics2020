@@ -111,6 +111,7 @@ static inline def_EHelper(lea) {
 
 static inline def_EHelper(movsb) {//????????????
   *s1 = s->dest.width;
+  printf("%d", *s1);
   *s0 = vaddr_read(cpu.esi, *s1);
   vaddr_write(cpu.edi, *s0, *s1);
   cpu.edi += *s1;
