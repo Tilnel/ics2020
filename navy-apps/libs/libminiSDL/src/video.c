@@ -33,18 +33,20 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int xd = dstrect->x;
     int yd = dstrect->y;
 
-    if (hs + yd >= Hd)
+    if (hs + yd > Hd)
         hs = Hd - yd;
-    if (ws + xd >= Wd)
+    if (ws + xd > Wd)
         ws = Wd - xd;
     // printf("%d\n", (int)dstrect);
     printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws,
            hs, xd, yd, wd, hd);
     for (int i = 0; i < hs; i++) {
-        for (int j = 0; j < ws; j++) {
-            ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-                ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
-        }
+        memcpy(dst->pixels + ((yd * i) + xd) * 4, src->pixels + ((ys + i) + xs) * 4, ws);
+        // for (int j = 0; j < ws; j++) {
+
+        //     ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+        //         ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+        // }
         // }
         // SDL_UpdateRect(dst, xd, yd, wd, hd);
     }
@@ -62,9 +64,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         w = W;
         h = dst->h;
         x = y = 0;
-    }
-    if (h == 0 || w == 0) {
-        w = W; h = dst->h;
     }
 
     if (dst->format->BytesPerPixel != 4) {
@@ -105,7 +104,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         if (s->format->BytesPerPixel != 4) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
-                    pixelbuf[(i)* w + j] =
+                    pixelbuf[(i)*s->w + j] =
                         s->format->palette
                             ->colors[(uint8_t) *
                                      (s->pixels + (i + y) * s->w + j + x)]
