@@ -86,8 +86,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             printf("rect %d %d %d %d\n", h, w);
 
         if (s->format->BytesPerPixel != 4) {
-            for (int i = 0; i < h; i++) {
-                for (int j = 0; j < w; j++) {
+            for (int i = 0; i < 200; i++) {
+                for (int j = 0; j < 320; j++) {
                     pixelbuf[(i ) * s->w + j ] = 
                         s->format->palette->colors[*(uint8_t *)(s->pixels + (i ) * s->w + j )].val;
                 }
