@@ -85,7 +85,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             h = s->h - y;
             printf("rect %d %d %d %d\n", h, w);
 
-        if (s->format->BytesPerPixel != 4) {
+        if (s->format->BytesPerPixel == 4) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     pixelbuf[(i + y) * s->w + j + x] = 
