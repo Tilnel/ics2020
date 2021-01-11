@@ -107,12 +107,12 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         printf("rect %d %d %d %d\n", h, w);
 
         if (s->format->BytesPerPixel == 4) {
-            for (int i = 0; i < 300; i++) {
-                for (int j = 0; j < 400; j++) {
-                    int tmp = pixelbuf[i * 400 + j] =
-                        s->format->palette
-                            ->colors[(uint8_t) * (s->pixels + i * 400 + j)]
-                            .val;
+            SDL_Color *col = s->format->palette->colors;
+            uint8_t *src = s->pixels;
+            for (int i = 0; i < h; i++) {
+                for (int j = 0; j < w; j++) {
+                    int tmp = pixelbuf[i * w + j] =
+                        col[src[(i + y) * w + j + x]].val;
                     assert(!(tmp & 0xff000000));
                 }
             }
