@@ -54,6 +54,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     int W = dst->w;
+    int H = dst->h;
     int w, h, x, y;
     if (dstrect) {
         w = dstrect->w;
@@ -62,14 +63,15 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         y = dstrect->y;
     } else {
         w = W;
-        h = dst->h;
+        h = H;
         x = y = 0;
     }
+    if (x + w > W) x = W - x;
+    if (y + h > H) y = H - y;
 
     if (dst->format->BytesPerPixel != 4) {
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if (y + i >= h || x + j >= w)
                     continue;
                 ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] =
                     dst->format->palette->colors[color].val;
