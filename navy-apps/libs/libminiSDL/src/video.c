@@ -90,11 +90,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
                 for (int j = 0; j < w; j++) {
                     pixelbuf[(i + y) * s->w + j + x] = 
                         s->format->palette->colors[*(uint8_t *)(s->pixels + (i + y) * s->w + j + x)].val;
-
                 }
-                    printf("where %d\n", (i + y) * s->w + x);
             }
-            // ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
+            ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
             NDL_DrawRect(pixelbuf, x, y, w, h);
         } else {
             NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
