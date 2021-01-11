@@ -33,8 +33,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     int xd = dstrect->x;
     int yd = dstrect->y;
 
-    if (hs + yd >= Hd) hs = Hd - yd;
-    if (ws + xd >= Wd) ws = Wd - xd;
+    if (hs + yd >= Hd)
+        hs = Hd - yd;
+    if (ws + xd >= Wd)
+        ws = Wd - xd;
     // printf("%d\n", (int)dstrect);
     printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws,
            hs, xd, yd, wd, hd);
@@ -62,13 +64,25 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         x = y = 0;
     }
 
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            if (y + i >= h || x + j >= w) continue;
-            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
+    if (dst->format->BytesPerPixel != 4) {
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                if (y + i >= h || x + j >= w)
+                    continue;
+                ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] =
+                    dst->format->palette->colors[color].val;
+            }
         }
+    } else {
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                if (y + i >= h || x + j >= w)
+                    continue;
+                ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
+            }
+        }
+        // SDL_UpdateRect(dst, x, y, w, h);
     }
-    // SDL_UpdateRect(dst, x, y, w, h);
 }
 
 uint32_t pixelbuf[120000];
@@ -83,13 +97,16 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             w = s->w - x;
         if ((int)(y + h) > s->h)
             h = s->h - y;
-            printf("rect %d %d %d %d\n", h, w);
+        printf("rect %d %d %d %d\n", h, w);
 
         if (s->format->BytesPerPixel != 4) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
-                    pixelbuf[(i ) * s->w + j ] = 
-                        s->format->palette->colors[(uint8_t)*(s->pixels + (i + y) * s->w + j + x)].val;
+                    pixelbuf[(i)*s->w + j] =
+                        s->format->palette
+                            ->colors[(uint8_t) *
+                                     (s->pixels + (i + y) * s->w + j + x)]
+                            .val;
                 }
             }
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
