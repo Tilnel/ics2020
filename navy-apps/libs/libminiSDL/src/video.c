@@ -40,9 +40,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     // printf("%d\n", (int)dstrect);
     printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws,
            hs, xd, yd, wd, hd);
+    int width = dst->format->BytesPerPixel;
     for (int i = 0; i < hs; i++) {
-        memcpy(dst->pixels + ((yd + i) * Wd + xd) * 4,
-               src->pixels + ((ys + i) * Ws + xs) * 4, ws * 4);
+        memcpy(dst->pixels + ((yd + i) * Wd + xd) * width,
+               src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
         // for (int j = 0; j < ws; j++) {
 
         //     ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
