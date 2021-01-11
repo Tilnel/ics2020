@@ -110,8 +110,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         if (s->format->BytesPerPixel != 4) {
             SDL_Color *col = s->format->palette->colors;
             uint8_t *src = s->pixels;
-            for (int i = 0; i < 256; i++) printf("%x ", col[i]);
-            printf("\n");
+            // for (int i = 0; i < 256; i++) printf("%x ", col[i]);
+            // printf("\n");
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     int tmp = pixelbuf[i * w + j] =
@@ -263,6 +263,10 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
 
     s->format->palette->ncolors = ncolors;
     memcpy(s->format->palette->colors, colors, sizeof(SDL_Color) * ncolors);
+    for (int i = 0; i < ncolors; i++) {
+        printf("%x ", s->format->palette->colors[i]);
+    }
+    printf("\n");
 
     if (s->flags & SDL_HWSURFACE) {
         assert(ncolors == 256);
