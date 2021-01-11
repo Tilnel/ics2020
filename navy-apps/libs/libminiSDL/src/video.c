@@ -110,7 +110,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         if (s->format->BytesPerPixel != 4) {
             SDL_Color *col = s->format->palette->colors;
             uint8_t *src = s->pixels;
-            assert(col && pixels);
+            assert(col && src);
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     int tmp = pixelbuf[i * w + j] =
