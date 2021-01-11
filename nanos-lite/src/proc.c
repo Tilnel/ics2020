@@ -27,7 +27,7 @@ void init_proc() {
 
   // load program here
   naive_uload(NULL, "/bin/pal/pal-x86");
-  // naive_uload(NULL, "/bin/nterm");//pal/pal-x86");
+  // naive_uload(NULL, "/bin/bmp-test");//pal/pal-x86");
 
 }
 
