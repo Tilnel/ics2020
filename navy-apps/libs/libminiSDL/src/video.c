@@ -113,7 +113,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
                         s->format->palette
                             ->colors[(uint8_t) * (s->pixels + i * 400 + j)]
                             .val;
-                    assert(tmp || 0xff000000);
+                    assert(!(tmp && 0xff000000));
                 }
             }
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
