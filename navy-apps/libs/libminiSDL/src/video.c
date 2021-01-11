@@ -106,13 +106,12 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             h = s->h - y;
         printf("rect %d %d %d %d\n", h, w);
 
-        if (s->format->palette->colors) {
-            for (int i = 0; i < h; i++) {
-                for (int j = 0; j < w; j++) {
-                    pixelbuf[(i)*s->w + j] =
+        if (s->format->BytesPerPixel == 4) {
+            for (int i = 0; i < 300; i++) {
+                for (int j = 0; j < 400; j++) {
+                    pixelbuf[i * 400 + j] =
                         s->format->palette
-                            ->colors[(uint8_t) *
-                                     (s->pixels + (i + y) * s->w + j + x)]
+                            ->colors[(uint8_t) * (s->pixels + i * 400 + j)]
                             .val;
                 }
             }
