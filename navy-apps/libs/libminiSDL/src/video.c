@@ -106,7 +106,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             h = s->h - y;
         printf("rect %d %d %d %d\n", h, w);
 
-        if (s->format->BytesPerPixel == 4) {
+        if (s->format->BytesPerPixel != 4) {
             SDL_Color *col = s->format->palette->colors;
             uint8_t *src = s->pixels;
             for (int i = 0; i < h; i++) {
