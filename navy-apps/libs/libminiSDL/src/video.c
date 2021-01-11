@@ -103,7 +103,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             h = s->h - y;
         printf("rect %d %d %d %d\n", h, w);
 
-        if (s->format->BytesPerPixel != 4) {
+        if (s->format->BytesPerPixel == 4) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     pixelbuf[(i)*s->w + j] =
@@ -116,7 +116,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
             NDL_DrawRect(pixelbuf, x, y, w, h);
         } else {
-            NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+            NDL_DrawRect((uint32_t *)s->pixels, 0, 0, w, h);
         }
     }
 }
