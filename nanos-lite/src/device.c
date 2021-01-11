@@ -44,8 +44,8 @@ size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
-  AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
-  int w = gpuconfig.width; 
+  // AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
+  int w = gpuconf.width; 
   offset = fs_lseek(5, 0, 1);
   int y = offset / 4 / w;
   int x = offset / 4 % w;
