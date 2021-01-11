@@ -34,7 +34,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   // assert(0);
   // printf("%s\n", dispinfo);
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
-  return sprintf((char *)buf, "WIDTH: %d\nHEIGHT: %d\n", &gpuconfig.width, &gpuconfig.height);
+  return sprintf(buf, "WIDTH: %d\nHEIGHT: %d\n", &gpuconfig.width, &gpuconfig.height);
 }
 
 size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
