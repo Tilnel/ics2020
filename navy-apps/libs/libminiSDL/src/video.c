@@ -266,7 +266,7 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
     // for (int i = 0; i < ncolors; i++) {
     //     printf("%x ", s->format->palette->colors[i]);
     // }
-    printf("pt %x\n", colors);
+    printf("pt %x %d %x\n", firstcolor, ncolors, colors);
 
     if (s->flags & SDL_HWSURFACE) {
         assert(ncolors == 256);
