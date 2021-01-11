@@ -20,7 +20,7 @@ AM_GPU_CONFIG_T gpuconf;
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   for (int i = 0; i < len; i++) putch(((char *)buf)[i]); 
-  return 0;
+  return len;
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
@@ -30,10 +30,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+  AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
   // assert(0);
   // printf("%s\n", dispinfo);
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
-  return len;
+  return sprintf((char *)buf, "WIDTH: %d\nHEIGHT: %d\n", &gpuconfig.width, &gpuconfig.height);
 }
 
 size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
@@ -43,7 +44,8 @@ size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
-  int w = gpuconf.width; 
+  AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
+  int w = gpuconfig.width; 
   offset = fs_lseek(5, 0, 1);
   int y = offset / 4 / w;
   int x = offset / 4 % w;
@@ -58,6 +60,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 void init_device() {
+  gpuconf = io_read(AM_GPU_CONFIG);
   Log("Initializing devices...");
   ioe_init();
 }

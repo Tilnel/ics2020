@@ -77,9 +77,9 @@ size_t fs_write(int fd, const void *buf, size_t count) {
   // printf("%d %d %d\n", fd, (intptr_t)buf, count);
   // printf("Write got it\n");
   size_t offset = file_table[fd].disk_offset + file_table[fd].open_offset;
-  file_table[fd].write(buf, offset, count);
-  fs_lseek(fd, count, 1);
-  return count;
+  int ret = file_table[fd].write(buf, offset, count);
+  fs_lseek(fd, ret, 1);
+  return ret;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
