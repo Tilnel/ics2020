@@ -51,12 +51,16 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
   int i;
   for (i = 0; i <= 5; i++) {
-    if (!strcmp(pathname, file_table[i].name)) return i;
+    if (!strcmp(pathname, file_table[i].name)) {
+      file_table[i].open_offset = 0;
+      return i;
+    }
   }
   for (i = 6; i * sizeof(Finfo) < sizeof(file_table); i++) {
     if (!strcmp(pathname, file_table[i].name)) {
       file_table[i].read = ramdisk_read;
       file_table[i].write = ramdisk_write;
+      file_table[i].open_offset = 0;
       return i;
     }
   }
