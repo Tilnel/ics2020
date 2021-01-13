@@ -118,7 +118,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
                         col[src[(i + y) * w + j + x]].val;
                 }
             }
-            ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
+            // ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
             NDL_DrawRect(pixelbuf, x, y, w, h);
         } else {
             NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
