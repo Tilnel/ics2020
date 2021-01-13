@@ -19,7 +19,7 @@ void do_syscall(Context *c) {
     case SYS_close : c->GPRx = fs_close(a[3]); break;
     case SYS_gettimeofday : c->GPRx = sys_gettimeofday((void *)a[3], (void *)a[2]); break;
     case SYS_brk : c->GPRx = 0; break;
-    case SYS_execve : naive_uload(NULL, (void *)a[3]); break;
+    case SYS_execve : printf("%s\n", (char *)a[3]); naive_uload(NULL, (void *)a[3]); break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
