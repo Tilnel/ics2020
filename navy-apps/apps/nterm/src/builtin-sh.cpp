@@ -26,7 +26,7 @@ static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   int len = strlen(cmd);
   strncpy(buf, cmd, len - 1);
-  printf("%s", buf);
+  printf("%s", cmd);
   setenv("PATH", "/bin", 1);
   execve(buf, NULL, NULL);
 }
