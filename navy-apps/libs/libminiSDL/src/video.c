@@ -38,19 +38,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     if (ws + xd > Wd)
         ws = Wd - xd;
     // printf("%d\n", (int)dstrect);
-    printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws,
-           hs, xd, yd, wd, hd);
     int width = dst->format->BytesPerPixel;
     for (int i = 0; i < hs; i++) {
         memcpy(dst->pixels + ((yd + i) * Wd + xd) * width,
                src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
-        // for (int j = 0; j < ws; j++) {
-
-        //     ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
-        //         ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
-        // }
-        // }
-        // SDL_UpdateRect(dst, xd, yd, wd, hd);
     }
 }
 
@@ -105,7 +96,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             w = s->w - x;
         if ((int)(y + h) > s->h)
             h = s->h - y;
-        printf("rect %d %d\n", h, w);
 
         if (s->format->BytesPerPixel != 4) {
             SDL_Color *col = s->format->palette->colors;
@@ -266,7 +256,6 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
     // for (int i = 0; i < ncolors; i++) {
     //     printf("%x ", s->format->palette->colors[i]);
     // }
-    printf("pt %x %d %x\n", firstcolor, ncolors, colors);
 
     if (s->flags & SDL_HWSURFACE) {
         assert(ncolors == 256);
