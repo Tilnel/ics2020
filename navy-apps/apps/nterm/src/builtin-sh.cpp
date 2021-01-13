@@ -23,9 +23,11 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  char buf[64];
+  int len = strlen(cmd);
+  strncpy(buf, cmd, len - 1);
   setenv("PATH", "/bin", 1);
-  printf("%s", cmd);
-  execve(cmd, NULL, NULL);
+  execve(buf, NULL, NULL);
 }
 
 void builtin_sh_run() {
