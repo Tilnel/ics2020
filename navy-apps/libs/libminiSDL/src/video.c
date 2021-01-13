@@ -48,8 +48,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     // printf("%d\n", (int)dstrect);
     int width = dst->format->BytesPerPixel;
     for (int i = 0; i < hs; i++) {
-        memcpy(dst->pixels + ((yd + i) * Wd + xd) * width,
-               src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
+        memcpy((void *)dst->pixels + ((yd + i) * Wd + xd) * width,
+               (void *)src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
     }
 }
 
