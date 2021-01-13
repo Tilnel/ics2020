@@ -125,7 +125,7 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
 again:
   opcode = instr_fetch(&s->seq_pc, 1);
   s->opcode = opcode;
-  printf("pc %d\n", s->seq_pc);
+  // printf("pc %d\n", s->seq_pc);
   switch (opcode) {
     IDEXW(0x00, G2E, add, 1)
     IDEX (0x01, G2E, add)
