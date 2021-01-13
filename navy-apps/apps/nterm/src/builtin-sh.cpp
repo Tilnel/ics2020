@@ -24,6 +24,7 @@ static void sh_prompt() {
 
 static void sh_handle_cmd(const char *cmd) {
   setenv("PATH", "/bin", 1);
+  printf("%s", cmd);
   execve(cmd, NULL, NULL);
 }
 
