@@ -121,8 +121,6 @@ static inline def_EHelper(2byte_esc) {
 }
 
 static inline void fetch_decode_exec(DecodeExecState *s) {
-  if (s -> seq_pc > 0x3012900 && s->seq_pc < 0x3012a00)
-  printf("pc %d\n", s->seq_pc);
   uint8_t opcode;
 again:
   opcode = instr_fetch(&s->seq_pc, 1);
