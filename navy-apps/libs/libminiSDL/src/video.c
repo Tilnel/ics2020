@@ -28,10 +28,18 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
         xs = srcrect->x;
         ys = srcrect->y;
     }
-    int wd = dstrect->w;
-    int hd = dstrect->h;
-    int xd = dstrect->x;
-    int yd = dstrect->y;
+    int wd, hd, xd, yd;
+    if (dstrect == NULL) {
+        wd = Wd;
+        hd = Hd;
+        xd = 0;
+        yd = 0;
+    } else {
+        wd = dstrect->w;
+        hd = dstrect->h;
+        xd = dstrect->x;
+        yd = dstrect->y;
+    }
 
     if (hs + yd > Hd)
         hs = Hd - yd;
@@ -64,14 +72,14 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     if (y + h > H)
         y = H - y;
 
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                if (y + i >= h || x + j >= w)
-                    continue;
-                ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
-            }
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            if (y + i >= h || x + j >= w)
+                continue;
+            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
         }
-        // SDL_UpdateRect(dst, x, y, w, h);
+    }
+    // SDL_UpdateRect(dst, x, y, w, h);
 }
 
 uint32_t pixelbuf[120000];
@@ -92,10 +100,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             uint8_t *src = s->pixels;
             // for (int i = 0; i < 256; i++) printf("%x ", col[i]);
             // printf("\n");
-            for (int i = 0; i < s->h; i++) {
-                for (int j = 0; j < s->w; j++) {
-                    int tmp = pixelbuf[(i) * s->w + j] =
-                        col[src[(i) * s->w + j]].val;
+            for (int i = 0; i < h; i++) {
+                for (int j = 0; j < w; j++) {
+                    int tmp = pixelbuf[(i + y) * s->w + j + x] =
+                        col[src[(i + y) * s->w + j + x]].val;
                 }
             }
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
