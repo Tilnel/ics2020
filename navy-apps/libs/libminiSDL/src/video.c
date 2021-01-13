@@ -88,13 +88,13 @@ uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
-        if (w == 0)
+        if (w == 0 || h == 0) {
             w = s->w;
-        if (h == 0)
             h = s->h;
-        if ((int)(x + w) > s->w)
+        }
+        if (x + w > s->w)
             w = s->w - x;
-        if ((int)(y + h) > s->h)
+        if (y + h > s->h)
             h = s->h - y;
 
         if (s->format->BytesPerPixel != 4) {
@@ -105,7 +105,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     int tmp = pixelbuf[i * w + j] =
-                        col[src[(i + y) * w + j + x]].val;
+                        col[src[(i + y) * s->w + j + x]].val;
                 }
             }
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
