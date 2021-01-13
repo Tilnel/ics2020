@@ -102,8 +102,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             // printf("\n");
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
-                    int tmp = pixelbuf[(i + y) * s->w + j + x] =
-                        col[src[(i + y) * s->w + j + x]].val;
+                    int tmp = pixelbuf[i * s->w + j] =
+                        col[src[i * s->w + j]].val;
                 }
             }
             ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
