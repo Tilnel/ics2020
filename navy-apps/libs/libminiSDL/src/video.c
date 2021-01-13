@@ -64,15 +64,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     if (y + h > H)
         y = H - y;
 
-    if (dst->format->BytesPerPixel != 4) {
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                continue;
-                ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] =
-                    dst->format->palette->colors[color].val;
-            }
-        }
-    } else {
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 if (y + i >= h || x + j >= w)
@@ -81,7 +72,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
             }
         }
         // SDL_UpdateRect(dst, x, y, w, h);
-    }
 }
 
 uint32_t pixelbuf[120000];
