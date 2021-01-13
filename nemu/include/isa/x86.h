@@ -51,18 +51,15 @@ typedef struct {
     union {
       rtlreg_t eflags;
       struct {
-       uint8_t unused1 : 8;
-       uint8_t unused6 : 8;
-       uint8_t unused : 4;
-       uint8_t OF : 1;
-       uint8_t unused2 : 1;
-       uint8_t IF : 1;
-       uint8_t unused3 : 1;
-       uint8_t SF : 1;
-       uint8_t ZF : 1;
-       uint8_t unused4 : 4;
-       uint8_t unused5 : 1;
        uint8_t CF : 1;
+       uint8_t : 5;
+       uint8_t ZF : 1;
+       uint8_t SF : 1;
+       uint8_t : 1;
+       uint8_t IF : 1;
+       uint8_t : 1;
+       uint8_t OF : 1;
+       uint32_t : 20;
       };
     };  
     rtlreg_t cs;//, ss, ds, es, fs, gs;

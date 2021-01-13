@@ -1,5 +1,4 @@
 #include <common.h>
-#include <sys/time.h>
 
 #if defined(MULTIPROGRAM) && !defined(TIME_SHARING)
 # define MULTIPROGRAM_YIELD() yield()
@@ -21,7 +20,7 @@ AM_GPU_CONFIG_T gpuconf;
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   for (int i = 0; i < len; i++) putch(((char *)buf)[i]); 
-  return 0;
+  return len;
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
@@ -31,10 +30,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+  AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
   // assert(0);
-  printf("%s\n", dispinfo);
+  // printf("%s\n", dispinfo);
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
-  return len;
+  return sprintf(buf, "WIDTH: %d\nHEIGHT: %d\n", &gpuconfig.width, &gpuconfig.height);
 }
 
 size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
@@ -44,16 +44,12 @@ size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
+  // AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
   int w = gpuconf.width; 
-  int h = gpuconf.height;
   offset = fs_lseek(5, 0, 1);
-  printf("%d %d ", w, h);
-  printf("%d ", offset);
   int y = offset / 4 / w;
   int x = offset / 4 % w;
-  printf("%d %d\n", x, y);
-
-  io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf + offset / 4, len / 4, 1, true);
+  io_write(AM_GPU_FBDRAW, x, y, (uint32_t *)buf, len / 4, 1, true);
   return 0;
 }
 
@@ -64,6 +60,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 void init_device() {
+  gpuconf = io_read(AM_GPU_CONFIG);
   Log("Initializing devices...");
   ioe_init();
 }

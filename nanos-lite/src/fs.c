@@ -51,12 +51,16 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
   int i;
   for (i = 0; i <= 5; i++) {
-    if (!strcmp(pathname, file_table[i].name)) return i;
+    if (!strcmp(pathname, file_table[i].name)) {
+      file_table[i].open_offset = 0;
+      return i;
+    }
   }
   for (i = 6; i * sizeof(Finfo) < sizeof(file_table); i++) {
     if (!strcmp(pathname, file_table[i].name)) {
       file_table[i].read = ramdisk_read;
       file_table[i].write = ramdisk_write;
+      file_table[i].open_offset = 0;
       return i;
     }
   }
@@ -66,9 +70,10 @@ int fs_open(const char *pathname, int flags, int mode) {
 
 size_t fs_read(int fd, void *buf, size_t len) {
   // assert(file_table[fd].read == 1);
+  if (fd >= 6 && file_table[fd].open_offset > file_table[fd].size) return 0;
   size_t offset = file_table[fd].disk_offset + file_table[fd].open_offset;
   int ret = file_table[fd].read(buf, offset, len);
-  fs_lseek(fd, len, 1);
+  fs_lseek(fd, ret, 1);
   return ret;
 }
 
@@ -76,23 +81,25 @@ size_t fs_write(int fd, const void *buf, size_t count) {
   // printf("%d %d %d\n", fd, (intptr_t)buf, count);
   // printf("Write got it\n");
   size_t offset = file_table[fd].disk_offset + file_table[fd].open_offset;
-  file_table[fd].write(buf, offset, count);
-  fs_lseek(fd, count, 1);
-  return count;
+  int ret = file_table[fd].write(buf, offset, count);
+  fs_lseek(fd, ret, 1);
+  return ret;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
+  size_t tmp;
   switch(whence) {
     case SEEK_SET:
-      file_table[fd].open_offset = offset; break;
+      tmp = offset; break;
     case SEEK_CUR:
-      file_table[fd].open_offset = file_table[fd].open_offset + offset; break;
+      tmp = file_table[fd].open_offset + offset; break;
     case SEEK_END:
-      file_table[fd].open_offset = file_table[fd].size + offset; break;
+      tmp = file_table[fd].size + offset; break;
     default:
       assert(0);
   }
-  return file_table[fd].open_offset;
+  // if (fd >= 6 && tmp > file_table[fd].size) { printf("0"); return -1; }
+  return file_table[fd].open_offset = tmp;
 }
 
 int fs_close(int fd) {

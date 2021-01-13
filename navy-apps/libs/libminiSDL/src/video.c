@@ -1,81 +1,128 @@
 #include <NDL.h>
 #include <assert.h>
 #include <sdl-video.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
+static void ConvertPixelsARGB_ABGR(void *dst, void *src, int len);
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
                      SDL_Rect *dstrect) {
-    // assert(dst && src);
-    // assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-    if (dst && src) {
+    assert(dst && src);
+    assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+    // printf("dd%d ss%d\n", (int)dst, (int)src);
+    // if (dst && src) {
     int Ws = src->w;
     int Hs = src->h;
     int Wd = dst->w;
     int Hd = dst->h;
     int ws, hs, xs, ys;
-    if (!srcrect) {
-      ws = Ws;
-      hs = Hs;
-      xs = 0;
-      ys = 0;
+    if (srcrect == NULL) {
+        ws = Ws;
+        hs = Hs;
+        xs = 0;
+        ys = 0;
     } else {
-      ws = srcrect->w;
-      hs = srcrect->h;
-      xs = srcrect->x;
-      ys = srcrect->y;
+        ws = srcrect->w;
+        hs = srcrect->h;
+        xs = srcrect->x;
+        ys = srcrect->y;
     }
     int wd = dstrect->w;
     int hd = dstrect->h;
     int xd = dstrect->x;
     int yd = dstrect->y;
-    printf("%d\n", (int)dstrect);
-    printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws, hs, xd, yd, wd, hd);
+
+    if (hs + yd > Hd)
+        hs = Hd - yd;
+    if (ws + xd > Wd)
+        ws = Wd - xd;
+    // printf("%d\n", (int)dstrect);
+    printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", Ws, Hs, Wd, Hd, xs, ys, ws,
+           hs, xd, yd, wd, hd);
+    int width = dst->format->BytesPerPixel;
     for (int i = 0; i < hs; i++) {
-      for (int j = 0; j < ws; j++) {
-        ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd] = ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs];
-      }
-    }
-    //SDL_UpdateRect(dst, xd, yd, wd, hd);
+        memcpy(dst->pixels + ((yd + i) * Wd + xd) * width,
+               src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
+        // for (int j = 0; j < ws; j++) {
+
+        //     ((uint32_t *)(dst->pixels))[(yd + i) * Wd + xd + j] =
+        //         ((uint32_t *)(src->pixels))[(ys + i) * Ws + xs + j];
+        // }
+        // }
+        // SDL_UpdateRect(dst, xd, yd, wd, hd);
     }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  int w = dstrect->w;
-  int h = dstrect->h;
-  int x = dstrect->x;
-  int y = dstrect->y;
-  int W = dst->w;
-  
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < w; j++) {
-      ((uint32_t *)(dst->pixels))[(y + i) * W + x] = color;
+    int W = dst->w;
+    int H = dst->h;
+    int w, h, x, y;
+    if (dstrect) {
+        w = dstrect->w;
+        h = dstrect->h;
+        x = dstrect->x;
+        y = dstrect->y;
+    } else {
+        w = W;
+        h = H;
+        x = y = 0;
     }
-  }
-  //SDL_UpdateRect(dst, x, y, w, h);
+    if (x + w > W)
+        x = W - x;
+    if (y + h > H)
+        y = H - y;
+
+    if (dst->format->BytesPerPixel != 4) {
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                continue;
+                ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] =
+                    dst->format->palette->colors[color].val;
+            }
+        }
+    } else {
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                if (y + i >= h || x + j >= w)
+                    continue;
+                ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
+            }
+        }
+        // SDL_UpdateRect(dst, x, y, w, h);
+    }
 }
+
+uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
-        SDL_Rect rect;
-
-        /* Perform some checking */
         if (w == 0)
             w = s->w;
         if (h == 0)
             h = s->h;
         if ((int)(x + w) > s->w)
-            return;
+            w = s->w - x;
         if ((int)(y + h) > s->h)
-            return;
+            h = s->h - y;
+        printf("rect %d %d\n", h, w);
 
-        /* Fill the rectangle */
-        rect.x = (int16_t)x;
-        rect.y = (int16_t)y;
-        rect.w = (uint16_t)w;
-        rect.h = (uint16_t)h;
-        NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+        if (s->format->BytesPerPixel != 4) {
+            SDL_Color *col = s->format->palette->colors;
+            uint8_t *src = s->pixels;
+            // for (int i = 0; i < 256; i++) printf("%x ", col[i]);
+            // printf("\n");
+            for (int i = 0; i < h; i++) {
+                for (int j = 0; j < w; j++) {
+                    int tmp = pixelbuf[i * w + j] =
+                        col[src[(i + y) * w + j + x]].val;
+                }
+            }
+            ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
+            NDL_DrawRect(pixelbuf, x, y, w, h);
+        } else {
+            NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+        }
     }
 }
 
@@ -216,6 +263,10 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
 
     s->format->palette->ncolors = ncolors;
     memcpy(s->format->palette->colors, colors, sizeof(SDL_Color) * ncolors);
+    // for (int i = 0; i < ncolors; i++) {
+    //     printf("%x ", s->format->palette->colors[i]);
+    // }
+    printf("pt %x %d %x\n", firstcolor, ncolors, colors);
 
     if (s->flags & SDL_HWSURFACE) {
         assert(ncolors == 256);
