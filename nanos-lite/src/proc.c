@@ -2,6 +2,7 @@
 extern void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *p, void (*entry)(void *), void *arg);
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg);
+// static uintptr_t loader(PCB *pcb, const char *filename) {
 
 #define MAX_NR_PROC 4
 static int times = 0;
@@ -15,8 +16,8 @@ void switch_boot_pcb() { current = &pcb_boot; }
 void hello_fun(void *arg) {
     int j = 1;
     while (1) {
-        Log("Hello World from Nanos-lite with arg '%s' for the %dth time!",
-            arg, j);
+        Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
+            (uintptr_t)arg, j);
         j++;
         yield();
     }
@@ -46,3 +47,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
   p->as.area.start = p->stack;
   p->cp = kcontext(p->as.area, entry, arg);
 }
+
+// void context_uload(PCB *p, char *filename) {
+//     void *entry = loader(p, filename);
+// }
