@@ -16,7 +16,6 @@ __am_asm_trap:
   popl %esp
 
   addl $4, %esp
-  popal
   addl $4, %esp
 
   iret
