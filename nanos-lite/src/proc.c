@@ -39,7 +39,7 @@ Context *schedule(Context *prev) {
 }
 
 Context *context_kload(PCB *p, void (*entry)(void *), void *arg) {
-  p->as.area.end = p->stack + 32768;
+  p->as.area.end = p->stack + 32767;
   p->as.area.start = p->stack;
   return p->cp = kcontext(p->as.area, entry, arg);
 }
