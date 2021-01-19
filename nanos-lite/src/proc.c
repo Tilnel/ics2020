@@ -1,7 +1,7 @@
 #include <proc.h>
 extern void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *p, void (*entry)(void *), void *arg);
-void context_uload(PCB *p, const char *filename, char *const argv[],
+void context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]);
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
@@ -53,15 +53,16 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
     p->cp = kcontext(p->as.area, entry, arg);
 }
 
-void context_uload(PCB *p, const char *filename, char *const argv[],
+void context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]) {
+    strcpy(argv[0], filename);
     p->as.area.start = new_page(1);
     p->as.area.end = p->as.area.start + 4096;
     void *entry = (void *)loader(p, filename);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
 }
 
-int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
+int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     context_uload(&(pcb[cnt++]), filename, argv, envp);
     return 0;
 }
