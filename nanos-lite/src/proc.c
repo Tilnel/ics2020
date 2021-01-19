@@ -41,7 +41,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = &pcb[1];
+    current = &pcb[0];
     return current->cp;
 }
 
