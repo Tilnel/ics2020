@@ -42,6 +42,4 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
   p->as.area.end = p->stack + 32768;
   p->as.area.start = p->stack;
   p->cp = kcontext(p->as.area, entry, arg);
-  ((uint32_t *)p->stack)[0] = (int)p->cp;
-  printf("%x\n", p->cp->eip);
 }
