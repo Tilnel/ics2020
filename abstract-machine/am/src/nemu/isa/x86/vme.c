@@ -61,7 +61,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   printf("%x\n", heap.end);
-  Context *ret = heap.end;
+  Context *ret = heap.end - 100;
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
   return ret;
