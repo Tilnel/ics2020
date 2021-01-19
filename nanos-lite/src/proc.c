@@ -26,7 +26,7 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[] = {"/bin/exec-test", " "};
+    static char *argvv[] = {"/bin/exec-test", "1"};
     // context_kload(&pcb[0], hello_fun, "abc");
     context_uload(&pcb[0], "/bin/exec-test", argvv, NULL);
     switch_boot_pcb();
