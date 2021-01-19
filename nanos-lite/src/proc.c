@@ -1,8 +1,9 @@
 #include <proc.h>
 extern void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *p, void (*entry)(void *), void *arg);
-void context_uload(PCB *p, const char *filename, char *const argv[], char *const envp[]);
-Context* kcontext(Area kstack, void (*entry)(void *), void *arg);
+void context_uload(PCB *p, const char *filename, char *const argv[],
+                   char *const envp[]);
+Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
@@ -25,7 +26,7 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-char *argvv[] = {"pal", "--skip"};
+    static char *argvv[] = {"pal", "--skip"};
     context_kload(&pcb[0], hello_fun, "abc");
     context_uload(&pcb[1], "/bin/pal", argvv, NULL);
     switch_boot_pcb();
@@ -45,12 +46,13 @@ Context *schedule(Context *prev) {
 }
 
 void context_kload(PCB *p, void (*entry)(void *), void *arg) {
-  p->as.area.end = p->stack + 32768;
-  p->as.area.start = p->stack;
-  p->cp = kcontext(p->as.area, entry, arg);
+    p->as.area.end = p->stack + 32768;
+    p->as.area.start = p->stack;
+    p->cp = kcontext(p->as.area, entry, arg);
 }
 
-void context_uload(PCB *p, const char *filename, char *const argv[], char *const envp[]) {
+void context_uload(PCB *p, const char *filename, char *const argv[],
+                   char *const envp[]) {
     void *entry = (void *)loader(p, filename);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
 }
