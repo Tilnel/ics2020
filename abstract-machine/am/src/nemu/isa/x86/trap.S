@@ -14,7 +14,7 @@ __am_asm_trap:
   call __am_irq_handle
   #movl 0x10(%eax), %esp
 
-  addl $4, %esp
+  popl %esp
 
   addl $4, %esp
   popal
