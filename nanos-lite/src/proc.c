@@ -26,9 +26,9 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[] = {"/bin/nterm"};
+    static char *argvv[] = {"/bin/pal"};
     // context_kload(&pcb[0], hello_fun, "abc");
-    context_uload(&pcb[0], "/bin/nterm", argvv, NULL);
+    context_uload(&pcb[0], "/bin/pal", argvv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
