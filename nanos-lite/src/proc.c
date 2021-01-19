@@ -61,6 +61,7 @@ void context_uload(PCB *p, const char *filename, char *const argv[],
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
 }
 
-void sys_execve(const char *filename, char *const argv[], char *const envp[]) {
+int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     context_uload(&(pcb[cnt++]), filename, argv, envp);
+    return 0;
 }
