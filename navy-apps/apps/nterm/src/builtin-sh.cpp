@@ -26,8 +26,8 @@ static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   int len = strlen(cmd);
   char *argv[5];
-  sscanf(cmd, "%s %s %s %s %s", buf, argv[1], argv[2], argv[3], argv[4]);
-  printf("%s\n", buf);
+  sscanf(cmd, "%s %s %s %s %s", argv[0], argv[1], argv[2], argv[3], argv[4]);
+  printf("%s\n", argv[0]);
   assert(0);
   // printf("%s", buf);
   sprintf(argv[0], "%s", buf);
