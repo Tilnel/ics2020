@@ -93,6 +93,7 @@ static inline def_EHelper(in_di) {
     default : assert(0);
   } 
   vaddr_write(cpu.edi, *s0, 1);
+  cpu.edi++;
   //TODO();
   print_asm_template2(in);
 }
