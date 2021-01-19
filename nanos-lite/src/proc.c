@@ -7,6 +7,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
+static int cnt = 1;
 static int times = 0;
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
@@ -26,9 +27,10 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[] = {"pal", "--skip"};
-    context_kload(&pcb[0], hello_fun, "abc");
-    context_uload(&pcb[1], "/bin/pal", argvv, NULL);
+    // static char *argvv[];
+    // static char *argvv[] = {"pal", "--skip"};
+    // context_kload(&pcb[0], hello_fun, "abc");
+    context_uload(&pcb[0], "/bin/exec-test", NULL, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
@@ -57,4 +59,8 @@ void context_uload(PCB *p, const char *filename, char *const argv[],
     p->as.area.end = p->as.area.start + 4096;
     void *entry = (void *)loader(p, filename);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
+}
+
+void sys_execve(const char *filename, char *const argv[], char *const envp[]) {
+    context_uload(&(pcb[cnt++]), filename, argv, envp);
 }

@@ -1,6 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 extern void naive_uload(void *pcb, const char *filename);
+void sys_execve(const char *filename, char *const argv[], char *const envp[]);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -19,7 +20,7 @@ void do_syscall(Context *c) {
     case SYS_close : c->GPRx = fs_close(a[3]); break;
     case SYS_gettimeofday : c->GPRx = sys_gettimeofday((void *)a[3], (void *)a[2]); break;
     case SYS_brk : c->GPRx = 0; break;
-    case SYS_execve : naive_uload(NULL, (void *)a[3]); break;
+    case SYS_execve : sys_execve((void *)a[3], (void *)a[2], (void *)a[1]); break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
