@@ -67,7 +67,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
   // printf("argc %d\n", argc);
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
-  ret->eax = argc;
+  ret->eax = (int)ret + 52;
   ((uint32_t *)ret)[13] = argc;  // under stack 1 byte
   ((uint32_t *)ret)[14] = (int)argv;  
   ((uint32_t *)ret)[15] = (int)envp;  
