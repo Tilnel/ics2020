@@ -23,11 +23,11 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
-  assert(0);
   char buf[64];
   int len = strlen(cmd);
   char *argv[5];
   sscanf(cmd, "%s %s %s %s %s", buf, argv[1], argv[2], argv[3], argv[4]);
+  assert(0);
   // printf("%s", buf);
   sprintf(argv[0], "%s", buf);
   printf("%s %s %s %s %s\n", argv[0], argv[1], argv[2], argv[3], argv[4]);
