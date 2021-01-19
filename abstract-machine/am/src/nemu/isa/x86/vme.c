@@ -62,7 +62,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], char *const envp[]) {
   Context *ret = as->area.end - 64;
   int argc = sizeof(*argv) >> 2;
-  printf("argc %s\n", argv[1]);
+  printf("argc %d\n", argc);
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
   ((uint32_t *)ret)[13] = argc;  // under stack 1 byte
