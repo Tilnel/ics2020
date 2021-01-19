@@ -31,7 +31,6 @@ static void sh_handle_cmd(const char *cmd) {
   sscanf(cmd, "%s %s %s %s %s", arg[0], arg[1], arg[2], arg[3], arg[4]);
   printf("%s\n", argv[0]);
   // printf("%s", buf);
-  sprintf(argv[0], "%s", buf);
   setenv("PATH", "/bin", 1);
   execvp(argv[0], argv);
 }
