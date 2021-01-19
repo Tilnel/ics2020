@@ -39,6 +39,5 @@ Context *schedule(Context *prev) {
 }
 
 Context *context_kload(PCB *p, void (*entry)(void *), void *arg) {
-  p->cp = NULL;//(Context *)kcontext((Area)p->as, entry, arg);
-  return p->cp;
+  return p->cp = kcontext(p->as.area, entry, arg);
 }

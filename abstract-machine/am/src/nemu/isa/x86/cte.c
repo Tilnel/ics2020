@@ -54,8 +54,8 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
 
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  void *ret = (void *)kstack.end - 52;
-  return (Context *)ret;
+  void *ret = (void *)(kstack.end - 52);
+  return ret;
 }
 
 void yield() {
