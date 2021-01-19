@@ -51,5 +51,5 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 
 void context_uload(PCB *p, char *filename) {
     void *entry = (void *)loader(p, filename);
-    ucontext(&(p->as), pcb[0].as.area, entry);
+    p->cp = ucontext(&(p->as), pcb[0].as.area, entry);
 }
