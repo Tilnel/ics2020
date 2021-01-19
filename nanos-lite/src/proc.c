@@ -26,9 +26,9 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[] = {"/bin/cat"};
+    static char *argvv[] = {"/bin/menu"};
     // context_kload(&pcb[0], hello_fun, "abc");
-    context_uload(&pcb[0], "/bin/cat", argvv, NULL);
+    context_uload(&pcb[0], "/bin/menu", argvv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
