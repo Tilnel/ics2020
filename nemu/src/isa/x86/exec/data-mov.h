@@ -124,3 +124,7 @@ static inline def_EHelper(xchg) {
   operand_write(s, id_dest, dsrc1);
   operand_write(s, id_src1, s0);
 }
+
+static inline def_EHelper(r2cr) {
+  cpu.cr3 = *ddest;
+}
