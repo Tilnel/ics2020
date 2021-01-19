@@ -3,10 +3,12 @@
 static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
-  return NULL;
+  void *tmp = heap.start;
+  heap.start += nr_page * 4096;
+  return tmp;
 }
 
-static void* pg_alloc(int n) {
+static inline void* pg_alloc(int n) {
   return NULL;
 }
 

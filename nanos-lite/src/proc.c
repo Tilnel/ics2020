@@ -53,6 +53,8 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 
 void context_uload(PCB *p, const char *filename, char *const argv[],
                    char *const envp[]) {
+    p->as.area.start = new_page(1);
+    p->as.area.end = p->as.area.start + 4096;
     void *entry = (void *)loader(p, filename);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
 }
