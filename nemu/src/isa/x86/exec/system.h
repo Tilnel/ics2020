@@ -84,3 +84,15 @@ static inline def_EHelper(out) {
   //TODO();
   print_asm_template2(out);
 }
+
+static inline def_EHelper(in_di) {
+  switch (id_dest->width) {
+    case 1 : *s0 = pio_read_b(*dsrc1); break;  
+    case 2 : *s0 = pio_read_w(*dsrc1); break;
+    case 4 : *s0 = pio_read_l(*dsrc1); break;
+    default : assert(0);
+  } 
+  vaddr_write(cpu.edi, *s0, 1);
+  //TODO();
+  print_asm_template2(in);
+}
