@@ -8,7 +8,6 @@ uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 static int cnt = 1;
-static int times = 0;
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
@@ -42,8 +41,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = &pcb[cnt - 1];
-    times++;
+    current = &pcb[0];
     return current->cp;
 }
 
@@ -58,7 +56,7 @@ void context_uload(PCB *p, const char *filename, char *argv[],
     strcpy(argv[0], filename);
     p->as.area.start = new_page(1);
     p->as.area.end = p->as.area.start + 4096;
-    printf("pile %x\n", p->as.area.end);
+    // printf("pile %x\n", p->as.area.end);
     void *entry = (void *)loader(p, filename);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
 }
