@@ -24,15 +24,16 @@ static void sh_prompt() {
 
 static void sh_handle_cmd(const char *cmd) {
   char buf[64];
+  char arg[5][16];
   int len = strlen(cmd);
   char *argv[5];
-  sscanf(cmd, "%s %s %s %s %s", argv[0], argv[1], argv[2], argv[3], argv[4]);
+  for (int i = 0; i <= 4; i++) argv[i] = arg[i];
+  sscanf(cmd, "%s %s %s %s %s", arg[0], arg[1], arg[2], arg[3], arg[4]);
   printf("%s\n", argv[0]);
-  assert(0);
   // printf("%s", buf);
   sprintf(argv[0], "%s", buf);
   setenv("PATH", "/bin", 1);
-  execvp(buf, argv);
+  execvp(argv[0], argv);
 }
 
 void builtin_sh_run() {
