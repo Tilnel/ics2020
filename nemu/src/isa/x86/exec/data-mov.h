@@ -24,7 +24,7 @@ static inline def_EHelper(pop) {
 static inline def_EHelper(pusha) {
   if (s->isa.is_operand_size_16) {
   } else {
-    *s0 = cpu.esp;
+    *s0 = cpu.esp - 36;
     rtl_push(s, &cpu.eax);
     rtl_push(s, &cpu.ecx);
     rtl_push(s, &cpu.edx);
