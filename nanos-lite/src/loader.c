@@ -12,7 +12,7 @@ size_t get_ramdisk_size();
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-static uintptr_t loader(PCB *pcb, const char *filename) {
+uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
   Elf_Ehdr eh;
   Elf_Phdr ph;

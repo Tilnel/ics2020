@@ -1,8 +1,9 @@
 #include <proc.h>
 extern void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *p, void (*entry)(void *), void *arg);
+void context_uload(PCB *p, char *filename);
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg);
-// static uintptr_t loader(PCB *pcb, const char *filename) {
+uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 static int times = 0;
@@ -25,7 +26,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
     context_kload(&pcb[0], hello_fun, "abc");
-    context_kload(&pcb[1], hello_fun, "xyz");
+    context_uload(&pcb[1], "/bin/pal");
     switch_boot_pcb();
 
     Log("Initializing processes...");
@@ -48,6 +49,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
   p->cp = kcontext(p->as.area, entry, arg);
 }
 
-// void context_uload(PCB *p, char *filename) {
-//     void *entry = loader(p, filename);
-// }
+void context_uload(PCB *p, char *filename) {
+    void *entry = (void *)loader(p, filename);
+    ucontext(&(p->as), pcb[0].as.area, entry);
+}
