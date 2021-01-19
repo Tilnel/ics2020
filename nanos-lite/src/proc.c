@@ -28,8 +28,8 @@ void hello_fun(void *arg) {
 void init_proc() {
     static char *argvv[] = {"/bin/pal"};
     context_kload(&pcb[0], hello_fun, "abc");
-    context_uload(&pcb[1], "/bin/pal", argvv, NULL);
-    // context_uload(&pcb[1], "/bin/hello", argvv, NULL);
+    // context_uload(&pcb[1], "/bin/pal", argvv, NULL);
+    context_uload(&pcb[1], "/bin/hello", argvv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
@@ -42,6 +42,7 @@ void init_proc() {
 Context *schedule(Context *prev) {
     current->cp = prev;
     current = &pcb[cnt & 1];
+    cnt ++;
     return current->cp;
 }
 
@@ -65,7 +66,7 @@ int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     context_uload(&(pcb[cnt]), filename, argv, envp);
     strcpy(argv[0], filename);
     switch_boot_pcb(&pcb[cnt]);
-    cnt++;
+    // cnt++;
     yield();
     return 0;
 }
