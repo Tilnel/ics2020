@@ -17,7 +17,6 @@ void hello_fun(void *arg) {
         Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
             (uintptr_t)arg, j);
         j++;
-        assert(0);
         yield();
     }
 }
@@ -42,5 +41,6 @@ Context *schedule(Context *prev) {
 Context *context_kload(PCB *p, void (*entry)(void *), void *arg) {
   p->as.area.end = p->stack + 32767;
   p->as.area.start = p->stack;
-  return p->cp = kcontext(p->as.area, entry, arg);
+  p->cp = kcontext(p->as.area, entry, arg);
+  return p->cp;
 }
