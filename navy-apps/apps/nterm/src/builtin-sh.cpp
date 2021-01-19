@@ -28,7 +28,7 @@ static void sh_handle_cmd(const char *cmd) {
   char *argv[5];
   for (int i = 0; i <= 4; i++) argv[i] = arg[i];
   sscanf(cmd, "%s %s %s %s %s", arg[0], arg[1], arg[2], arg[3], arg[4]);
-  printf("%s\n", argv[1]);
+  // printf("%s\n", argv[1]);
   // printf("%s", buf);
   setenv("PATH", "/bin", 1);
   execvp(argv[0], argv);
