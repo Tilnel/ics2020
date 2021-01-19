@@ -25,10 +25,12 @@ static void sh_prompt() {
 static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   int len = strlen(cmd);
-  sscanf(cmd, "%s", buf);
+  char *argv[5];
+  sscanf(cmd, "%s %s %s %s %s", buf, argv[1], argv[2], argv[3], argv[4]);
   printf("%s", buf);
+  sprintf(argv[0], "%s", buf);
   setenv("PATH", "/bin", 1);
-  execvp(buf, NULL);
+  execvp(buf, argv);
 }
 
 void builtin_sh_run() {
