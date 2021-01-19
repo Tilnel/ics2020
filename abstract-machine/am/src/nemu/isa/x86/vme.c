@@ -63,7 +63,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
   Context *ret = as->area.end - 64;
   int i = 1;
   while (argv[i++]);
-  int argc = i;
+  int argc = i - 1;
   // printf("argc %d\n", argc);
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
