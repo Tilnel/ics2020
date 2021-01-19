@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
   printf("%s: argv[1] = %d\n", argv[0], n);
 
   char buf[16];
-  printf("%x\n", (int)&n);
+  // printf("%x\n", (int)&n);
   sprintf(buf, "%d", n + 1);
   execl(argv[0], argv[0], buf, NULL);
   return 0;
