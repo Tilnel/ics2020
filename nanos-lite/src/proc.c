@@ -4,6 +4,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg);
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg);
 
 #define MAX_NR_PROC 4
+static int times = 0;
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
@@ -23,6 +24,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
     context_kload(&pcb[0], hello_fun, NULL);
+    context_kload(&pcb[1], hello_fun, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
@@ -34,7 +36,8 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = &pcb[0];
+    current = &pcb[times & 1];
+    times++;
     return current->cp;
 }
 
