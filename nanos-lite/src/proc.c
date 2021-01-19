@@ -1,6 +1,6 @@
 #include <proc.h>
 extern void naive_uload(PCB *pcb, const char *filename);
-Context *context_kload(PCB *p, void (*entry)(void *), void *arg);
+void context_kload(PCB *p, void (*entry)(void *), void *arg);
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg);
 
 #define MAX_NR_PROC 4
@@ -38,10 +38,9 @@ Context *schedule(Context *prev) {
     return current->cp;
 }
 
-Context *context_kload(PCB *p, void (*entry)(void *), void *arg) {
-  p->as.area.end = p->stack + 32767;
+void context_kload(PCB *p, void (*entry)(void *), void *arg) {
+  p->as.area.end = p->stack + 32768;
   p->as.area.start = p->stack;
   p->cp = kcontext(p->as.area, entry, arg);
   ((uint32_t *)p->stack)[0] = (int)p->cp;
-  return p->cp;
 }
