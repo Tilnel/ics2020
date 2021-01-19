@@ -61,9 +61,9 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], char *const envp[]) {
   Context *ret = as->area.end - 64;
-  int i = 1;
-  while (argv[i++] != NULL);
-  int argc = i - 1;
+  // int i = 1;
+  // while (argv[i++] != NULL);
+  int argc = 1;
   // printf("argc %d\n", argc);
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
