@@ -27,7 +27,7 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[6];
+    static char *argvv[10];
     // static char *argvv[] = {"pal", "--skip"};
     // context_kload(&pcb[0], hello_fun, "abc");
     context_uload(&pcb[0], "/bin/exec-test", argvv, NULL);
@@ -64,5 +64,7 @@ void context_uload(PCB *p, const char *filename, char *argv[],
 
 int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     context_uload(&(pcb[cnt++]), filename, argv, envp);
+    switch_boot_pcb(&pcb[cnt - 1]);
+    yield();
     return 0;
 }
