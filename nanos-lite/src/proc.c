@@ -27,10 +27,10 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    // static char *argvv[];
+    static char *argvv[6];
     // static char *argvv[] = {"pal", "--skip"};
     // context_kload(&pcb[0], hello_fun, "abc");
-    context_uload(&pcb[0], "/bin/exec-test", NULL, NULL);
+    context_uload(&pcb[0], "/bin/exec-test", argvv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
