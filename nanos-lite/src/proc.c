@@ -26,9 +26,9 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[] = {"/bin/printenv"};
+    static char *argvv[] = {"/bin/busybox", "printenv"};
     // context_kload(&pcb[0], hello_fun, "abc");
-    context_uload(&pcb[0], "/bin/printenv", argvv, NULL);
+    context_uload(&pcb[0], "/bin/busybox", argvv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
