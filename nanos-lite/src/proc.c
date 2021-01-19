@@ -54,6 +54,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 void context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]) {
     strcpy(argv[0], filename);
+    printf("argv0 %s\n", argv[0]);
     p->as.area.start = new_page(1);
     p->as.area.end = p->as.area.start + 4096;
     // printf("pile %x\n", p->as.area.end);
