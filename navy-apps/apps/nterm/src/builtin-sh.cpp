@@ -27,10 +27,10 @@ static void sh_handle_cmd(const char *cmd) {
   int len = strlen(cmd);
   char *argv[5];
   sscanf(cmd, "%s %s %s %s %s", buf, argv[1], argv[2], argv[3], argv[4]);
+  printf("%s %s %s %s %s\n", argv[0], argv[1], argv[2], argv[3], argv[4]);
   assert(0);
   // printf("%s", buf);
   sprintf(argv[0], "%s", buf);
-  printf("%s %s %s %s %s\n", argv[0], argv[1], argv[2], argv[3], argv[4]);
   setenv("PATH", "/bin", 1);
   execvp(buf, argv);
 }
