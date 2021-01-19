@@ -41,7 +41,8 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = &pcb[cnt - 1];
+    current = &pcb[cnt];
+    cnt++;
     return current->cp;
 }
 
@@ -64,7 +65,6 @@ void context_uload(PCB *p, const char *filename, char *argv[],
 int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     context_uload(&(pcb[cnt]), filename, argv, envp);
     switch_boot_pcb(&pcb[cnt]);
-    cnt++;
     yield();
     return 0;
 }
