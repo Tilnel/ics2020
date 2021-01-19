@@ -63,7 +63,7 @@ void context_uload(PCB *p, const char *filename, char *argv[],
 
 int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     context_uload(&(pcb[cnt]), filename, argv, envp);
-    printf("filename %s\n", filename);
+    strcpy(argv[0], filename);
     switch_boot_pcb(&pcb[cnt]);
     cnt++;
     yield();
