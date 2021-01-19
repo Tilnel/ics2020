@@ -318,3 +318,15 @@ static inline void operand_write(DecodeExecState *s, Operand *op, rtlreg_t* src)
 static inline def_DHelper(gp3_a) {
   decode_op_a(s, id_dest, false);
 }
+
+static inline def_DHelper(cr2r) {
+  *s0 = instr_fetch(&s->seq_pc, 1);
+  *s1 = (*s0 >> 3) & 0x3;
+  *s2 = *s0 & 0x7;
+  ddest = &(cpu.gpr[*s2]._32);
+  switch (*s1) {
+    case 0: dsrc1 = &cpu.cr0; break;
+    case 2: dsrc1 = &cpu.cr2; break;
+    case 3: dsrc1 = &cpu.cr3; break;
+  }
+}

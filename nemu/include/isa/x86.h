@@ -67,7 +67,7 @@ typedef struct {
         uint16_t size;
         uint32_t base;
     } ldtr;
-	rtlreg_t cr3;
+	rtlreg_t cr0, cr2, cr3;
 } x86_CPU_state;
 
 // decode
