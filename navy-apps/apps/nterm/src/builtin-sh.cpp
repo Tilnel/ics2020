@@ -35,6 +35,7 @@ static void sh_handle_cmd(const char *cmd) {
   // printf("%s", buf);
   static char path1[32] = "/bin/";
   static char path2[32] = "/usr/bin/";
+  execve(argv[0], argv, NULL);
   argv[0] = strcat(path1, args[0]);
   execve(argv[0], argv, NULL); 
   argv[0] = strcat(path2, args[0]);
