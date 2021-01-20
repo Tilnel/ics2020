@@ -72,7 +72,13 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
   //copy args
 
   ((uint32_t *)ret)[13] = argc;  // under stack 1 byte
-  ((uint32_t *)ret)[14] = (int)argv;
-  ((uint32_t *)ret)[19] = (int)envp;
+  ((uint32_t *)ret)[14] = (uintptr_t)argv[0];
+  ((uint32_t *)ret)[15] = (uintptr_t)argv[1];
+  ((uint32_t *)ret)[16] = (uintptr_t)argv[2];
+  ((uint32_t *)ret)[17] = (uintptr_t)argv[3];
+  ((uint32_t *)ret)[18] = (uintptr_t)argv[4];
+  
+
+  ((uint32_t *)ret)[15] = (int)envp;
   return ret;
 }
