@@ -33,7 +33,7 @@ static void sh_handle_cmd(const char *cmd) {
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  setenv("PATH", "/bin:/usr", 1);
+  setenv("PATH", "bin:/usr", 1);
   execvp(argv[0], argv); 
 }
 
