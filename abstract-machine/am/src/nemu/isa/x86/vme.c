@@ -74,10 +74,10 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
   for (int i = 0; i < 5; i++) {
     args[i] = as->area.end - 32 * (5 - i);
     strcpy(args[i], argv[i]);
-    printf("%s\n", argv[i]);
+    printf("%s\n", args[i]);
   }
   ((uint32_t *)ret)[13] = argc;  // under stack 1 byte
-  ((uint32_t *)ret)[14] = (int)args;
+  ((uint32_t *)ret)[14] = (int)argv;
   ((uint32_t *)ret)[15] = (int)envp;
   return ret;
 }
