@@ -11,8 +11,8 @@ Terminal *term = NULL;
 void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
+static char *args[] = {"/bin/cat", "/share/games/bird/atlas.txt", "", "", ""};
 int main(int argc, char *argv[]) {
-  char *args[] = {"/bin/cat", "/share/games/bird/atlas.txt", "", "", ""};
   execv("/bin/cat", args);
 
   SDL_Init(0);
