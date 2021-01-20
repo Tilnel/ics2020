@@ -21,7 +21,7 @@ static void sh_banner() {
 static void sh_prompt() {
   sh_printf("sh> ");
 }
-
+char path1[32], path2[32];
 static void sh_handle_cmd(const char *cmd) {
   static char buf[64];
   static char args[5][32] = {};
@@ -33,8 +33,8 @@ static void sh_handle_cmd(const char *cmd) {
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  static char path1[32] = "/bin/";
-  static char path2[32] = "/usr/bin/";
+  path1 = (char *)"/bin/";
+  path2 = (char *)"/usr/bin/";
   execve(argv[0], argv, NULL);
   argv[0] = strcat(path1, args[0]);
   execve(argv[0], argv, NULL); 
