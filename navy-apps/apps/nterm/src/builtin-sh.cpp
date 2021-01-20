@@ -24,9 +24,10 @@ static void sh_prompt() {
 
 static void sh_handle_cmd(const char *cmd) {
   char buf[64];
-  
+  char args[5][16];
   char *argv[5];
   strcpy(buf, cmd);
+  printf("buf%s", buf);
   for (int i = 0; i < 5; i++) {
     argv[i] = strtok(buf, buf);
     printf("%s\n", argv[i]);
