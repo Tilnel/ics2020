@@ -30,8 +30,8 @@ static void sh_handle_cmd(const char *cmd) {
   sscanf(cmd, "%s %s %s %s %s", arg[0], arg[1], arg[2], arg[3], arg[4]);
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  setenv("PATH", "/bin", 1);
-  execvp(argv[0], argv);
+  setenv("PATH", "/bin:/usr/bin", 1);
+  execvpe(argv[0], argv); 
 }
 
 void builtin_sh_run() {
