@@ -20,7 +20,7 @@ void do_syscall(Context *c) {
     case SYS_close : c->GPRx = fs_close(a[3]); break;
     case SYS_gettimeofday : c->GPRx = sys_gettimeofday((void *)a[3], (void *)a[2]); break;
     case SYS_brk : c->GPRx = 0; break;
-    case SYS_execve : printf("%s\n%s\n", (char **)a[2], (char **)a[1]);c->GPRx = sys_execve((void *)a[3], (void *)a[2], (void *)a[1]); break;
+    case SYS_execve : printf("%s\n%s\n", ((char **)a[2])[0], ((char **)a[2])[1]);c->GPRx = sys_execve((void *)a[3], (void *)a[2], (void *)a[1]); break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
