@@ -33,8 +33,12 @@ static void sh_handle_cmd(const char *cmd) {
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  setenv("PATH", "/bin:/usr/bin", 1);
-  execvp(argv[0], argv); 
+  char *path1 = (char *)"/bin";
+  char *path2 = (char *)"/usr/bin";
+  argv[0] = strcat(path1, args[0]);
+  execv(argv[0], argv); 
+  argv[0] = strcat(path2, args[0]);
+  execv(argv[0], argv); 
 }
 
 void builtin_sh_run() {
