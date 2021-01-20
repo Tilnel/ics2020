@@ -23,11 +23,13 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
-  char arg[5][16];
-  int len = strlen(cmd);
+  char buf[64];
+  
   char *argv[5];
-  for (int i = 0; i <= 4; i++) argv[i] = arg[i];
-  sscanf(cmd, "%s %s %s %s %s", arg[0], arg[1], arg[2], arg[3], arg[4]);
+  strcpy(buf, cmd);
+  for (int i = 0; i < 5; i++) {
+    argv[i] = strtok(buf, buf);
+  }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
   setenv("PATH", "/bin:/usr/bin", 1);
