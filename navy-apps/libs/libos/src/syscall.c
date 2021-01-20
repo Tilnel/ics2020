@@ -32,6 +32,7 @@
 # define ARGS_ARRAY ("syscall", "v0", "a0", "a1", "a2", "v0")
 #elif defined(__ISA_RISCV32__) || defined(__ISA_RISCV64__)
 # define ARGS_ARRAY ("ecall", "a7", "a0", "a1", "a2", "a0")
+'\''
 #elif defined(__ISA_AM_NATIVE__)
 # define ARGS_ARRAY ("call *0x100000", "rdi", "rsi", "rdx", "rcx", "rax")
 #elif defined(__ISA_X86_64__)

@@ -60,7 +60,7 @@ int context_uload(PCB *p, const char *filename, char *argv[],
     p->as.area.end = p->as.area.start + 32768;
     // printf("pile %x\n", p->as.area.end);
     void *entry = (void *)loader(p, filename);
-    if (entry == (void *)-1) return -1;
+    if (!entry) return -1;
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
     return 0;
 }

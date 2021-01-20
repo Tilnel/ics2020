@@ -17,7 +17,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr eh;
   Elf_Phdr ph;
   int fd = fs_open(filename, 0, 0); // 0b11, rw
-  if (fd == -1) return -1;
+  if (fd == -1) return 0;
   // ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
   fs_read(fd, &eh, sizeof(Elf_Ehdr));
 
