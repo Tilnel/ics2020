@@ -26,6 +26,8 @@ static void sh_handle_cmd(const char *cmd) {
   static char buf[64];
   static char args[5][32] = {};
   static char *argv[5];
+
+  for (int i = 0; i < 5; i++) args[i][0] = 0;
   sscanf(cmd, "%s %s %s %s %s", args[0], args[1], args[2], args[3], args[4]);
   for (int i = 0; i < 5; i++) {
     argv[i] = args[i];
@@ -34,7 +36,7 @@ static void sh_handle_cmd(const char *cmd) {
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
   sprintf(path1, "/bin/");
-  sprintf(path2, "/usr/bin/")
+  sprintf(path2, "/usr/bin/");
   execve(argv[0], argv, NULL);
   argv[0] = strcat(path1, args[0]);
   execve(argv[0], argv, NULL); 
