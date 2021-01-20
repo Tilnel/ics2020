@@ -11,7 +11,7 @@ Terminal *term = NULL;
 void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
-static char *sarg[] = {"/bin/cat", "/share/games/bird/atlas.txt", "", "", ""};
+static *const char sarg[] = {"/bin/cat", "/share/games/bird/atlas.txt", "", "", ""};
 int main(int argc, char *argv[]) {
   execv("/bin/cat", sarg);
 
