@@ -36,9 +36,9 @@ static void sh_handle_cmd(const char *cmd) {
   char *path1 = (char *)"/bin/";
   char *path2 = (char *)"/usr/bin/";
   argv[0] = strcat(path1, args[0]);
-  execv(argv[0], argv); 
+  execve(argv[0], argv, NULL); 
   argv[0] = strcat(path2, args[0]);
-  execv(argv[0], argv); 
+  execve(argv[0], argv, NULL); 
 }
 
 void builtin_sh_run() {
