@@ -33,8 +33,8 @@ static void sh_handle_cmd(const char *cmd) {
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  path1 = (char *)"/bin/";
-  path2 = (char *)"/usr/bin/";
+  sprintf(path1, "/bin/");
+  sprintf(path2, "/usr/bin/")
   execve(argv[0], argv, NULL);
   argv[0] = strcat(path1, args[0]);
   execve(argv[0], argv, NULL); 
