@@ -70,7 +70,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
   ret->eax = (int)as->area.end;
   ret->cs = 8;
   ((uint32_t *)ret)[13] = argc;  // under stack 1 byte
-  ((uint32_t *)ret)[14] = (int)argv;  
+  ((uint32_t *)ret)[14] = (int)argv;
   ((uint32_t *)ret)[15] = (int)envp;  
   return ret;
 }
