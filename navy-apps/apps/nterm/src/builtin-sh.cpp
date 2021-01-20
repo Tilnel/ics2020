@@ -33,7 +33,7 @@ static void sh_handle_cmd(const char *cmd) {
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  char *envp[] = {"PATH=/usr/bin:/bin"};
+  char *envp[] = {(char *)"PATH=/usr/bin:/bin"};
   execvpe(argv[0], argv, envp); 
 }
 
