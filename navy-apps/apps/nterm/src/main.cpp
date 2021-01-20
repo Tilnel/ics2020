@@ -1,6 +1,7 @@
 #include <nterm.h>
 #include <SDL.h>
 #include <SDL_bdf.h>
+#include <unistd.h>
 
 static const char *font_fname = "/share/fonts/Courier-7.bdf";
 static BDF_Font *font = NULL;
@@ -11,7 +12,8 @@ void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
 int main(int argc, char *argv[]) {
-  
+  execl("/bin/cat", "/bin/cat", "/share/games/bird/atlas.txt");
+
   SDL_Init(0);
   font = new BDF_Font(font_fname);
 
