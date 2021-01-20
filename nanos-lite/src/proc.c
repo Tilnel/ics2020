@@ -1,7 +1,7 @@
 #include <proc.h>
 extern void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *p, void (*entry)(void *), void *arg);
-void context_uload(PCB *p, const char *filename, char *argv[],
+int context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]);
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
@@ -53,18 +53,20 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
     p->cp = kcontext(p->as.area, entry, arg);
 }
 
-void context_uload(PCB *p, const char *filename, char *argv[],
+int context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]) {
     if (argv[0]) strcpy(argv[0], filename);
     p->as.area.start = new_page(8);
     p->as.area.end = p->as.area.start + 32768;
     // printf("pile %x\n", p->as.area.end);
     void *entry = (void *)loader(p, filename);
+    if (entry == (void *)-1) return -1;
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
+    return 0;
 }
 
 int sys_execve(const char *filename, char *argv[], char *const envp[]) {
-    context_uload(&(pcb[1]), filename, argv, envp);
+    if (context_uload(&(pcb[1]), filename, argv, envp) == -1) return -2;
     if (argv[0]) strcpy(argv[0], filename);
     switch_boot_pcb();
     // cnt++;
