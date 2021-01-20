@@ -26,13 +26,9 @@ static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   char args[5][16];
   char *argv[5];
-  strcpy(buf, cmd);
-  char *buf1 = strtok(argv[0], buf);
-  char *buf2 = strtok(argv[1], buf1);
-  char *buf3 = strtok(argv[2], buf2);
-  char *buf4 = strtok(argv[3], buf3);
-  char *buf5 = strtok(argv[4], buf4);
+  sscanf("%s%s%s%s%s", args[0], args[1], args[2], args[3], args[4]);
   for (int i = 0; i < 5; i++) {
+    argv[i] = args[i];
     printf("%s\n", argv[i]);
   }
   // printf("%s\n", argv[1]);
