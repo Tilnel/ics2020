@@ -29,7 +29,7 @@ static void sh_handle_cmd(const char *cmd) {
   sscanf("%s %s %s %s %s", args[0], args[1], args[2], args[3], args[4]);
   for (int i = 0; i < 5; i++) {
     argv[i] = args[i];
-    printf("%s\n", argv[i]);
+    printf("%s\n", args[i]);
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
