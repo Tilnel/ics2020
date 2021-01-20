@@ -13,7 +13,7 @@ void extern_app_run(const char *app_path);
 
 char *sarg[] = {(char *)"/bin/busybox", (char *)"/bin/cat", (char *)"/share/games/bird/atlas.txt", (char *)"", (char *)""};
 int main(int argc, char *argv[]) {
-  execv("/bin/busybox", sarg);
+  // execv("/bin/busybox", sarg);
 
   SDL_Init(0);
   font = new BDF_Font(font_fname);
