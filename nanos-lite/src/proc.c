@@ -2,7 +2,7 @@
 extern void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *p, void (*entry)(void *), void *arg);
 int context_uload(PCB *p, const char *filename, char *const argv[],
-                   char *const envp[]);
+                  char *const envp[]);
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
 
@@ -19,8 +19,8 @@ void hello_fun(void *arg) {
     int j = 1;
     while (1) {
         if (!(j & 0xfff))
-        Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
-            (uintptr_t)arg, j);
+            Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
+                (uintptr_t)arg, j);
         j++;
         yield();
     }
@@ -43,7 +43,7 @@ void init_proc() {
 Context *schedule(Context *prev) {
     current->cp = prev;
     current = &pcb[cnt & 1];
-    cnt ++;
+    cnt++;
     return current->cp;
 }
 
@@ -54,19 +54,30 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 }
 
 int context_uload(PCB *p, const char *filename, char *const argv[],
-                   char *const envp[]) {
+                  char *const envp[]) {
     p->as.area.start = new_page(8);
-    p->as.area.end = p->as.area.start + 32768;
+    uintptr_t end = (int)p->as.area.start + 32768;
+    p->as.area.end = (void *)end;
     // printf("pile %x\n", p->as.area.end);
+
+    uintptr_t pos = (uintptr_t)end - 200;
+    for (int i = 0; i < 5; i++) {
+        ((uintptr_t *)pos)[i] = end - 32 * (5 - i);
+        char *tmp = ((char **)pos)[i];
+        strcpy(tmp, argv[i]);
+    }
+
     void *entry = (void *)loader(p, filename);
-    if (!entry) return -1;
-    printf("%s\n%s\n", argv[0], argv[1]);
-    p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
+    if (!entry)
+        return -1;
+    printf("%s\n%s\n", ((char **)pos)[0], ((char **)pos)[1]);
+    p->cp = ucontext(&(p->as), pcb[0].as.area, entry, (char **) pos, envp);
     return 0;
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
-    if (context_uload(&(pcb[1]), filename, argv, envp) == -1) return -2;
+    if (context_uload(&(pcb[1]), filename, argv, envp) == -1)
+        return -2;
     switch_boot_pcb();
     // cnt++;
     yield();
