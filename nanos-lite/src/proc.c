@@ -69,5 +69,5 @@ int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     switch_boot_pcb();
     // cnt++;
     yield();
-    return 0;
+    return -2;
 }
