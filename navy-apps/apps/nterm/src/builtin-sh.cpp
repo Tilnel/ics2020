@@ -34,7 +34,7 @@ static void sh_handle_cmd(const char *cmd) {
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
   char *envp[] = {"PATH=/usr/bin:/bin"};
-  execve(argv[0], argv, envp); 
+  execvpe(argv[0], argv, envp); 
 }
 
 void builtin_sh_run() {
