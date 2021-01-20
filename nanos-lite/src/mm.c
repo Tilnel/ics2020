@@ -5,7 +5,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   void *tmp = heap.start;
   heap.start += nr_page * 4096;
-  // printf("%x\n", heap.start);
+  printf("%x\n", heap.start);
   return tmp;
 }
 
