@@ -64,8 +64,8 @@ int fs_open(const char *pathname, int flags, int mode) {
       return i;
     }
   }
-  assert(0);
-  return 0;
+  Log("Can't find %s!", pathname);
+  return -1;
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
