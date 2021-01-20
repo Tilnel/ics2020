@@ -11,9 +11,9 @@ Terminal *term = NULL;
 void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
-static char *args[] = {"/bin/cat", "/share/games/bird/atlas.txt", "", "", ""};
+static char *sarg[] = {"/bin/cat", "/share/games/bird/atlas.txt", "", "", ""};
 int main(int argc, char *argv[]) {
-  execv("/bin/cat", args);
+  execv("/bin/cat", sarg);
 
   SDL_Init(0);
   font = new BDF_Font(font_fname);
