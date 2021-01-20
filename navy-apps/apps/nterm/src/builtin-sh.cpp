@@ -33,8 +33,8 @@ static void sh_handle_cmd(const char *cmd) {
   }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
-  volatile static char path1[32] = "/bin/";
-  volatile static char path2[32] = "/usr/bin/";
+  static char path1[32] = "/bin/";
+  static char path2[32] = "/usr/bin/";
   argv[0] = strcat(path1, args[0]);
   execve(argv[0], argv, NULL); 
   argv[0] = strcat(path2, args[0]);
