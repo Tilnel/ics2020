@@ -18,8 +18,9 @@ void switch_boot_pcb() { current = &pcb_boot; }
 void hello_fun(void *arg) {
     int j = 1;
     while (1) {
-        // Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
-        //     (uintptr_t)arg, j);
+        if (j & 0xfff)
+        Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
+            (uintptr_t)arg, j);
         j++;
         yield();
     }
@@ -55,8 +56,8 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 void context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]) {
     strcpy(argv[0], filename);
-    p->as.area.start = new_page(1);
-    p->as.area.end = p->as.area.start + 4096;
+    p->as.area.start = new_page(8);
+    p->as.area.end = p->as.area.start + 32768;
     // printf("pile %x\n", p->as.area.end);
     void *entry = (void *)loader(p, filename);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
