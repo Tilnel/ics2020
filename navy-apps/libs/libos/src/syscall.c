@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include <assert.h>
 #include <time.h>
+#include <stdio.h>
 #include "syscall.h"
 
 // helper macros
@@ -94,6 +95,7 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
 
 extern int errno;
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
+  printf("%s\n%s\n", argv[0], argv[1]);
   int ret = _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
   if (ret < 0) errno = -ret;
   return -1;
