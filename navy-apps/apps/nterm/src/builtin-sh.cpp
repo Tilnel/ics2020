@@ -26,7 +26,7 @@ static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   char args[5][16];
   char *argv[5];
-  sscanf("%s %s %s %s %s", args[0], args[1], args[2], args[3], args[4]);
+  sscanf(cmd, "%s %s %s %s %s", args[0], args[1], args[2], args[3], args[4]);
   for (int i = 0; i < 5; i++) {
     argv[i] = args[i];
     printf("%s\n", args[i]);
