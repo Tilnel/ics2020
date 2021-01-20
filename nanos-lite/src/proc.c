@@ -58,6 +58,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     p->as.area.start = new_page(8);
     p->as.area.end = p->as.area.start + 32768;
     // printf("pile %x\n", p->as.area.end);
+    printf("uld%s\n%s\n", argv[0], argv[1]);
     void *entry = (void *)loader(p, filename);
     if (!entry) return -1;
     printf("%s\n%s\n", argv[0], argv[1]);
@@ -66,6 +67,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
+    printf("cve%s\n%s\n", argv[0], argv[1]);
     if (context_uload(&(pcb[1]), filename, argv, envp) == -1) return -2;
     switch_boot_pcb();
     // cnt++;
