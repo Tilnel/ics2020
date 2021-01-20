@@ -55,7 +55,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 
 void context_uload(PCB *p, const char *filename, char *argv[],
                    char *const envp[]) {
-    strcpy(argv[0], filename);
+    if (argv[0]) strcpy(argv[0], filename);
     p->as.area.start = new_page(8);
     p->as.area.end = p->as.area.start + 32768;
     // printf("pile %x\n", p->as.area.end);
@@ -65,7 +65,7 @@ void context_uload(PCB *p, const char *filename, char *argv[],
 
 int sys_execve(const char *filename, char *argv[], char *const envp[]) {
     context_uload(&(pcb[1]), filename, argv, envp);
-    strcpy(argv[0], filename);
+    if (argv[0]) strcpy(argv[0], filename);
     switch_boot_pcb();
     // cnt++;
     yield();
