@@ -58,6 +58,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     p->as.area.start = new_page(8);
     uintptr_t end = (int)p->as.area.start + 32768;
     p->as.area.end = (void *)end;
+    memset((char *)end - 256, 0, 256);
     // printf("pile %x\n", p->as.area.end);
 
     uintptr_t pos = (uintptr_t)end - 200;
