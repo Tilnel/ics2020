@@ -1,7 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 extern void naive_uload(void *pcb, const char *filename);
-int sys_execve(const char *filename, char *argv[], char *const envp[]);
+int sys_execve(const char *filename, char *const argv[], char *const envp[]);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
