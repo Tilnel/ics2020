@@ -8,7 +8,7 @@ uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 
-static int cnt = 1;
+// static int cnt = 1;
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -27,8 +27,8 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    static char *argvv[] = {"/bin/nterm"};
-    context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
+    // static char *argvv[] = {"/bin/nterm"};
+    // context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
 
     // static char *argvv[] = {"/bin/pal", "--skip"};
     // context_uload(&pcb[1], "/bin/pal", argvv, NULL);
@@ -41,8 +41,8 @@ void init_proc() {
 }
 
 Context *schedule(Context *prev) {
-    current->cp = prev;
-    current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
+    // current->cp = prev;
+    // current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
     return current->cp;
 }
 

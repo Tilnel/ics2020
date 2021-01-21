@@ -57,6 +57,20 @@ void __am_switch(Context *c) {
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
+  uint32_t dir = (uintptr_t)va >> 22;
+  uint32_t page = ((uintptr_t)va >> 12) & 0x3ff;
+  // uint32_t offset = (uintptr_t)va & 0xfff;
+
+  as->pgsize = PGSIZE;
+  uint32_t *index = as->ptr;      //page index
+  uint32_t *page_sheet_base = (uint32_t *)(index[dir]);
+  if (!((uint32_t)page_sheet_base & 1)) {
+    page_sheet_base = (uint32_t *)(((uint32_t)pgalloc_usr(PGSIZE) & 0xfffff000) | 1);
+    index[dir] = (uint32_t)page_sheet_base;
+  }
+  uint32_t page_sheet_item = ((uintptr_t)pa & 0xfffff000) | 1;
+  ((uint32_t *)((uint32_t)page_sheet_base & 0xfffff000))[page] = page_sheet_item;
+
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], char *const envp[]) {

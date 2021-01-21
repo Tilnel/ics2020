@@ -3,12 +3,13 @@
 static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
-  pf += nr_page * 4096;
+  memset(pf, 0, nr_page * PGSIZE); 
+  pf += nr_page * PGSIZE;
   return pf;
 }
 
 static inline void* pg_alloc(int n) {
-  return NULL;
+  return new_page((n + PGSIZE - 1) / PGSIZE);
 }
 
 void free_page(void *p) {
