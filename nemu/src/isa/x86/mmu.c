@@ -25,6 +25,6 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
 
 void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
   printf("data %d ", data);
-  paddr_t paddr = isa_mmu_translate(addr, MEM_TYPE_WRITE, len);
+  paddr_t paddr = isa_mmu_translate(addr, data, len);
   paddr_write(paddr, data, len);
 }
