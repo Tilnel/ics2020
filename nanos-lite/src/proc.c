@@ -53,7 +53,7 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
 
     int len = 0;
     int argc = 0;
-    while(argv[argc]) len += strlen(argv[argc]) + 1, argc++;
+    while(argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
 
     char *str = args - len;
     int pos = 0;
@@ -63,6 +63,8 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
         pos += strlen(argv[i] + 1);
     }
     uintptr_t pargc = (uintptr_t)args - 4;
+    ((uint32_t *)pargc)[0] = argc;
+
     p->cp->eax = pargc;
 }
 
@@ -78,7 +80,6 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     Log("Jump to %x\n", entry); 
 
     p->cp = ucontext(&(p->as), kstack, entry, argv, envp);
-    p->cp->eax = (uintptr_t)new_page(8);
     setargs(p, filename, argv, envp);
     return 0;
 }
