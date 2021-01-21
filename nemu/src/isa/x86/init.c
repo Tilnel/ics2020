@@ -18,6 +18,7 @@ static void restart() {
   cpu.pc = PMEM_BASE + IMAGE_START;
   cpu.cs = 8;
   cpu.eflags = 0;
+  cpu.cr0 = 0x60000011;
 }
 
 void init_isa() {
