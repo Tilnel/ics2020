@@ -6,7 +6,6 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   uint32_t page = (vaddr >> 12) & 0x3ff;
   uint32_t offset = vaddr & 0xfff;
 
-  assert(0);
 
   paddr_t cr3 = cpu.cr3;
   paddr_t page_sheet = paddr_read(cr3 + 4 * dir, 4);
@@ -14,6 +13,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t page_sheet_item = paddr_read((page_sheet & 0xfffff000) + 4 * page, 4);
   if ((page_sheet_item & 1) == 0) return MEM_RET_FAIL;
   paddr_t paddr = (page_sheet_item & 0xfffff000) + offset;
+  assert(0);
   assert(paddr == vaddr);
   return paddr;
 }
