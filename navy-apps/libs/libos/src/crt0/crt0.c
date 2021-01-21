@@ -19,8 +19,8 @@ void call_main(int argc, char *argv[], char *envp[]) {
   }
   printf("\n");
   printf("argc %d\n", argc);
-  printf("argv0 %x\n", argv[0]);
-  printf("argv0 %x\n", &argv[1]);
+  printf("argv0 %x\n", *(&argc + 1));
+  printf("argv0 %x\n", &argv[0]);
 
   char* nargv[] = {argv[0], argv[1], argv[2], argv[3], argv[4]};
   exit(main(argc, nargv, envp));
