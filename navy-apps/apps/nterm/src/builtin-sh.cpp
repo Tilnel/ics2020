@@ -25,7 +25,8 @@ char path1[32], path2[32];
 static void sh_handle_cmd(const char *cmd) {
   static char buf[64];
   memset(buf, 0, 64);
-  buf[strcpy(buf, cmd) - 1] = 0;
+  strcpy(buf, cmd);
+  buf[strlen(buf) - 1] = 0;
 
   static char args[5][32] = {};
   memset(args, 0, 160);
