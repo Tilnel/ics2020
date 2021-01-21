@@ -14,6 +14,6 @@ extern char **environ;
 
 void call_main(int argc, char *argv[], char *envp[]) {
   printf("argc %d\n", argc);
-  printf("arg1 %x\n", argv[0]);
+  printf("arg1 %s\n", (char *)argc + 4);
   exit(main(argc, argv, envp));
 }
