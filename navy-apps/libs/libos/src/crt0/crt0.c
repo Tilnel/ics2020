@@ -13,7 +13,7 @@ extern char **environ;
 // }
 
 void call_main(int argc, char *argv[], char *envp[]) {
-  char *tmp = (char *)(&argc);
+  char *tmp = (char *)(&argc + 4);
   for (int i = 0; i < 256; i++) {
     printf("%c", tmp[i]);
   }
