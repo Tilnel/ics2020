@@ -14,7 +14,7 @@ void extern_app_run(const char *app_path);
 char *sarg[] = {(char *)"/bin/busybox", (char *)"cat", (char *)"/share/games/bird/atlas.txt", (char *)"", (char *)""};
 // static char *sarg[] = {(char *)"/bin/pal", (char *)"--skip", (char *)"", (char *)"", (char *)""};
 int main(int argc, char *argv[]) {
-  execvp("/bin/busybox", sarg);
+  // execvp("/bin/busybox", sarg);
 
   SDL_Init(0);
   font = new BDF_Font(font_fname);
@@ -25,8 +25,9 @@ int main(int argc, char *argv[]) {
   screen = SDL_SetVideoMode(win_w, win_h, 32, SDL_HWSURFACE);
   term = new Terminal(W, H);
 
-  if (argc < 2) { builtin_sh_run(); }
-  else { extern_app_run(argv[1]); }
+  // if (argc < 2) { builtin_sh_run(); }
+  // else { extern_app_run(argv[1]); }
+  extern_app_run(argv[1]);
   // should not reach here
   assert(0);
 }
