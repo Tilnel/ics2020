@@ -16,6 +16,7 @@ static void restart() {
 
   /* The zero register is always 0. */
   cpu.gpr[0]._32 = 0;
+  cpu.cr0 = 0x60000011;
 }
 
 void init_isa() {
