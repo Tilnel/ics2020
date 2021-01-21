@@ -14,14 +14,7 @@ extern char **environ;
 
 void call_main(int argc, char *argv[], char *envp[]) {
   char *tmp = (char *)(&argc);
-  for (int i = 0; i < 260; i++) {
-    printf("%02x", tmp[i]);
-  }
-  printf("\n");
-  printf("argc %d\n", argc);
-  printf("argv0 %x\n", *(&argc + 2));
-  printf("argv0 %x\n", &argv[0]);
 
-  char* nargv[] = {argv[0], argv[1], argv[2], argv[3], argv[4]};
+  char* nargv[] = {*(&argc + 1), *(&argc + 2), *(&argc + 3), *(&argc + 4), *(&argc + 5)};
   exit(main(argc, nargv, envp));
 }
