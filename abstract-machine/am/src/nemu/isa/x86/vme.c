@@ -25,6 +25,13 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
       map(&kas, va, va, 0);
     }
   }
+  for (int i = 0; i < 8; i++) {
+    uint32_t *tmp = kas.ptr + 4 * i;
+    for (int j = 0; j < 1024; j++) {
+      printf("%x\n", tmp[j]);
+
+    }
+  }
 
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
@@ -68,8 +75,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
     index[dir] = (uint32_t)page_sheet_base;
   }
   uint32_t page_sheet_item = ((uintptr_t)pa & 0xfffff000) | 1;
-  ((uint32_t *)((uint32_t)page_sheet_base & 0xfffff000))[page] = page_sheet_item;
-  printf("%x\n", page_sheet_item);
+  ((uint32_t *)((uint32_t)page_sheet_base & 0xfffff000))[page] = page_sheet_item; 
 
 }
 
