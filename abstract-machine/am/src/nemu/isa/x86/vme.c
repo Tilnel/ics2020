@@ -28,6 +28,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
   for (int i = 0; i < 8; i++) {
     uint32_t *tmp = kas.ptr + 4 * i;
     for (int j = 0; j < 1024; j++) {
+      if (tmp[j] != 0)
       printf("%x\n", tmp[j]);
 
     }
