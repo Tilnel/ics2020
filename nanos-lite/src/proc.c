@@ -77,12 +77,12 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     kstack.start = p->stack;
     kstack.end = p->stack + 32768;
 
+    printf("uload %s\n", argv[1]);
     void *entry = (void *)loader(p, filename);
     if (!entry)
         return -1;
     Log("Jump to %x\n", entry); 
 
-    printf("uload %s\n", argv[1]);
     p->cp = ucontext(&(p->as), kstack, entry, argv, envp);
     p->cp->eax = (uintptr_t)new_page(8);
     setargs(p, argv, envp);
