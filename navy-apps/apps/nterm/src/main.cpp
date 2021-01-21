@@ -25,8 +25,7 @@ int main(int argc, char *argv[]) {
   term = new Terminal(W, H);
 
   if (argc < 2) { builtin_sh_run(); }
-  else { extern_app_run(argv[1]); //}
-  assert(0);}
+  else { assert(0);extern_app_run(argv[1]); }
   // should not reach here
   assert(0);
 }
