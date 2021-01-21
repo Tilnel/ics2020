@@ -53,6 +53,24 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
     p->cp = kcontext(p->as.area, entry, arg);
 }
 
+void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[]) {
+    char *args = (char *)p->cp->eax - 0x10;
+
+    int len = 0;
+    int argc = 0;
+    while(argv[argc]) len += strlen(argv[argc]) + 1, argc++;
+
+    char *str = args - len;
+    int pos = 0;
+    for (int i = 0; i < argc; i++) {
+        strcpy(str + pos, argv[i]);
+        ((uintptr_t *)args)[i] = (uintptr_t)str + pos;
+        pos += strlen(argv[i] + 1);
+    }
+    uintptr_t pargc = (uintptr_t)args - 4;
+    p->cp->eax = pargc;
+}
+
 int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
     p->as.area.start = new_page(8);
@@ -62,11 +80,6 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     // printf("pile %x\n", p->as.area.end);
 
     uintptr_t pos = (uintptr_t)end - 200;
-    for (int i = 0; i < 5; i++) {
-        ((uintptr_t *)pos)[i] = end - 32 * (5 - i);
-        char *tmp = ((char **)pos)[i];
-        strcpy(tmp, argv[i]);
-    }
 
     void *entry = (void *)loader(p, filename);
     if (!entry)
