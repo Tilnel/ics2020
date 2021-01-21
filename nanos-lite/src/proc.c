@@ -41,9 +41,10 @@ void init_proc() {
 }
 
 Context *schedule(Context *prev) {
-    // current->cp = prev;
+    current->cp = prev;
     // current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
-    return prev;
+    current = &pcb[0];
+    return current->cp;
 }
 
 void context_kload(PCB *p, void (*entry)(void *), void *arg) {
