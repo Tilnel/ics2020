@@ -76,8 +76,8 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
 int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
     Area kstack;
-    kstack.start = pcb[0].stack;
-    kstack.end = pcb[0].stack + 32768;
+    kstack.start = p->stack;
+    kstack.end = p->stack + 32768;
 
     void *entry = (void *)loader(p, filename);
     if (!entry)
