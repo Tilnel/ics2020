@@ -73,6 +73,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
   if (fd >= 6 && file_table[fd].open_offset > file_table[fd].size) return 0;
   size_t offset = file_table[fd].disk_offset + file_table[fd].open_offset;
   int ret = file_table[fd].read(buf, offset, len);
+  ((char *)buf)[ret] = 0;
   fs_lseek(fd, ret, 1);
   return ret;
 }
