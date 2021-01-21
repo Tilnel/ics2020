@@ -15,7 +15,7 @@ extern char **environ;
 void call_main(int argc, char *argv[], char *envp[]) {
   char *tmp = (char *)(&argc);
   for (int i = 0; i < 256; i++) {
-    putchar(tmp[i]);
+    printf("%02x", tmp[i]);
   }
   printf("\n");
   printf("argc %d\n", argc);
