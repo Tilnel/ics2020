@@ -19,6 +19,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   paddr_t paddr = isa_mmu_translate(addr, type, len);
+  if (((paddr + len) & 0xfff) < 4) panic("cross page at vaddr = 0x%x, paddr = 0x%x", addr, paddr);
   return paddr_read(paddr, len);
 }
 
