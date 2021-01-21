@@ -84,6 +84,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 
     p->cp = ucontext(&(p->as), kstack, entry, argv, envp);
     p->cp->eax = (uintptr_t)new_page(8);
+    printf("uload %s\n", argv[1]);
     setargs(p, argv, envp);
     return 0;
 }
