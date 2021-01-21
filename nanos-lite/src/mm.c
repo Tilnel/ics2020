@@ -3,9 +3,8 @@
 static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
-  void *tmp = heap.start;
-  heap.start += nr_page * 4096;
-  printf("%x\n", heap.start);
+  void *tmp = pf;
+  pf += nr_page * 4096;
   return tmp;
 }
 
