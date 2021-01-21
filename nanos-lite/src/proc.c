@@ -61,10 +61,6 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
     int pos = 0;
     for (int i = 0; i < argc; i++) {
         strcpy(str + pos, argv[i]);
-        ((uintptr_t *)args)[i] = (uintptr_t)str + pos;
-        printf("arg%d:  %x\n", i, ((uintptr_t *)args)[i]);
-        printf("arg%d: %s\n", i, (void *)((uintptr_t *)args)[i]);
-        printf("pos %d\n", pos);
         pos += strlen(argv[i]) + 1;
     }
     uintptr_t pargc = (uintptr_t)args - 4;
