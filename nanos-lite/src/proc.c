@@ -8,6 +8,7 @@ uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 
+static int cnt = 1;
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -41,7 +42,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = (current == &pcb[0])? &pcb[1] : &pcb[0];
+    current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
     return current->cp;
 }
 
@@ -73,8 +74,8 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
 int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
     Area kstack;
-    kstack.start = p->stack;
-    kstack.end = p->stack + 32768;
+    kstack.start = pcb[0].stack;
+    kstack.end = pcb[0].stack + 32768;
 
     void *entry = (void *)loader(p, filename);
     if (!entry)
@@ -88,7 +89,8 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
-    if (context_uload(current, filename, argv, envp) == -1)
+    cnt++;
+    if (context_uload(&pcb[cnt], filename, argv, envp) == -1)
         return -2;
     switch_boot_pcb();
     // cnt++;
