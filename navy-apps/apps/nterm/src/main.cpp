@@ -11,10 +11,10 @@ Terminal *term = NULL;
 void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
-// char *sarg[] = {(char *)"/bin/busybox", (char *)"cat", (char *)"/share/games/bird/atlas.txt", (char *)"", (char *)""};
-static char *sarg[] = {(char *)"/bin/pal", (char *)"--skip", (char *)"", (char *)"", (char *)""};
+char *sarg[] = {(char *)"/bin/busybox", (char *)"cat", (char *)"/share/games/bird/atlas.txt", (char *)"", (char *)""};
+// static char *sarg[] = {(char *)"/bin/pal", (char *)"--skip", (char *)"", (char *)"", (char *)""};
 int main(int argc, char *argv[]) {
-  execvp("/bin/pal", sarg);
+  execvp("/bin/busybox", sarg);
 
   SDL_Init(0);
   font = new BDF_Font(font_fname);
