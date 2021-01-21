@@ -52,7 +52,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 }
 
 void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[]) {
-    char *args = (char *)p->cp->eax - 0x256;
+    char *args = (char *)p->cp->eax - 0x100;
 
     int len = 0;
     int argc = 0;
