@@ -13,6 +13,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   if ((page_sheet_item & 1) == 0) panic("pagefault at vaddr = 0x%x", vaddr);
   paddr_t paddr = (page_sheet_item & 0xfffff000) + offset;
   if ((paddr & 0xfff) > 4 && ((paddr + len) & 0xfff) < 4) panic("cross page at vaddr = 0x%x, paddr = 0x%x", vaddr, paddr);
+  printf("%x %x\n", paddr, vaddr);
   assert(paddr == vaddr);
   return paddr;
 }
