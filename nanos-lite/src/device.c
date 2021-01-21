@@ -63,7 +63,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 void init_device() {
-  gpuconf = io_read(AM_GPU_CONFIG);
+  // gpuconf = io_read(AM_GPU_CONFIG);
   Log("Initializing devices...");
   ioe_init();
 }
