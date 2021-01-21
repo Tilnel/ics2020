@@ -90,6 +90,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     // cnt++;
+    printf("nanoslite argv1 %s\n", argv[1]);
     if (context_uload(current, filename, argv, envp) == -1)
         return -2;
     switch_boot_pcb();
