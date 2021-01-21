@@ -78,7 +78,6 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     kstack.end = p->stack + 32768;
 
     void *entry = (void *)loader(p, filename);
-    printf("uload %s\n", argv[1]);
     if (!entry)
         return -1;
     Log("Jump to %x\n", entry); 
@@ -91,8 +90,14 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     // cnt++;
-    printf("nanoslite argv1 %s\n", argv[1]);
-    if (context_uload(current, filename, argv, envp) == -1)
+    char *args[5];
+    int argc = 0;
+    while(argv[argc] && argv[argc][0]) {
+        args[argc] = malloc(strlen(argv[argc]) + 1);
+        strcpy(args[argc], argv[argc]);
+        argc++;
+    }
+    if (context_uload(current, filename, args, envp) == -1)
         return -2;
     switch_boot_pcb();
     // cnt++;
