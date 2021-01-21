@@ -4,7 +4,7 @@ static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
   void *tmp = pf;
-  memset(pf, 0, nr_page * PGSIZE); 
+  // memset(pf, 0, nr_page * PGSIZE); 
   pf += nr_page * PGSIZE;
   return tmp;
 }
