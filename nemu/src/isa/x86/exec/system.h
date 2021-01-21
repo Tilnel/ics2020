@@ -39,6 +39,8 @@ static inline def_EHelper(int) {
   rtl_push(s, &cpu.cs);
   rtl_push(s, &(s->seq_pc));
   rtl_j(s, *s2);
+  printf("int push %x\n", s->seq_pc);
+  printf("int jmp to %x\n", *s2);
   //TODO();
   print_asm("int %s", id_dest->str);
 
@@ -51,8 +53,9 @@ static inline def_EHelper(iret) {
   rtl_pop(s, s0);  
   rtl_pop(s, &cpu.cs);
   rtl_pop(s, &cpu.eflags);
-  // printf("%x\n", *s0);
   
+  printf("iret pop %x\n", s->seq_pc);
+  printf("iret jmp to %x\n", *s0);
   rtl_j(s, *s0);
   // TODO();
   print_asm("iret");
