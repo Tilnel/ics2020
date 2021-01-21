@@ -23,24 +23,26 @@ static void sh_prompt() {
 }
 char path1[32], path2[32];
 static void sh_handle_cmd(const char *cmd) {
-  static char buf[64];
-  memset(buf, 0, 64);
-  strcpy(buf, cmd);
-  buf[strlen(buf) - 1] = 0;
-
   static char args[5][32] = {};
   memset(args, 0, 160);
   static char *argv[5];
-
-  for (int i = 0; i < 5; i++) args[i][0] = 0;
-  sscanf(buf, "%s %s %s %s %s", args[0], args[1], args[2], args[3], args[4]);
-  static char name[16];
-  strcpy(name, args[0]);
-  for (int i = 0; i < 5; i++) {
-    if (args[i][0] == 0) argv[i] = NULL;
-    else argv[i] = args[i];
-    printf("%s\n", argv[i]);
+  static char buf[64];
+  strcpy(buf, cmd);
+  buf[strlen(buf) - 1] = 0;
+  argv[0] = strtok(buf, " ");
+  int i = 0;
+  while(argv[i] != NULL) {
+    i++;
+    argv[i] = strtok(NULL, " ");
   }
+
+  static char name[16];
+  // strcpy(name, args[0]);
+  // for (int i = 0; i < 5; i++) {
+  //   if (args[i][0] == 0) argv[i] = NULL;
+  //   else argv[i] = args[i];
+  //   printf("%s\n", argv[i]);
+  // }
   // printf("%s\n", argv[1]);
   // printf("%s", buf);
   sprintf(path1, "/bin/");
