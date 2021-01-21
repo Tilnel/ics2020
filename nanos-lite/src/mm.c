@@ -3,9 +3,8 @@
 static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
-  void *tmp = pf;
   pf += nr_page * 4096;
-  return tmp;
+  return pf;
 }
 
 static inline void* pg_alloc(int n) {
