@@ -69,6 +69,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   }
   uint32_t page_sheet_item = ((uintptr_t)pa & 0xfffff000) | 1;
   ((uint32_t *)((uint32_t)page_sheet_base & 0xfffff000))[page] = page_sheet_item;
+  printf("%x\n", page_sheet_item);
 
 }
 
