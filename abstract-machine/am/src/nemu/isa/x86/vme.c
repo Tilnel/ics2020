@@ -23,7 +23,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
     void *va = segments[i].start;
     for (; va < segments[i].end; va += PGSIZE) {
       map(&kas, va, va, 0);
-      printf("%d\n", va);
+      printf("%x ", va);
     }
   }
 
