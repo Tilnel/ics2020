@@ -12,7 +12,7 @@ void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
 // char *sarg[] = {(char *)"/bin/busybox", (char *)"cat", (char *)"/share/games/bird/atlas.txt", (char *)"", (char *)""};
-char *sarg[] = {(char *)"/bin/pal", (char *)"--skip", (char *)"", (char *)"", (char *)""};
+static char *sarg[] = {(char *)"/bin/pal", (char *)"--skip", (char *)"", (char *)"", (char *)""};
 int main(int argc, char *argv[]) {
   execv("/bin/pal", sarg);
 
