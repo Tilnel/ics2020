@@ -68,13 +68,16 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
 
 int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
+    Area kstack;
+    kstack.start = pcb->stack;
+    kstack.end = pcb->stack + 32768;
 
     void *entry = (void *)loader(p, filename);
     if (!entry)
         return -1;
     Log("Jump to %x\n", entry); 
 
-    p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
+    p->cp = ucontext(&(p->as), kstack, entry, argv, envp);
     p->cp->eax = (uintptr_t)new_page(8);
     setargs(p, filename, argv, envp);
     return 0;
