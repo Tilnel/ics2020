@@ -61,6 +61,7 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
     int pos = 0;
     for (int i = 0; i < argc; i++) {
         strcpy(str + pos, argv[i]);
+        ((uintptr_t *)args)[i] = (uintptr_t)str + pos;
         pos += strlen(argv[i]) + 1;
     }
     uintptr_t pargc = (uintptr_t)args - 4;
@@ -87,7 +88,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
-    if (context_uload(&pcb[1], filename, argv, envp) == -1)
+    if (context_uload(current, filename, argv, envp) == -1)
         return -2;
     switch_boot_pcb();
     // cnt++;
