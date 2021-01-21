@@ -39,6 +39,7 @@ static inline def_EHelper(int) {
   rtl_push(s, &cpu.cs);
   rtl_push(s, &(s->seq_pc));
   printf("int push %x\n", s->seq_pc);
+  printf("int jmp to %x\n", *s2);
   rtl_j(s, *s2);
   //TODO();
   print_asm("int %s", id_dest->str);
