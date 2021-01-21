@@ -14,6 +14,7 @@ int main() {
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
   init_mm();
+  assert(0);
 
   init_device();
 
