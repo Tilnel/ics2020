@@ -86,6 +86,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
         return -1;
     // printf("%s\n%s\n", ((char **)pos)[0], ((char **)pos)[1]);
     p->cp = ucontext(&(p->as), pcb[0].as.area, entry, (char **)pos, envp);
+    setargs(p, filename, argv, envp);
     return 0;
 }
 
