@@ -131,5 +131,4 @@ static inline def_EHelper(r2cr) {
 
 static inline def_EHelper(cr2r) {
   *ddest = *dsrc1;
-  assert(0);
 }
