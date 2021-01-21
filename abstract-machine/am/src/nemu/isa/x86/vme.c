@@ -23,9 +23,9 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
     void *va = segments[i].start;
     for (; va < segments[i].end; va += PGSIZE) {
       map(&kas, va, va, 0);
-  assert(0);
     }
   }
+  assert(0);
 
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
