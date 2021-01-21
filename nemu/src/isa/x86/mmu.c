@@ -3,7 +3,8 @@
 #include <memory/paddr.h>
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
 
-  return MEM_RET_FAIL;
+  // return MEM_RET_FAIL;
+  return MEM_RET_OK;
 }
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
