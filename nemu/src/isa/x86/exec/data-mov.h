@@ -126,9 +126,9 @@ static inline def_EHelper(xchg) {
 }
 
 static inline def_EHelper(r2cr) {
-  assert(0);
   if (s->opcode == 0x20) assert(0);
   *dsrc1 = *ddest;
+  assert(0);
 }
 
 static inline def_EHelper(cr2r) {
