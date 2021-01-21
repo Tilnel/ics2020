@@ -27,6 +27,5 @@ void init_mm() {
   pf = (void *)ROUNDUP(heap.start, PGSIZE);
   Log("free physical pages starting from %p", pf);
 
-  assert(0);
   vme_init(pg_alloc, free_page);
 }
