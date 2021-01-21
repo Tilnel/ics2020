@@ -41,10 +41,10 @@ static void sh_handle_cmd(const char *cmd) {
   sprintf(path1, "/bin/");
   sprintf(path2, "/usr/bin/");
   execv(name, argv);
-  argv[0] = strcat(path1, args[0]);
-  execv(name, argv); 
-  argv[0] = strcat(path2, args[0]);
-  execv(name, argv); 
+  strcat(path1, argv[0]);
+  execv(path1, argv); 
+  strcat(path2, argv[0]);
+  execv(path2, argv); 
 }
 
 void builtin_sh_run() {
