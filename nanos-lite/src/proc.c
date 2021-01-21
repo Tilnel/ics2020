@@ -67,7 +67,7 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
     uintptr_t pargc = (uintptr_t)args - 4;
     ((uint32_t *)pargc)[0] = 10;
 
-    p->cp->eax = pargc;
+    p->cp->eax = pargc + 4;
 }
 
 int context_uload(PCB *p, const char *filename, char *const argv[],
