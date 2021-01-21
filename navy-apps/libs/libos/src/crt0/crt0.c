@@ -13,7 +13,6 @@ extern char **environ;
 // }
 
 void call_main(int argc, char *argv[], char *envp[]) {
-  assert(0);
   printf("argc %d\n", &argc);
   printf("arg1 %s\n", argv[1]);
   exit(main(argc, argv, envp));
