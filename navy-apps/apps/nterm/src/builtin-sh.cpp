@@ -33,7 +33,8 @@ static void sh_handle_cmd(const char *cmd) {
   static char name[16];
   strcpy(name, args[0]);
   for (int i = 0; i < 5; i++) {
-    argv[i] = args[i];
+    if (args[i][0] == 0) argv[i] = NULL;
+    else argv[i] = args[i];
     printf("%s\n", argv[i]);
   }
   // printf("%s\n", argv[1]);
