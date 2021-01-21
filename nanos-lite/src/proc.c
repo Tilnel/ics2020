@@ -71,6 +71,7 @@ void setargs(PCB *p, char *const argv[], char *const envp[]) {
     ((uint32_t *)pargc)[0] = argc;
 
     p->cp->eax = pargc;
+    printf("argc %d\n", argc);
 }
 
 int context_uload(PCB *p, const char *filename, char *const argv[],
