@@ -38,11 +38,11 @@ static void sh_handle_cmd(const char *cmd) {
   // printf("%s", buf);
   sprintf(path1, "/bin/");
   sprintf(path2, "/usr/bin/");
-  execve(argv[0], argv, NULL);
+  execv(argv[0], argv);
   argv[0] = strcat(path1, args[0]);
-  execve(argv[0], argv, NULL); 
+  execv(argv[0], argv); 
   argv[0] = strcat(path2, args[0]);
-  execve(argv[0], argv, NULL); 
+  execv(argv[0], argv); 
 }
 
 void builtin_sh_run() {
