@@ -126,6 +126,7 @@ static inline def_EHelper(xchg) {
 }
 
 static inline def_EHelper(r2cr) {
+  printf("cr0 %x", cpu.cr0);
   if (s->opcode == 0x20) assert(0);
   *dsrc1 = *ddest;
   printf("cr0 %x", cpu.cr0);
