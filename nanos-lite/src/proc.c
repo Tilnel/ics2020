@@ -57,7 +57,7 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
     int len = 0;
     int argc = 0;
     while(argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
-    char *str = args - len;
+    char *str = (char *)p->cp->eax + len;
     int pos = 0;
     for (int i = 0; i < argc; i++) {
         strcpy(str + pos, argv[i]);
