@@ -126,14 +126,14 @@ static inline def_EHelper(xchg) {
 }
 
 static inline def_EHelper(r2cr) {
+  printf("cr3 %x\n", cpu.cr3);
+  printf("eax %x\n", cpu.eax);
   printf("cr0 %x\n", cpu.cr0);
   *dsrc1 = *ddest;
   printf("cr0 %x\n", cpu.cr0);
+  printf("cr3 %x\n", cpu.cr3);
 }
 
 static inline def_EHelper(cr2r) {
-  printf("cr3 %x\n", cpu.cr3);
-  printf("eax %x\n", cpu.eax);
   *ddest = *dsrc1;
-  printf("cr3 %x\n", cpu.cr3);
 }
