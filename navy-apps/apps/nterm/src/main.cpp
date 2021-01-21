@@ -14,7 +14,7 @@ void extern_app_run(const char *app_path);
 char *sarg[] = {(char *)"/bin/cat", (char *)"cat", (char *)"/share/games/bird/atlas.txt", (char *)"", (char *)""};
 // static char *sarg[] = {(char *)"/bin/pal", (char *)"--skip", (char *)"", (char *)"", (char *)""};
 int main(int argc, char *argv[]) {
-  execvp("/bin/cat", sarg);
+  // execvp("/bin/cat", sarg);
 
   SDL_Init(0);
   font = new BDF_Font(font_fname);

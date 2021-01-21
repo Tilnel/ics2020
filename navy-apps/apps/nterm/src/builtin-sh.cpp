@@ -30,6 +30,8 @@ static void sh_handle_cmd(const char *cmd) {
 
   for (int i = 0; i < 5; i++) args[i][0] = 0;
   sscanf(cmd, "%s %s %s %s %s", args[0], args[1], args[2], args[3], args[4]);
+  static char name[16];
+  strcpy(name, args[0]);
   for (int i = 0; i < 5; i++) {
     argv[i] = args[i];
     printf("%s\n", argv[i]);
@@ -38,11 +40,11 @@ static void sh_handle_cmd(const char *cmd) {
   // printf("%s", buf);
   sprintf(path1, "/bin/");
   sprintf(path2, "/usr/bin/");
-  execv(argv[0], argv);
+  execv(name, argv);
   argv[0] = strcat(path1, args[0]);
-  execv(argv[0], argv); 
+  execv(name, argv); 
   argv[0] = strcat(path2, args[0]);
-  execv(argv[0], argv); 
+  execv(name, argv); 
 }
 
 void builtin_sh_run() {
