@@ -13,13 +13,13 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t page_sheet_item = paddr_read((page_sheet & 0xfffff000) + 4 * page, 4);
   if ((page_sheet_item & 1) == 0) assert(0);
   paddr_t paddr = (page_sheet_item & 0xfffff000) + offset;
+  if ((paddr & 0xfff) > 4 && ((paddr + len) & 0xfff) < 4) panic("cross page at vaddr = 0x%x, paddr = 0x%x", vaddr, paddr);
   assert(paddr == vaddr);
   return paddr;
 }
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   paddr_t paddr = isa_mmu_translate(addr, type, len);
-  if (((paddr + len) & 0xfff) < 4) panic("cross page at vaddr = 0x%x, paddr = 0x%x", addr, paddr);
   return paddr_read(paddr, len);
 }
 
