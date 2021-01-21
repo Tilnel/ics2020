@@ -7,7 +7,6 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
-static int cnt = 1;
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
@@ -35,15 +34,11 @@ void init_proc() {
 
     Log("Initializing processes...");
 
-    // load program here
-    // naive_uload(NULL, "/bin/pal/pal-x86");
-    // naive_uload(NULL, "/bin/dummy"); // pal/pal-x86");
 }
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = &pcb[cnt & 1];
-    cnt++;
+    current = (current == pcb)? pcb + 1 : pcb;
     return current->cp;
 }
 
