@@ -60,25 +60,11 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], char *const envp[]) {
-  Context *ret = as->area.end - 256;
-  int i = 1;
-  while (argv[i++][0]);
-  int argc = i - 1;
+  Context *ret = kstack.end - 52;
   // printf("argc %d\n", argc);
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
-  ret->eax = (int)as->area.end;
   ret->cs = 8;
-  //copy args
 
-  ((uint32_t *)ret)[13] = argc;  // under stack 1 byte
-  ((uint32_t *)ret)[14] = (uintptr_t)argv[0];
-  ((uint32_t *)ret)[15] = (uintptr_t)argv[1];
-  ((uint32_t *)ret)[16] = (uintptr_t)argv[2];
-  ((uint32_t *)ret)[17] = (uintptr_t)argv[3];
-  ((uint32_t *)ret)[18] = (uintptr_t)argv[4];
-  
-
-  ((uint32_t *)ret)[19] = (int)envp;
   return ret;
 }
