@@ -62,6 +62,10 @@ inline void paddr_write(paddr_t addr, word_t data, int len) {
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type);
 void vaddr_mmu_write(vaddr_t addr, word_t data, int len);
 
+int isa_vaddr_check(vaddr_t vaddr, int type, int len) {
+  return MEM_RET_NEED_TRANSLATE;
+  return MEM_RET_OK;
+}
 
 #define def_vaddr_template(bytes) \
 word_t concat(vaddr_ifetch, bytes) (vaddr_t addr) { \
@@ -79,7 +83,7 @@ word_t concat(vaddr_read, bytes) (vaddr_t addr) { \
 void concat(vaddr_write, bytes) (vaddr_t addr, word_t data) { \
   int ret = isa_vaddr_check(addr, MEM_TYPE_WRITE, bytes); \
   if (ret == MEM_RET_OK) paddr_write(addr, data, bytes); \
-  else if (ret == MEM_RET_NEED_TRANSLATE) vaddr_mmu_read(addr, bytes, MEM_TYPE_WRITE); \
+  else if (ret == MEM_RET_NEED_TRANSLATE) vaddr_mmu_write(addr, bytes, MEM_TYPE_WRITE); \
 }
 
 
