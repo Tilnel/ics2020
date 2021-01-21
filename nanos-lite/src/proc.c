@@ -73,19 +73,13 @@ void setargs(PCB *p, const char *filename, char *const argv[], char *const envp[
 
 int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
-    p->as.area.start = new_page(8);
-    uintptr_t end = (int)p->as.area.start + 32768;
-    p->as.area.end = (void *)end;
-    memset((char *)end - 256, 0, 256);
-    // printf("pile %x\n", p->as.area.end);
-
-    uintptr_t pos = (uintptr_t)end - 200;
 
     void *entry = (void *)loader(p, filename);
     if (!entry)
         return -1;
-    // printf("%s\n%s\n", ((char **)pos)[0], ((char **)pos)[1]);
-    p->cp = ucontext(&(p->as), pcb[0].as.area, entry, (char **)pos, envp);
+
+    p->cp = ucontext(&(p->as), pcb[0].as.area, entry, argv, envp);
+    p->cp->eax = (uintptr_t)new_page(8);
     setargs(p, filename, argv, envp);
     return 0;
 }
