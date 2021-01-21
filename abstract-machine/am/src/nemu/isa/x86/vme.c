@@ -66,7 +66,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   if (((uint32_t)page_sheet_base & 1) == 0) {
     page_sheet_base = (uint32_t *)(((uint32_t)pgalloc_usr(PGSIZE) & 0xfffff000) | 1);
     index[dir] = (uint32_t)page_sheet_base;
-    printf("%x\n", index[dir]);
+    // printf("%x\n", index[dir]);
   }
   uint32_t page_sheet_item = ((uintptr_t)pa & 0xfffff000) | 1;
   ((uint32_t *)((uint32_t)page_sheet_base & 0xfffff000))[page] = page_sheet_item; 
