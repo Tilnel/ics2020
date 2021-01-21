@@ -12,17 +12,36 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t page_sheet_item = paddr_read((page_sheet & 0xfffff000) + 4 * page, 4);
   if ((page_sheet_item & 1) == 0) panic("pagefault at vaddr = 0x%x", vaddr);
   paddr_t paddr = (page_sheet_item & 0xfffff000) + offset;
-  if ((paddr & 0xfff) > 4 && ((paddr + len) & 0xfff) < 4) panic("cross page at vaddr = 0x%x, paddr = 0x%x", vaddr, paddr);
+  
+  // panic("cross page at vaddr = 0x%x, paddr = 0x%x", vaddr, paddr);
   assert(paddr == vaddr);
   return paddr;
 }
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
+  word_t ret = 0;
+  if (len > 1 && (addr & 0xfff) > 4 && ((addr + len) & 0xfff) < 4) {
+    for (int i = 0; i < len; i++) {
+      vaddr_t tmp = addr + i;
+      paddr_t ptmp = isa_mmu_translate(tmp, type, 1);
+      ret = (ret << 2) + paddr_read(ptmp, 1);
+    }
+    return ret;
+  }
   paddr_t paddr = isa_mmu_translate(addr, type, len);
   return paddr_read(paddr, len);
 }
 
 void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
-  paddr_t paddr = isa_mmu_translate(addr, data, len);
+  if (len > 1 && (addr & 0xfff) > 4 && ((addr + len) & 0xfff) < 4) {
+    for (int i = 0; i < len; i++) {
+      vaddr_t tmp = addr + i;
+      paddr_t ptmp = isa_mmu_translate(tmp, 0, 1);
+      word_t dat = data & 0xff;
+      data = data >> 2;
+      paddr_write(ptmp, dat, 1);
+    }
+  }
+  paddr_t paddr = isa_mmu_translate(addr, 0, len);
   paddr_write(paddr, data, len);
 }
