@@ -13,7 +13,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t page_sheet_item = paddr_read((page_sheet & 0xfffff000) + 4 * page, 4);
   if ((page_sheet_item & 1) == 0) return MEM_RET_FAIL;
   paddr_t paddr = (page_sheet_item & 0xfffff000) + offset;
-  assert(paddr == vaddr);
+  assert(paddr != vaddr);
   return paddr;
 }
 
