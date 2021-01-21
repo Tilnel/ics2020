@@ -325,7 +325,7 @@ static inline def_DHelper(gp3_a) {
 
 static inline def_DHelper(cr2r) {
   *s0 = instr_fetch(&s->seq_pc, 1);
-  if (s->opcode == 0x20) assert(0);
+  if (s->opcode == 0x22) assert(0);
 
   *s1 = (*s0 >> 3) & 0x3;
   *s2 = *s0 & 0x7;
