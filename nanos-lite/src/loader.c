@@ -24,10 +24,19 @@ uintptr_t loader(PCB *pcb, const char *filename) {
   for (int i = 0; i < eh.e_phnum; i++) {
     fs_lseek(fd, eh.e_phoff + i * sizeof(Elf_Phdr), 0);
     fs_read(fd, &ph, sizeof(Elf_Phdr));
+
+    size_t size = ph.p_memsz;
+    int nr_page = (size + PGSIZE - 1) / PGSIZE;
+    void *page = new_page(nr_page);
+    uintptr_t pos = ph.p_vaddr & 0xfffff000;
+    for (int j = 0; j < nr_page; j++) {
+      map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
+    }
+
     if (ph.p_type == 1) {
       fs_lseek(fd, ph.p_offset, 0);
-      fs_read(fd, (void *)ph.p_vaddr, ph.p_filesz);
-      memset((void *)ph.p_vaddr + ph.p_filesz, 0, ph.p_memsz - ph.p_filesz);
+      fs_read(fd, (void *)((uintptr_t)ph.p_vaddr & 0xfff) + pos, ph.p_filesz);
+      memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + pos, 0, ph.p_memsz - ph.p_filesz);
     }
   }
   return eh.e_entry;
