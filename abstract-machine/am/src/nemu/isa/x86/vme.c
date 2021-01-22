@@ -80,5 +80,6 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   ret->eip = (int)entry;
   ret->cs = 8;
   ret->cr3 = as->ptr;
+  ret->eflags |= 0x200;
   return ret;
 }

@@ -62,6 +62,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   ret->eax = (int)kstack.end;
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
+  ret->eflags |= 0x200;
   ((uint32_t *)ret)[14] = (int)arg;  // under stack 1 byte
   return ret;
 }
