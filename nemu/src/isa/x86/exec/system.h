@@ -55,6 +55,7 @@ static inline def_EHelper(int) {
     *s0 = cpu.esp;    
     *s1 = vaddr_read(*s2 + 8, 4); // ss0
     cpu.esp = vaddr_read(*s2 + 4, 4); // esp0
+    printf("esp %x\n", cpu.esp);
     rtl_push(s, s1); // push ss0
     rtl_push(s, s0); // push usr esp
   }
