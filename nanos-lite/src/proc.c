@@ -28,7 +28,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
     // static char *argvv[] = {"/bin/nterm"};
-    context_uload(&pcb[0], "/bin/dummy", NULL, NULL);
+    context_uload(&pcb[1], "/bin/dummy", NULL, NULL);
 
     // static char *argvv[] = {"/bin/pal", "--skip"};
     // context_uload(&pcb[1], "/bin/pal", argvv, NULL);
@@ -43,7 +43,7 @@ void init_proc() {
 Context *schedule(Context *prev) {
     current->cp = prev;
     // current = (current == &pcb[0])? &pcb[1] : &pcb[0];
-    // current = &pcb[0];
+    current = &pcb[1];
     return current->cp;
 }
 
