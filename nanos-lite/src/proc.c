@@ -27,13 +27,13 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    // static char *argvv[] = {"/bin/nterm"};
-    // context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
+    static char *argvv[] = {"/bin/nterm"};
+    context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
 
     context_kload(&pcb[0], hello_fun, "abc");
 
-    static char *argvv[] = {"/bin/pal", "--skip"};
-    context_uload(&pcb[1], "/bin/pal", argvv, NULL);
+    // static char *argvv[] = {"/bin/pal", "--skip"};
+    // context_uload(&pcb[1], "/bin/pal", argvv, NULL);
 
     switch_boot_pcb();
     Log("Initializing processes...");
@@ -107,6 +107,6 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     cnt++;
     switch_boot_pcb();
     // cnt++;
-    yield();
+    // yield();
     return -2;
 }
