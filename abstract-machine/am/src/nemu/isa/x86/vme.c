@@ -53,6 +53,7 @@ void __am_get_cur_as(Context *c) {
 void __am_switch(Context *c) {
   if (vme_enable && c->cr3 != NULL) {
     set_cr3(c->cr3);
+    printf("setcr3 to %x\n", c->cr3);
   }
 }
 
@@ -78,7 +79,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   Context *ret = kstack.end - 128;
   // ret->eax = (int)kstack.end;
   ret->eip = (int)entry;
-  ret->cs = 8;
+  ret->cs = USEL(3);
   ret->cr3 = as->ptr;
   ret->eflags |= 0x200;
   return ret;
