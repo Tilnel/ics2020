@@ -18,7 +18,7 @@ __am_asm_trap:
 
   pushl $0
 
-  #pushl %esp
+  pushl %esp
 
   call __am_irq_handle
 
