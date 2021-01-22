@@ -35,8 +35,8 @@ void init_proc() {
 
     // context_kload(&pcb[0], hello_fun, "abc");
 
-    switch_boot_pcb();
     hello_fun(0);
+    switch_boot_pcb();
 
     Log("Initializing processes...");
 }
