@@ -29,11 +29,11 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     int nr_page = (size + PGSIZE - 1) / PGSIZE;
     void *page = new_page(nr_page);
     uintptr_t pos = ph.p_vaddr & 0xfffff000;
-    for (int j = 0; j < nr_page; j++) {
-      map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
-    }
 
     if (ph.p_type == 1) {
+      for (int j = 0; j < nr_page; j++) {
+        map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
+      }
       fs_lseek(fd, ph.p_offset, 0);
       fs_read(fd, (void *)((uintptr_t)ph.p_vaddr & 0xfff) + pos, ph.p_filesz);
       memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + pos, 0, ph.p_memsz - ph.p_filesz);
