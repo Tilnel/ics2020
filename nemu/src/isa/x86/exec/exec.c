@@ -313,8 +313,8 @@ vaddr_t isa_exec_once() {
   s.seq_pc = cpu.pc;
 
   fetch_decode_exec(&s);
-  query_intr(&s);
   update_pc(&s);
+  query_intr(&s);
 
   return s.seq_pc;
 }

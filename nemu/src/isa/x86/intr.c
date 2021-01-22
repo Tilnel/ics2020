@@ -13,7 +13,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   cpu.IF = 0;
   rtl_push(s, &cpu.cs);
   rtl_push(s, &ret_addr);
-  s->seq_pc = *s2;
+  cpu.pc = *s2;
  
   // TODO();
 }
@@ -22,8 +22,7 @@ void query_intr(DecodeExecState *s) {
   if (cpu.INTR == true && cpu.IF == 1) {
     // printf("timer\n");
     cpu.INTR = false;
-    raise_intr(s, IRQ_TIMER, s->seq_pc);
-    update_pc(s);
+    raise_intr(s, IRQ_TIMER, cpu.pc);
   }
   // TODO();
 }
