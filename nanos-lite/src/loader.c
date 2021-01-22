@@ -41,6 +41,8 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + (uintptr_t)page, 0, ph.p_memsz - ph.p_filesz);
     }
   }
+  void *page = new_page(1);
+  map(&pcb->as, (void *)pcb->max_brk, page, 0);
   return eh.e_entry;
 }
 
