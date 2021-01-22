@@ -62,7 +62,7 @@ typedef struct {
        uint32_t : 20;
       };
     };  
-    rtlreg_t cs;//, ss, ds, es, fs, gs;
+    rtlreg_t cs, ss;//, ds, es, fs, gs;
     struct {
         uint16_t size;
         uint32_t base;
