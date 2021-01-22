@@ -23,7 +23,7 @@ __am_asm_trap:
 
   call __am_irq_handle
 
-  movl %eax, %esp         # %esp is Context *c, and 
+  movl %eax, %esp        // %esp is Context *c, and 
 
   addl $4, %esp
 
