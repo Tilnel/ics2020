@@ -9,6 +9,7 @@ static Context* do_event(Event e, Context* c) {
       return schedule(c);
       break;
     case 2: do_syscall(c); break;
+    case 5: schedule(c);
     default: panic("Unhandled event ID = %d", e.event);
   }
 

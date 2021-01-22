@@ -19,13 +19,11 @@ static const char *keyname[256] __attribute__((used)) = {
 AM_GPU_CONFIG_T gpuconf;
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-  yield();
   for (int i = 0; i < len; i++) putch(((char *)buf)[i]); 
   return len;
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  yield();
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   if (ev.keycode == AM_KEY_NONE) { memset(buf, 0, len); return 0; }
   return sprintf(buf, "%s %s", ev.keydown ? "kd" : "ku", keyname[ev.keycode], len);
@@ -45,7 +43,6 @@ size_t dispinfo_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  yield();
   sscanf(dispinfo, "WIDTH: %d\nHEIGHT: %d\n", &gpuconf.width, &gpuconf.height);
   // AM_GPU_CONFIG_T gpuconfig = io_read(AM_GPU_CONFIG);
   int w = gpuconf.width; 
