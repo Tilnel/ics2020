@@ -11,7 +11,8 @@ __am_asm_trap:
   andl $0x3, %eax
   je b
   movl %esp, 0xc(%esp)
-  movl (ksp), %esp
+  movl ksp, %eax
+  movl (%eax), %esp
   b:
   pushal
 
