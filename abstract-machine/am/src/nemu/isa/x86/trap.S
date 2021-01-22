@@ -29,13 +29,13 @@ __am_asm_trap:
 
   popal
 
-  ; movl 0x8(%esp), %eax
-  ; andl $0x3, %eax
-  ; je c
-  ; movl ksp, %eax
-  ; movl %esp, (%eax)
-  ; movl 0xc(%esp), %esp
-  ; c:
+  movl 0x8(%esp), %eax
+  andl $0x3, %eax
+  je c
+  movl ksp, %eax
+  movl %esp, (%eax)
+  movl 0xc(%esp), %esp
+  c:
 
   addl $4, %esp
 
