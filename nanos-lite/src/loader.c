@@ -27,11 +27,11 @@ uintptr_t loader(PCB *pcb, const char *filename) {
 
     size_t size = ph.p_memsz;
     int nr_page = (size + PGSIZE - 1) / PGSIZE;
-    void *page = new_page(nr_page);
+    void *page = new_page(nr_page + 1);
     uintptr_t pos = ph.p_vaddr & 0xfffff000;
 
     if (ph.p_type == 1) {
-      for (int j = 0; j < nr_page; j++) {
+      for (int j = 0; j < nr_page + 1; j++) {
         map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
       }
       fs_lseek(fd, ph.p_offset, 0);
