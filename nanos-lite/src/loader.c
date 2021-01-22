@@ -42,8 +42,9 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     }
     after = pos + nr_page * PGSIZE;
   }
-  void *page = new_page(1);
+  void *page = new_page(2);
   map(&pcb->as, (void *)after, page, 0);
+  map(&pcb->as, (void *)after + PGSIZE, page + PGSIZE, 0);
   return eh.e_entry;
 }
 
