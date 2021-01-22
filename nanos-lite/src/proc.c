@@ -8,7 +8,7 @@ uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 
-// static int cnt = 1;
+static int cnt = 1;
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -31,9 +31,9 @@ void init_proc() {
     // context_uload(&pcb[0], "/bin/nterm", argvv, NULL);
 
     static char *argvv[] = {"/bin/pal", "--skip"};
-    context_uload(&pcb[0], "/bin/pal", argvv, NULL);
+    context_uload(&pcb[1], "/bin/pal", argvv, NULL);
 
-    // context_kload(&pcb[0], hello_fun, "abc");
+    context_kload(&pcb[0], hello_fun, "abc");
 
     switch_boot_pcb();
 
@@ -42,8 +42,8 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    // current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
-    current = &pcb[0];
+    current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
+    // current = &pcb[0];
     return current->cp;
 }
 
@@ -101,7 +101,7 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     if (context_uload(current, filename, args, envp) == -1)
         return -2;
     switch_boot_pcb();
-    // cnt++;
+    cnt++;
     yield();
     return -2;
 }
