@@ -44,12 +44,12 @@ static inline def_EHelper(mov_cr2r) {
 static inline def_EHelper(int) {
   if ((cpu.cs & 0x3) == 3) {
     printf("%x\n", cpu.gdtr.base);
-    *s0 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr), 1);
-    *s0 = (*s0 << 8) + vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 3, 1);
-    printf("cpu.tr %x\n", cpu.tr);
-    *s1 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 4, 2);
-    *s2 = (*s0 << 16) + *s1;    // tss struct
+    *s0 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 2, 2);
+    *s0 = *s0 + (vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 4, 1) << 16);
+    *s1 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 7, 1) << 24;
+    *s2 = *s0 + *s1;    // tss struct
     
+    printf("s2 %x\n", *s2);
     *s0 = cpu.esp;    
     *s1 = vaddr_read(*s2 + 8, 4); // ss0
     cpu.esp = vaddr_read(*s2 + 4, 4); // esp0
