@@ -17,7 +17,7 @@ static void restart() {
   /* Set the initial instruction pointer. */
   cpu.pc = PMEM_BASE + IMAGE_START;
   cpu.cs = 8;
-  cpu.eflags = 0x200;
+  cpu.eflags = 0x00;
   cpu.cr0 = 0x60000011;
 }
 
