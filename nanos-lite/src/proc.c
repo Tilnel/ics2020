@@ -28,12 +28,12 @@ void hello_fun(void *arg) {
 
 void init_proc() {
     // static char *argvv[] = {"/bin/nterm"};
-    context_uload(&pcb[1], "/bin/dummy", NULL, NULL);
+    context_uload(&pcb[0], "/bin/dummy", NULL, NULL);
 
     // static char *argvv[] = {"/bin/pal", "--skip"};
     // context_uload(&pcb[1], "/bin/pal", argvv, NULL);
 
-    context_kload(&pcb[0], hello_fun, "abc");
+    // context_kload(&pcb[0], hello_fun, "abc");
 
     switch_boot_pcb();
 
@@ -42,7 +42,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = (current == &pcb[0])? &pcb[1] : &pcb[0];
+    // current = (current == &pcb[0])? &pcb[1] : &pcb[0];
     // current = &pcb[0];
     return current->cp;
 }
