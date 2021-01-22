@@ -43,6 +43,7 @@ void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
       data = data >> 8;
       paddr_write(ptmp, dat, 1);
     }
+    return;
   }
   paddr_t paddr = isa_mmu_translate(addr, 0, len);
   paddr_write(paddr, data, len);
