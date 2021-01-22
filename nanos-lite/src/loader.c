@@ -36,7 +36,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
         map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
         // printf("%x\n", pos + j * PGSIZE);
       }
-      pcb->max_brk = pcb->max_brk > (uintptr_t)page + nr_page * PGSIZE ? pcb->max_brk : (uintptr_t)page + nr_page * PGSIZE;
+      pcb->max_brk = pcb->max_brk > pos + nr_page * PGSIZE ? pcb->max_brk : pos + nr_page * PGSIZE;
       fs_lseek(fd, ph.p_offset, 0);
       fs_read(fd, (void *)((uintptr_t)ph.p_vaddr & 0xfff) + (uintptr_t)page, ph.p_filesz);
       memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + (uintptr_t)page, 0, ph.p_memsz - ph.p_filesz);
