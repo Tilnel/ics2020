@@ -8,7 +8,7 @@ uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 
-static int cnt = 1;
+static int cnt = 0;
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
