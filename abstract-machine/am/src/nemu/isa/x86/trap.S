@@ -25,8 +25,8 @@ __am_asm_trap:
 
   movl %eax, %esp
 
+  popl %esp
   addl $4, %esp
-  # addl $4, %esp
 
   popal
 
