@@ -77,7 +77,6 @@ static inline def_EHelper(iret) {
   rtl_pop(s, &cpu.eflags);
 
   if ((cpu.cs & 0x3) == 3) {
-    assert(0);
     rtl_pop(s, s1);
     rtl_pop(s, &cpu.ss);
     cpu.esp = *s1;
