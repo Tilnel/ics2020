@@ -30,13 +30,12 @@ void init_proc() {
     // static char *argvv[] = {"/bin/nterm"};
     // context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
 
+    context_kload(&pcb[0], hello_fun, "abc");
+
     static char *argvv[] = {"/bin/pal", "--skip"};
     context_uload(&pcb[1], "/bin/pal", argvv, NULL);
 
-    context_kload(&pcb[0], hello_fun, "abc");
-
     switch_boot_pcb();
-
     Log("Initializing processes...");
 }
 
