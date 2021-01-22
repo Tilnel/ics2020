@@ -16,7 +16,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
   Elf_Ehdr eh;
   Elf_Phdr ph;
-  uintptr_t after = 0;
+  // uintptr_t after = 0;
 
   int fd = fs_open(filename, 0, 0); // 0b11, rw
   if (fd == -1) return 0;
@@ -40,10 +40,10 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       fs_read(fd, (void *)((uintptr_t)ph.p_vaddr & 0xfff) + (uintptr_t)page, ph.p_filesz);
       memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + (uintptr_t)page, 0, ph.p_memsz - ph.p_filesz);
     }
-    after = pos + nr_page * PGSIZE;
+    // after = pos + nr_page * PGSIZE;
   }
-  void *page = new_page(1);
-  map(&pcb->as, (void *)after, page, 0);
+  // void *page = new_page(1);
+  // map(&pcb->as, (void *)after, page, 0);
   return eh.e_entry;
 }
 
