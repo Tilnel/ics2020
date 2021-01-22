@@ -34,6 +34,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       for (int j = 0; j < nr_page; j++) {
         map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
       }
+      assert(0);
       fs_lseek(fd, ph.p_offset, 0);
       fs_read(fd, (void *)((uintptr_t)ph.p_vaddr & 0xfff) + pos, ph.p_filesz);
       memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + pos, 0, ph.p_memsz - ph.p_filesz);
