@@ -87,7 +87,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     Log("Jump to %x\n", entry); 
 
     p->cp = ucontext(&(p->as), kstack, entry, argv, envp);
-    p->cp->eax = (uintptr_t)new_page(8) + PGSIZE;
+    p->cp->eax = (uintptr_t)new_page(8) + 8 * PGSIZE;
     setargs(p, argv, envp);
     return 0;
 }
