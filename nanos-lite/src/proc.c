@@ -27,11 +27,11 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-    // static char *argvv[] = {"/bin/nterm"};
-    // context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
+    static char *argvv[] = {"/bin/nterm"};
+    context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
 
-    static char *argvv[] = {"/bin/pal", "--skip"};
-    context_uload(&pcb[1], "/bin/pal", argvv, NULL);
+    // static char *argvv[] = {"/bin/pal", "--skip"};
+    // context_uload(&pcb[1], "/bin/pal", argvv, NULL);
 
     context_kload(&pcb[0], hello_fun, "abc");
 
