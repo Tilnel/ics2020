@@ -1,7 +1,7 @@
 #include <cpu/exec.h>
 #include "../local-include/decode.h"
 #include "all-instr.h"
-#include "../intr.c"
+void query_intr(DecodeExecState *s);
 
 static inline void set_width(DecodeExecState *s, int width) {
   if (width == -1) return;
