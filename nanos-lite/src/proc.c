@@ -33,7 +33,7 @@ void init_proc() {
     // static char *argvv[] = {"/bin/pal", "--skip"};
     // context_uload(&pcb[0], "/bin/pal", argvv, NULL);
 
-    context_kload(&pcb[0], hello_fun, "abc");
+    // context_kload(&pcb[0], hello_fun, "abc");
 
     switch_boot_pcb();
     hello_fun(0);
