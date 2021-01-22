@@ -20,7 +20,6 @@ void __am_vecnull();
 
 
 Context* __am_irq_handle(Context *c) {
-  tss.esp0 = ksp;
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
