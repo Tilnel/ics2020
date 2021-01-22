@@ -78,6 +78,6 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
   // ret->eax = (int)kstack.end;
   ret->eip = (int)entry;
   ret->cs = 8;
-  ret->cr3 = as->ptr = pgalloc_usr(1);
+  ret->cr3 = as->ptr;
   return ret;
 }
