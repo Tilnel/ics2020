@@ -27,12 +27,12 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     fs_read(fd, &ph, sizeof(Elf_Phdr));
 
     size_t size = ph.p_memsz;
-    int nr_page = (size + PGSIZE - 1) / PGSIZE;
+    int nr_page = (size + PGSIZE - 1) / PGSIZE + 1;
     void *page = new_page(nr_page);
     uintptr_t pos = ph.p_vaddr & 0xfffff000;
 
     if (ph.p_type == 1) {
-      for (int j = 0; j < nr_page; j++) {
+      for (int j = 0; j <= nr_page; j++) {
         map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
         printf("%x\n", pos + j * PGSIZE);
       }
