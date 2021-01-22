@@ -83,6 +83,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     if (!entry)
         return -1;
     Log("Jump to %x\n", entry); 
+    Log("Running user proc %d\n.", cnt);
     void *stack = new_page(8);
     p->max_brk = p->max_brk > (uintptr_t)stack + 8 * PGSIZE ? p->max_brk : (uintptr_t)stack + 8 * PGSIZE;
     for (int i = 0; i < 8; i++) {
@@ -105,7 +106,6 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     if (context_uload(&pcb[cnt + 1], filename, args, envp) == -1)
         return -2;
     cnt++;
-    printf("proc %d\n", cnt);
     switch_boot_pcb();
     // cnt++;
     yield();
