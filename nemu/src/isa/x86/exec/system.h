@@ -44,8 +44,8 @@ static inline def_EHelper(mov_cr2r) {
 static inline def_EHelper(int) {
   if ((cpu.cs & 0x3) == 3) {
     printf("%x\n", cpu.gdtr.base);
-    printf("%08x", vaddr_read(cpu.gdtr.base + 8 * 40, 4));
-    printf("%08x", vaddr_read(cpu.gdtr.base + 8 * 40 + 4, 4));
+    printf("%08x", vaddr_read(cpu.gdtr.base + 40, 4));
+    printf("%08x", vaddr_read(cpu.gdtr.base + 40 + 4, 4));
     *s0 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 7, 1) << 24;
