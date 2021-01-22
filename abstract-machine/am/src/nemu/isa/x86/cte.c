@@ -8,7 +8,7 @@
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 void __am_get_cur_as(Context *c);
-
+void __am_switch(Context *c);
 void __am_irq0();
 void __am_vecsys();
 void __am_vectrap();
@@ -28,7 +28,7 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     assert(c != NULL);
   }
-
+  __am_switch(c);
   return c;
 }
 
