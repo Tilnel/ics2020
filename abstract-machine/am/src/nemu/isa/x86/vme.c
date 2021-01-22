@@ -20,13 +20,12 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
   kas.ptr = pgalloc_f(PGSIZE);
   int i;
   for (i = 0; i < LENGTH(segments); i ++) {
-    printf("%d %x\n", i, segments[i].end);
     void *va = segments[i].start;
     for (; va < segments[i].end; va += PGSIZE) {
       map(&kas, va, va, 0);
 
     }
-  }
+  }  
 
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
