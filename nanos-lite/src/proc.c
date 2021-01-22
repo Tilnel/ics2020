@@ -8,7 +8,7 @@ uintptr_t loader(PCB *pcb, const char *filename);
 
 #define MAX_NR_PROC 4
 
-// static int cnt = 0;
+static int cnt = 1;
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -42,7 +42,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = (current == &pcb[0])? &pcb[1] : &pcb[0];
+    current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
     // current = &pcb[1];
     return current->cp;
 }
@@ -95,7 +95,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
-    // cnt++;
+    cnt++;
     char *args[5];
     int argc = 0;
     while(argv[argc] && argv[argc][0]) {
@@ -103,7 +103,7 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
         strcpy(args[argc], argv[argc]);
         argc++;
     }
-    if (context_uload(current, filename, args, envp) == -1)
+    if (context_uload(&pcb[cnt], filename, args, envp) == -1)
         return -2;
     switch_boot_pcb();
     // cnt++;
