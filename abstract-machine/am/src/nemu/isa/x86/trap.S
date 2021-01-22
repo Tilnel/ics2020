@@ -14,6 +14,7 @@ __am_asm_trap:
   movl ksp, %eax
   movl (%eax), %esp
   b:
+
   pushal
 
   pushl $0
@@ -27,6 +28,14 @@ __am_asm_trap:
   addl $4, %esp
 
   popal
+
+  movl 0x8(%esp), %eax
+  andl $0x3, %eax
+  je c
+  movl ksp, %eax
+  movl %esp, (%eax)
+  movl 0xc(%esp), %esp
+  c:
 
   addl $4, %esp
 
