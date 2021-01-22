@@ -71,6 +71,7 @@ typedef struct {
         uint16_t size;
         uint32_t base;
     } gdtr;
+    rtlreg_t tr;
 	rtlreg_t cr0, cr2, cr3;
     bool INTR;
 } x86_CPU_state;

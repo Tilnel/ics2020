@@ -124,3 +124,7 @@ static inline def_EHelper(in_di) {
   //TODO();
   print_asm_template2(in);
 }
+
+static inline def_EHelper(ltr) {
+  cpu.tr = reg_w(0);
+}
