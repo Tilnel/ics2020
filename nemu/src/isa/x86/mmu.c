@@ -26,7 +26,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     for (int i = 0; i < len; i++) {
       vaddr_t tmp = addr + i;
       paddr_t ptmp = isa_mmu_translate(tmp, type, 1);
-      ret = (ret << 2) + paddr_read(ptmp, 1);
+      ret = (ret << 8) + paddr_read(ptmp, 1);
     }
     return ret;
   }
@@ -40,7 +40,7 @@ void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
       vaddr_t tmp = addr + i;
       paddr_t ptmp = isa_mmu_translate(tmp, 0, 1);
       word_t dat = data & 0xff;
-      data = data >> 2;
+      data = data >> 8;
       paddr_write(ptmp, dat, 1);
     }
   }
