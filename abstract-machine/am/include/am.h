@@ -40,6 +40,8 @@ typedef struct {
   void *ptr;
 } AddrSpace;
 
+uintptr_t ksp;
+
 #ifdef __cplusplus
 extern "C" {
 #endif

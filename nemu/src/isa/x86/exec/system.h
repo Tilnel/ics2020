@@ -53,7 +53,6 @@ static inline def_EHelper(int) {
     cpu.esp = vaddr_read(*s2 + 4, 4); // esp0
     rtl_push(s, s1); // push ss0
     rtl_push(s, s0); // push usr esp
-    assert(0);
   }
 
   rtl_push(s, &cpu.eflags);
