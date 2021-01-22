@@ -5,14 +5,19 @@
 .globl __am_vecnull;  __am_vecnull: pushl   $-1; jmp __am_asm_trap
 
 
-
 __am_asm_trap:
 
   pushal
 
-  movl %cr3, %eax
-  pushl %eax
+  pushl $0
 
+  movl 0x2c(%esp), %eax
+  andl $0x3, %eax
+  je b
+  movl %esp, 0x34(%esp)
+  movl ksp, %esp
+
+  b:
   pushl %esp
 
   call __am_irq_handle
