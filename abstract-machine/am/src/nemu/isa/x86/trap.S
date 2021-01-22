@@ -7,17 +7,16 @@
 
 __am_asm_trap:
 
+  movl 0x8(%esp), %eax
+  andl $0x3, %eax
+  je b
+  movl %esp, 0xc(%esp)
+  movl ksp, %esp
+  b:
   pushal
 
   pushl $0
 
-  movl 0x2c(%esp), %eax
-  andl $0x3, %eax
-  je b
-  movl %esp, 0x34(%esp)
-  movl ksp, %esp
-
-  b:
   pushl %esp
 
   call __am_irq_handle
