@@ -16,7 +16,6 @@ void __am_vecnull();
 
 
 Context* __am_irq_handle(Context *c) {
-  Context* change = NULL;
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
@@ -26,12 +25,11 @@ Context* __am_irq_handle(Context *c) {
       default: ev.event = EVENT_ERROR; break;
     }
 
-    change = user_handler(ev, c);
+    c = user_handler(ev, c);
     assert(c != NULL);
   }
   __am_switch(c);
-  if (change->cr3 == 0) return c;
-  else return change;
+  return c;
 }
 
 bool cte_init(Context*(*handler)(Event, Context*)) {
