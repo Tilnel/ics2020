@@ -36,7 +36,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       }
       fs_lseek(fd, ph.p_offset, 0);
       fs_read(fd, (void *)((uintptr_t)ph.p_vaddr & 0xfff) + (uintptr_t)page, ph.p_filesz);
-      memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + pos, 0, ph.p_memsz - ph.p_filesz);
+      memset((void *)(ph.p_vaddr & 0xfff) + ph.p_filesz + (uintptr_t)page, 0, ph.p_memsz - ph.p_filesz);
     }
   }
   return eh.e_entry;
