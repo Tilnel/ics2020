@@ -9,7 +9,7 @@ static Context* do_event(Event e, Context* c) {
       return schedule(c);
       break;
     case 2: do_syscall(c); break;
-    case 5: return schedule(c); break;
+    case 5: printf("flags %x\n", c->eflags); return schedule(c); break;
     default: panic("Unhandled event ID = %d", e.event);
   }
 
