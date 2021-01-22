@@ -21,6 +21,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 void query_intr(DecodeExecState *s) {
   if (cpu.INTR == true && cpu.IF == 1) {
     cpu.INTR = false;
+    assert(0);
     raise_intr(s, IRQ_TIMER, s->seq_pc);
     update_pc(s);
     printf("timer\n");
