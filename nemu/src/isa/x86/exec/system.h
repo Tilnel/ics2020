@@ -17,6 +17,16 @@ static inline def_EHelper(lidt) {
   print_asm_template1(lidt);
 }
 
+static inline def_EHelper(lgdt) {
+  *ddest = cpu.gpr[*ddest & 0x7]._32;
+  *s0 = vaddr_read(*ddest, 2);
+  *s1 = vaddr_read(*ddest + 2, 4);
+  cpu.gdtr.size = *s0;
+  cpu.gdtr.base = *s1;
+  //TODO();
+  print_asm_template1(lgdt);
+}
+
 static inline def_EHelper(mov_r2cr) {
   TODO();
   print_asm("movl %%%s,%%cr%d", reg_name(id_src1->reg, 4), id_dest->reg);
@@ -32,12 +42,24 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  *s0 = vaddr_read(cpu.ldtr.base + 8 * (*ddest), 2);
-  *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
-  *s2 = (*s1 << 16) + *s0;
+  if ((cpu.cs & 0x3) == 3) {
+    *s0 = vaddr_read(cpu.gdtr.base + 8 * (*ddest), 2);
+    *s1 = vaddr_read(cpu.gdtr.base + 8 * (*ddest) + 6, 2);
+    *s2 = (*s1 << 16) + *s0;    // tss struct
+    *s0 = cpu.esp;    
+    *s1 = vaddr_read(*s2 + 8, 4); // ss0
+    cpu.esp = vaddr_read(*s2 + 4, 4); // esp0
+    rtl_push(s, s1); // push ss0
+    rtl_push(s, s0); // push usr esp
+  }
+
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
   rtl_push(s, &(s->seq_pc));
+
+  *s0 = vaddr_read(cpu.ldtr.base + 8 * (*ddest), 2);
+  *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
+  *s2 = (*s1 << 16) + *s0;
   rtl_j(s, *s2);
   //TODO();
   print_asm("int %s", id_dest->str);
@@ -51,6 +73,12 @@ static inline def_EHelper(iret) {
   rtl_pop(s, s0);  
   rtl_pop(s, &cpu.cs);
   rtl_pop(s, &cpu.eflags);
+
+  if ((cpu.cs & 0x3) == 3) {
+    rtl_pop(s, s1);
+    rtl_pop(s, &cpu.ss);
+    cpu.esp = *s1;
+  }
   
   rtl_j(s, *s0);
   // TODO();

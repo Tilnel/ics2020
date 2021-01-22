@@ -8,21 +8,18 @@
 __am_asm_trap:
   pushal
 
-  #movl %cr3, %eax
-  #pushl %eax
   pushl $0
 
   pushl %esp
+
   call __am_irq_handle
-  #popl %esp
-  #addl $4, %esp
+
   movl %eax, %esp
 
-  #popl %eax
-  #movl %eax, %cr3
-  
   addl $4, %esp
+
   popal
+
   addl $4, %esp
 
   iret
