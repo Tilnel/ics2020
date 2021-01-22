@@ -9,6 +9,7 @@
 
 static SegDesc gdt[NR_SEG] = {};
 static TSS32 tss = {};
+void *ksp = &tss.esp0;
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 void __am_get_cur_as(Context *c);
