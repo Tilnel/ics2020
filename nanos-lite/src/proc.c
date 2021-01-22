@@ -95,8 +95,6 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
-    cnt++;
-    printf("proc %d\n", cnt);
     char *args[5];
     int argc = 0;
     while(argv[argc] && argv[argc][0]) {
@@ -104,6 +102,8 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
         strcpy(args[argc], argv[argc]);
         argc++;
     }
+    cnt++;
+    printf("proc %d\n", cnt);
     if (context_uload(&pcb[cnt], filename, args, envp) == -1)
         return -2;
     switch_boot_pcb();
