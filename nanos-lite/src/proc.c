@@ -96,6 +96,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     cnt++;
+    printf("%d", cnt);
     char *args[5];
     int argc = 0;
     while(argv[argc] && argv[argc][0]) {
