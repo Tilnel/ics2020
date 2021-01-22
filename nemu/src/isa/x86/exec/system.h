@@ -44,16 +44,18 @@ static inline def_EHelper(mov_cr2r) {
 static inline def_EHelper(int) {
   if ((cpu.cs & 0x3) == 3) {
     printf("%x\n", cpu.gdtr.base);
-    assert(0);
     *s0 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr), 1);
     *s0 = (*s0 << 8) + vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 3, 1);
     *s1 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 4, 2);
     *s2 = (*s0 << 16) + *s1;    // tss struct
+    
     *s0 = cpu.esp;    
     *s1 = vaddr_read(*s2 + 8, 4); // ss0
     cpu.esp = vaddr_read(*s2 + 4, 4); // esp0
+    printf("cpu.esp %x\n", cpu.esp);
     rtl_push(s, s1); // push ss0
     rtl_push(s, s0); // push usr esp
+    assert(0);
   }
 
   rtl_push(s, &cpu.eflags);
