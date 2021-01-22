@@ -16,7 +16,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t paddr = (page_sheet_item & 0xfffff000) + offset;
   
   // panic("cross page at vaddr = 0x%x, paddr = 0x%x", vaddr, paddr);
-  assert(paddr == vaddr);
+  // assert(paddr == vaddr);
   return paddr;
 }
 
