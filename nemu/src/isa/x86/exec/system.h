@@ -43,8 +43,8 @@ static inline def_EHelper(mov_cr2r) {
 
 static inline def_EHelper(int) {
   if ((cpu.cs & 0x3) == 3) {
-    *s0 = vaddr_read(cpu.gdtr.base + 8 * (*ddest), 2);
-    *s1 = vaddr_read(cpu.gdtr.base + 8 * (*ddest) + 6, 2);
+    *s0 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr), 2);
+    *s1 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 6, 2);
     *s2 = (*s1 << 16) + *s0;    // tss struct
     *s0 = cpu.esp;    
     *s1 = vaddr_read(*s2 + 8, 4); // ss0
