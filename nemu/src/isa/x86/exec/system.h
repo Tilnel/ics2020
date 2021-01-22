@@ -46,6 +46,7 @@ static inline def_EHelper(int) {
     printf("%x\n", cpu.gdtr.base);
     printf("%08x", vaddr_read(cpu.gdtr.base + 8 * 28, 4));
     printf("%08x", vaddr_read(cpu.gdtr.base + 8 * 28 + 4, 4));
+    printf("%d\n", cpu.tr);
     *s0 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + 8 * (cpu.tr) + 7, 1) << 24;
