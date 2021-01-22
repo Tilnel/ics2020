@@ -32,7 +32,6 @@ uintptr_t loader(PCB *pcb, const char *filename) {
 
     if (ph.p_type == 1) {
       for (int j = 0; j < nr_page; j++) {
-        printf("%x\n", pos);
         map(&pcb->as, (void *)pos + j * PGSIZE, page + j * PGSIZE, 0);
       }
       fs_lseek(fd, ph.p_offset, 0);
