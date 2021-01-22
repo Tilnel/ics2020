@@ -5,10 +5,13 @@
 .globl __am_vecnull;  __am_vecnull: pushl   $-1; jmp __am_asm_trap
 
 
+
 __am_asm_trap:
+
   pushal
 
-  pushl $0
+  movl %cr3, %eax
+  pushl %eax
 
   pushl %esp
 
