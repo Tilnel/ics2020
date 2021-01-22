@@ -74,6 +74,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (void *)(kstack.end - 128);
+  tss.esp0 = (uintptr_t) kstack.end;
   ret->cs = KSEL(1);
   ret->cr3 = 0;
   ret->eax = (int)kstack.end;
