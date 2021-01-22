@@ -102,10 +102,10 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
         strcpy(args[argc], argv[argc]);
         argc++;
     }
+    if (context_uload(&pcb[cnt + 1], filename, args, envp) == -1)
+        return -2;
     cnt++;
     printf("proc %d\n", cnt);
-    if (context_uload(&pcb[cnt], filename, args, envp) == -1)
-        return -2;
     switch_boot_pcb();
     // cnt++;
     yield();
