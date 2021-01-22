@@ -84,6 +84,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
         return -1;
     Log("Jump to %x\n", entry); 
     void *stack = new_page(8);
+    p->max_brk = p->max_brk > (uintptr_t)stack + 8 * PGSIZE ? p->max_brk : (uintptr_t)stack + 8 * PGSIZE;
     for (int i = 0; i < 8; i++) {
         map(&p->as, p->as.area.end - (8 - i) * PGSIZE, stack + i * PGSIZE, 0);
     }
