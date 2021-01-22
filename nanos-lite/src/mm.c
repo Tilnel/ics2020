@@ -7,7 +7,7 @@ void* new_page(size_t nr_page) {
   void *tmp = pf;
   memset(pf, 0, nr_page * PGSIZE); 
   pf += nr_page * PGSIZE;
-  // printf("pf at %x\n", tmp);
+  printf("pf at %x\n", tmp);
   return tmp;
 }
 
