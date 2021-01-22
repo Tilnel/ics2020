@@ -20,8 +20,8 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
-  printf("%x\n", brk);
-  printf("%x\n", current->max_brk);
+  // printf("%x\n", brk);
+  // printf("%x\n", current->max_brk);
   if (brk > current->max_brk) {
     size_t nr_page = (brk - current->max_brk + PGSIZE - 1) / PGSIZE;
     void *page = new_page(nr_page);
