@@ -23,9 +23,9 @@ __am_asm_trap:
 
   call __am_irq_handle
 
-  movl %eax, %esp        // %esp is Context *c, and 
+  movl %eax, %esp        // %esp is Context *c, and esp
 
-  addl $4, %esp
+  addl $4, %esp          // %skip %cr3
 
   popal
 
