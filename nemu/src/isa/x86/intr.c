@@ -10,7 +10,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   *s1 = vaddr_read(cpu.ldtr.base + 8 * NO + 6, 2);
   *s2 = (*s1 << 16) + *s0;
   rtl_push(s, &cpu.eflags);
-  cpu.IF = 0;
+  // cpu.IF = 0;
   rtl_push(s, &cpu.cs);
   rtl_push(s, &ret_addr);
   s->seq_pc = *s2;
@@ -23,7 +23,7 @@ void query_intr(DecodeExecState *s) {
     cpu.INTR = false;
     raise_intr(s, IRQ_TIMER, s->seq_pc);
     update_pc(s);
-    printf("timer\n");
+    // printf("timer\n");
   }
   // TODO();
 }
