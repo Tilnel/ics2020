@@ -23,7 +23,7 @@ void query_intr(DecodeExecState *s) {
     cpu.INTR = false;
     raise_intr(s, IRQ_TIMER, s->seq_pc);
     update_pc(s);
-    // printf("timer\n");
+    printf("timer\n");
   }
   // TODO();
 }
