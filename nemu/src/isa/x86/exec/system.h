@@ -43,7 +43,7 @@ static inline def_EHelper(mov_cr2r) {
 
 static inline def_EHelper(int) {
   printf("before int esp %x\n", cpu.esp);
-  if ((cpu.cs & 0x3) == 3) { // if pp == user
+  if ((cpu.cs & 0x3) != 0) { // if pp == user
     *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 7, 1) << 24;
@@ -87,7 +87,7 @@ static inline def_EHelper(iret) {
   rtl_pop(s, &cpu.cs); // pp = np
   rtl_pop(s, &cpu.eflags);
 
-  if ((cpu.cs & 0x3) == 3) { // if np == user
+  if ((cpu.cs & 0x3) != 0) { // if np == user
     *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 7, 1) << 24;
