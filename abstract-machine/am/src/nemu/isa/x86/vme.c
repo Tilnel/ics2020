@@ -76,13 +76,12 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
-  Context *ret = kstack.end - 128;
-  // ret->eax = (int)kstack.end;
+  Context *ret = kstack.end - 60;
+  ret->eax = (int)kstack.end;
   ret->eip = (int)entry;
   ret->cs = USEL(3);
   ret->ss3 = USEL(4);
   ret->cr3 = as->ptr;
-  printf("ret %x\n", ret->cr3);
   ret->eflags |= 0x200;
   return ret;
 }
