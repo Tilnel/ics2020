@@ -56,10 +56,9 @@ void setargs(PCB *p, char *const argv[], char *const envp[]) {
     int len = 0;
     int argc = 0;
     while((uint32_t)argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
-    char *str = (char *)p->cp->eax - len;
+    char *str = (char *)p->as.area.end - len;
     int pos = 0;
     for (int i = 0; i < argc; i++) {
-        printf("%x\n", str+pos);
         strcpy(str + pos, argv[i]);
         ((uintptr_t *)args)[i] = (uintptr_t)str + pos;
         pos += strlen(argv[i]) + 1;
