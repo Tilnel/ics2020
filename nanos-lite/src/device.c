@@ -19,6 +19,9 @@ static const char *keyname[256] __attribute__((used)) = {
 AM_GPU_CONFIG_T gpuconf;
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
+  printf("before this\n");
+  yield();
+  printf("after this\n");
   for (int i = 0; i < len; i++) putch(((char *)buf)[i]); 
   return len;
 }
@@ -57,6 +60,9 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 }
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
+  printf("before this\n");
+  yield();
+  printf("after this\n");
   tv->tv_sec = io_read(AM_TIMER_UPTIME).us / 1000000;
   tv->tv_usec = io_read(AM_TIMER_UPTIME).us % 1000000;
   return 0;
