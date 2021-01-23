@@ -82,6 +82,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   ret->cs = USEL(3);
   ret->ss3 = USEL(4);
   ret->cr3 = as->ptr;
+  printf("%ret cr3 %x\n", ret->cr3);
   ret->eflags |= 0x200;
   return ret;
 }
