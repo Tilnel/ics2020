@@ -21,7 +21,6 @@ void __am_vecnull();
 
 
 Context* __am_irq_handle(Context *c) {
-  // assert((uintptr_t)c->cr3 < 0x100000);
   // printf("%x\n", *(int *)ksp);
   __am_get_cur_as(c);
   if (user_handler) {
