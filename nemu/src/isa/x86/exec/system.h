@@ -42,7 +42,7 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  // printf("before int esp %x\n", cpu.esp);
+  printf("before int esp %x\n", cpu.esp);
   if ((cpu.cs & 0x3) == 3) { // if pp == user
     *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
@@ -69,7 +69,7 @@ static inline def_EHelper(int) {
   *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
   *s2 = (*s1 << 16) + *s0;
   rtl_j(s, *s2);
-  // printf("after int esp %x\n", cpu.esp);
+  printf("after int esp %x\n", cpu.esp);
   //TODO();
   print_asm("int %s", id_dest->str);
 
@@ -79,7 +79,7 @@ static inline def_EHelper(int) {
 }
 
 static inline def_EHelper(iret) {
-  // printf("before iret esp %x\n", cpu.esp);
+  printf("before iret esp %x\n", cpu.esp);
     
   rtl_pop(s, s0);  
   rtl_j(s, *s0);
@@ -103,7 +103,7 @@ static inline def_EHelper(iret) {
   } else {
     cpu.esp += 8;
   }
-  // printf("after iret esp %x\n", cpu.esp);
+  printf("after iret esp %x\n", cpu.esp);
     
   
   // TODO();
