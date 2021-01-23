@@ -66,6 +66,7 @@ static inline def_EHelper(int) {
   *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
   *s2 = (*s1 << 16) + *s0;
   rtl_j(s, *s2);
+  printf("int %x\n", *s2);
   //TODO();
   print_asm("int %s", id_dest->str);
 
