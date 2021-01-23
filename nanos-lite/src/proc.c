@@ -33,6 +33,10 @@ void init_proc() {
     static char *argvv[] = {"/bin/pal", "--skip"};
     context_uload(&pcb[1], "/bin/pal", argvv, NULL);
 
+    context_uload(&pcb[2], "/bin/bird", NULL, NULL);
+
+    context_uload(&pcb[3], "/bin/nslider", NULL, NULL);
+
     context_kload(&pcb[0], hello_fun, "abc");
 
     switch_boot_pcb();
