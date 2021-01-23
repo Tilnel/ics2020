@@ -52,7 +52,7 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
 }
 
 void setargs(PCB *p, char *const argv[], char *const envp[]) {
-    char *args = (char *)p->cp->eax - 0x100;
+    char *args = (char *)p->cp->esp0 + 4;
     int len = 0;
     int argc = 0;
     while((uint32_t)argv[argc] >= 0x100000 && (uint32_t)argv[argc] <= 0x8000000 && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
@@ -89,7 +89,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
         map(&p->as, p->as.area.end - (8 - i) * PGSIZE, stack + i * PGSIZE, 0);
     }
     p->cp = ucontext(&(p->as), kstack, entry);
-    p->cp->esp = (uintptr_t)p->as.area.end - 0x100;
+    p->cp->esp0 = (uintptr_t)p->as.area.end - 0x100;
     setargs(p, argv, envp);
     return 0;
 }
