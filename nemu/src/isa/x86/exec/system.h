@@ -75,19 +75,26 @@ static inline def_EHelper(int) {
 }
 
 static inline def_EHelper(iret) {
-  rtl_pop(s, s0);  
+    
+  rtl_pop(s, ddest);  
   rtl_pop(s, &cpu.cs);
   rtl_pop(s, &cpu.eflags);
 
   if ((cpu.cs & 0x3) == 3) {
+    *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
+    *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
+    *s1 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 7, 1) << 24;
+    *s2 = *s0 + *s1;    // tss struct
+    vaddr_write(*s2 + 8, cpu.ss, 4);
     rtl_pop(s, s1);
     rtl_pop(s, &cpu.ss);
+    vaddr_write(*s2 + 4, cpu.esp, 4);
     cpu.esp = *s1;
   } else {
     cpu.esp += 8;
   }
   
-  rtl_j(s, *s0);
+  rtl_j(s, *ddest);
   // TODO();
   print_asm("iret");
 
