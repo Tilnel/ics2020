@@ -42,7 +42,6 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  assert(((cpu.cs & 0x3) == 3) || ((cpu.cs & 0x3) == 0));
   printf("before int esp %x\n", cpu.esp);
   if ((cpu.cs & 0x3) == 3) { // if pp == user
     *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
