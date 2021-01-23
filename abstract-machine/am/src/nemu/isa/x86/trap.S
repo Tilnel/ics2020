@@ -25,7 +25,7 @@ __am_asm_trap:
   
   cmpl $0x100000, %eax
 
-  jge b
+  ; jge b
 
   movl %eax, %cr3       
   
