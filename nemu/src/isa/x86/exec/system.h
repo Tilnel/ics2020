@@ -96,8 +96,8 @@ static inline def_EHelper(iret) {
     cpu.esp += 8;
   }
   
-  rtl_j(s, *ddest);
   printf("ddest %x\n", *ddest);
+  rtl_j(s, *ddest);
   // TODO();
   print_asm("iret");
 
