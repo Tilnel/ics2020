@@ -5,6 +5,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]);
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
+extern void *ksp;
 
 #define MAX_NR_PROC 4
 
@@ -41,14 +42,11 @@ void init_proc() {
 }
 
 Context *schedule(Context *prev) {
-    // assert((pcb[1].cp->cs & 0x3) == 3);
     pcb[0].cp->cs = 0;
     pcb[1].cp->cs = 3;
     current->cp = prev;
     current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
-    // current = &pcb[1];
-    printf("%d\n", current->cp->cs & 0x3);
-    assert((current->cp->cs & 0x3) == 0 || (current->cp->cs & 0x3) == 3);
+    *(uintptr_t *)ksp = (uintptr_t)current->stack + 8 * PGSIZE;
     return current->cp;
 }
 
@@ -83,7 +81,6 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
     protect(&p->as);
     Area kstack = {.start = p->stack, .end = p->stack + 8 * PGSIZE};
-
     void *entry = (void *)loader(p, filename);
     if (!entry)
         return -1;
