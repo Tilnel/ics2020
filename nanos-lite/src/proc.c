@@ -41,7 +41,7 @@ void init_proc() {
 }
 
 Context *schedule(Context *prev) {
-    printf("%d\n", pcb[0].cp->cs & 0x3);
+    // printf("%d\n", pcb[0].cp->cs & 0x3);
     assert((pcb[0].cp->cs & 0x3) == 0);
     // assert((pcb[1].cp->cs & 0x3) == 3);
     current->cp = prev;
