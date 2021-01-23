@@ -56,7 +56,7 @@ void setargs(PCB *p, char *const argv[], char *const envp[]) {
     int len = 0;
     int argc = 0;
     while((uint32_t)argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
-    char *str = (char *)p->cp->esp0 + 40;
+    char *str = (char *)p->cp->esp0;
     int pos = 0;
     for (int i = 0; i < argc; i++) {
         strcpy(str + pos, argv[i]);
@@ -85,6 +85,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     Log("Running user proc %d.", cnt);
     void *stack = new_page(8);
     p->max_brk = p->max_brk > (uintptr_t)stack + 8 * PGSIZE ? p->max_brk : (uintptr_t)stack + 8 * PGSIZE;
+        printf("%x\n", p->as.ptr);
     for (int i = 0; i < 8; i++) {
         map(&p->as, p->as.area.end - (8 - i) * PGSIZE, stack + i * PGSIZE, 0);
     }
