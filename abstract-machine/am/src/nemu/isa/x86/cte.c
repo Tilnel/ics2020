@@ -83,7 +83,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (void *)(kstack.end - 128);
   tss.esp0 = (uintptr_t) kstack.end;
   printf("tss %x\n", &tss);
-  ret->cs = KSEL(1);
+  ret->cs = 0;
   ret->cr3 = (void *)get_cr3();
   ret->eax = (int)kstack.end;
   ret->eip = (int)entry;
