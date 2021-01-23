@@ -89,7 +89,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
         map(&p->as, p->as.area.end - (8 - i) * PGSIZE, stack + i * PGSIZE, 0);
     }
     p->cp = ucontext(&(p->as), kstack, entry);
-    p->cp->eax = (uintptr_t)stack + 8 * PGSIZE;
+    p->cp->esp = (uintptr_t)p->as.area.end - 0x100;
     setargs(p, argv, envp);
     return 0;
 }
