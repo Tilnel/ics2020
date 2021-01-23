@@ -43,7 +43,7 @@ Context* __am_irq_handle(Context *c) {
   printf("%x\n", c->cs);
   printf("%x\n", c->esp0);
   printf("%x\n", c->eip);
-  __am_switch(c);
+  // __am_switch(c);
   // printf("%x\n", c->cr3);
   // printf("%x\n", c->cs);
   // printf("%x\n", c->esp0);
