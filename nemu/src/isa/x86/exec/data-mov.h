@@ -130,8 +130,8 @@ static inline def_EHelper(r2cr) {
   printf("cr3, eax, pc: %x %x %x\n", cpu.cr3, cpu.eax, cpu.pc);
   *dsrc1 = *ddest;
   if (ddest == &cpu.eax && dsrc1 == &cpu.cr3)
-  assert(cpu.cr3 < 0x100000);
   printf("after mov %%eax, %%cr3: cr3, eax: %x %x\n", cpu.cr3, cpu.eax);
+  assert(cpu.cr3 < 0x100000);
 }
 
 static inline def_EHelper(cr2r) {
