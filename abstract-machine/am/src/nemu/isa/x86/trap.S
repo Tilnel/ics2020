@@ -22,8 +22,14 @@ __am_asm_trap:
   movl %eax, %esp        
 
   popl %eax
+  
+  cmpl $0x100000, %eax
 
-  movl %eax, %cr3         
+  jge b
+
+  movl %eax, %cr3       
+  
+  b:  
 
   popal
 
