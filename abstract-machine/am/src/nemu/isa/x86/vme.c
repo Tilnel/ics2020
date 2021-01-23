@@ -52,7 +52,6 @@ void __am_get_cur_as(Context *c) {
 
 void __am_switch(Context *c) {
   if (vme_enable && c->cr3 != NULL && (uintptr_t)c->cr3 >= 0x100000) {
-    printf("setcr3 to %x\n", c->cr3);
     set_cr3(c->cr3);
   }
 }
