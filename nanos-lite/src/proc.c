@@ -24,7 +24,7 @@ void hello_fun(void *arg) {
                 (uintptr_t)arg, j);
         j++;
         // printf("%d\n", j);
-        yield();
+        // yield();
     }
 }
 
