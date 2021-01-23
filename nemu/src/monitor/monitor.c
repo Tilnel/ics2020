@@ -16,7 +16,7 @@ static char *img_file = NULL;
 static int batch_mode = false;
 static int difftest_port = 1234;
 
-int is_batch_mode() { return false; }//batch_mode; }
+int is_batch_mode() { return batch_mode; }
 
 static inline void welcome() {
 #ifdef DEBUG
