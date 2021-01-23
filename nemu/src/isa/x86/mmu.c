@@ -2,7 +2,7 @@
 #include <memory/vaddr.h>
 #include <memory/paddr.h>
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
-  if (vaddr > 0x101820 && vaddr < 0x101830) printf("%x\n", vaddr);
+  if (vaddr > 0x101824 && vaddr < 0x101828) printf("%x %x\n", vaddr, cpu.cr3);
   uint32_t dir = vaddr >> 22;
   uint32_t page = (vaddr >> 12) & 0x3ff;
   uint32_t offset = vaddr & 0xfff;
