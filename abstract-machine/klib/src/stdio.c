@@ -125,6 +125,7 @@ int itoa(int n, char *s, int base) {
     int i, j, sign;
     char buf[12];
     if (base == 16) {
+        i = 0;
         uint32_t tmp = (uint32_t)n;
         do {
             buf[i] = tmp % base + '0';
