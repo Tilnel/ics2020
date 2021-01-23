@@ -20,7 +20,7 @@ void hello_fun(void *arg) {
     while (1) {
         if (!(j & 0xfff))
             Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
-                (uintptr_t)arg, j);
+                (uintptr_t)arg, j >> 12);
         j++;
         yield();
     }
@@ -109,7 +109,6 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
     }
     if (context_uload(&pcb[cnt + 1], filename, args, envp) == -1)
         return -2;
-    cnt++;
     switch_boot_pcb();
     // cnt++;
     yield();
