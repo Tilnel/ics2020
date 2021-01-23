@@ -55,6 +55,7 @@ Context *schedule(Context *prev) {
 void context_kload(PCB *p, void (*entry)(void *), void *arg) {
     Area kstack = {.start = p->stack, .end = p->stack + 8 * PGSIZE};
     p->cp = kcontext(kstack, entry, arg);
+    p->ksp = kstack.end - 128;
 }
 
 void setargs(PCB *p, char *const argv[], char *const envp[], void *stack) {
@@ -83,6 +84,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]) {
     protect(&p->as);
     Area kstack = {.start = p->stack, .end = p->stack + 8 * PGSIZE};
+    p->ksp = kstack.end - 0x13c;
     void *entry = (void *)loader(p, filename);
     if (!entry)
         return -1;
