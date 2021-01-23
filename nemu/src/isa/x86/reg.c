@@ -49,10 +49,10 @@ void isa_reg_display() {
   printf("esp		0x%x\n", cpu.esp);
   printf("ebp		0x%x\n", cpu.ebp);
   printf("esi		0x%x\n", cpu.esi);
-  printf("edi             0x%x\n", cpu.edi);
-  printf("pc              0x%x\n", cpu.pc );
-  printf("cr3             0x%x\n", cpu.cr3);
-  printf("ss              0x%x\n", cpu.ss );
+  printf("edi\t\t   0x%x\n", cpu.edi);
+  printf("pc\t\t    0x%x\n", cpu.pc );
+  printf("cr3\t\t   0x%x\n", cpu.cr3);
+  printf("ss\t\t    0x%x\n", cpu.ss );
   return;
 }
 
