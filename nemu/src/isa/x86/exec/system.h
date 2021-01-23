@@ -58,10 +58,10 @@ static inline def_EHelper(int) {
     rtl_push(s, s1); // push ss3
     rtl_push(s, s0); // push usr esp3 : usp = sp
   } else {
-    rtl_push(s, &cpu.ss);
-    *s0 = cpu.esp;
-    rtl_push(s, s0);
-    // cpu.esp -= 8;
+    // rtl_push(s, &cpu.ss);
+    // *s0 = cpu.esp;
+    // rtl_push(s, s0);
+    cpu.esp -= 8;
   }
 
   rtl_push(s, &cpu.eflags);
