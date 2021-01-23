@@ -19,9 +19,6 @@ static const char *keyname[256] __attribute__((used)) = {
 AM_GPU_CONFIG_T gpuconf;
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-  printf("before this\n");
-  yield();
-  printf("after this\n");
   for (int i = 0; i < len; i++) putch(((char *)buf)[i]); 
   return len;
 }
