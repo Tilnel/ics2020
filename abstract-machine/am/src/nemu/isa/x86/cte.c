@@ -33,7 +33,7 @@ Context* __am_irq_handle(Context *c) {
     }
 
     c = user_handler(ev, c);
-    if (c->irq == 0x80) c->cs = 0;
+    if (c->irq == 0x80) c->cs = KSEL(1);
     assert(c != NULL);
   }
   // __am_switch(c);
