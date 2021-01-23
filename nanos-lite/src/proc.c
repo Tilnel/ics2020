@@ -5,10 +5,10 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
                   char *const envp[]);
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg);
 uintptr_t loader(PCB *pcb, const char *filename);
+int fg_pcb = 1;
 
 #define MAX_NR_PROC 4
 
-static int cnt = 1;
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -20,7 +20,7 @@ void hello_fun(void *arg) {
     while (1) {
         if (!(j & 0xfffff))
             Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
-                (uintptr_t)arg, j);
+                (uintptr_t)arg, j >> 12);
         j++;
         // yield();
     }
@@ -30,10 +30,14 @@ void init_proc() {
     // static char *argvv[] = {"/bin/nterm"};
     // context_uload(&pcb[1], "/bin/nterm", argvv, NULL);
 
-    context_kload(&pcb[0], hello_fun, "abc");
-
     static char *argvv[] = {"/bin/pal", "--skip"};
     context_uload(&pcb[1], "/bin/pal", argvv, NULL);
+
+    context_uload(&pcb[2], "/bin/bird", NULL, NULL);
+
+    context_uload(&pcb[3], "/bin/nslider", NULL, NULL);
+
+    context_kload(&pcb[0], hello_fun, "abc");
 
     switch_boot_pcb();
     Log("Initializing processes...");
@@ -41,7 +45,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     current->cp = prev;
-    current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
+    current = (current == &pcb[0])? &pcb[fg_pcb] : &pcb[0];
     // current = &pcb[1];
     return current->cp;
 }
@@ -81,8 +85,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     void *entry = (void *)loader(p, filename);
     if (!entry)
         return -1;
-    Log("Jump to %x", entry); 
-    Log("Running user proc %d.", cnt);
+    Log("Jump to %x\n", entry); 
     void *stack = new_page(8);
     p->max_brk = p->max_brk > (uintptr_t)stack + 8 * PGSIZE ? p->max_brk : (uintptr_t)stack + 8 * PGSIZE;
     for (int i = 0; i < 8; i++) {
@@ -102,11 +105,9 @@ int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
         strcpy(args[argc], argv[argc]);
         argc++;
     }
-    if (context_uload(&pcb[cnt + 1], filename, args, envp) == -1)
+    if (context_uload(&pcb[fg_pcb], filename, args, envp) == -1)
         return -2;
-    cnt++;
     switch_boot_pcb();
-    // cnt++;
     yield();
     return -2;
 }
