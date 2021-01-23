@@ -42,11 +42,12 @@ void init_proc() {
 }
 
 Context *schedule(Context *prev) {
+    current->ksp = (void *)(*(uintptr_t *)ksp);
     pcb[0].cp->cs = 0;
     pcb[1].cp->cs = 3;
     current->cp = prev;
     current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
-    *(uintptr_t *)ksp = (uintptr_t)current->stack + 8 * PGSIZE;
+    *(uintptr_t *)ksp = (uintptr_t)current->ksp;
     printf("nanos set ksp %x\n", ksp);
     return current->cp;
 }
