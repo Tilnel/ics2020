@@ -42,6 +42,7 @@ void init_proc() {
 
 Context *schedule(Context *prev) {
     // assert((pcb[1].cp->cs & 0x3) == 3);
+    pcb[0].cp->cs = 0;
     current->cp = prev;
     current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
     // current = &pcb[1];
