@@ -129,7 +129,7 @@ int itoa(int n, char *s, int base) {
         do {
             buf[i] = tmp % base + '0';
             i++;
-        } while (tmp /= base);
+        } while ((tmp = tmp / base));
 
         for (j = i - 1; j >= 0; j--) {
             s[j] = (buf[i - 1 - j] <= '9')
