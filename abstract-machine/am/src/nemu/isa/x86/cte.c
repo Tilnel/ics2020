@@ -40,7 +40,7 @@ Context* __am_irq_handle(Context *c) {
   // printf("%x\n", c->cs);
   // printf("%x\n", c->esp0);
   // printf("%x\n", c->eip);
-  printf("setcr3 to %x\n", get_cr3());
+  printf("setcr3 to %x\n", c->cr3);
   return c;
 }
 
