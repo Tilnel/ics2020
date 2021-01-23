@@ -124,6 +124,20 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 int itoa(int n, char *s, int base) {
     int i, j, sign;
     char buf[12];
+    if (base == 16) {
+        do {
+            buf[i] = n % base + '0';
+            i++;
+        } while ((n /= base) > 0);
+
+        for (j = i - 1; j >= 0; j--) {
+            s[j] = (buf[i - 1 - j] <= '9' || buf[i - 1 - j] == '-')
+                       ? buf[i - 1 - j]
+                       : buf[i - 1 - j] - '9' + 'a' - 1;
+        }
+        s[i] = '\0';
+        return i;
+    }
     if ((sign = n) < 0)
         n = -n;
     i = 0;
