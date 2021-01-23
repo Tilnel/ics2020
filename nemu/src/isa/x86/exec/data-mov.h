@@ -130,5 +130,9 @@ static inline def_EHelper(r2cr) {
 }
 
 static inline def_EHelper(cr2r) {
+  if (ddest == &cpu.eax && dsrc1 == &cpu.cr3)
+  printf("cr3, eax: %x %x", cpu.cr3, cpu.eax);
   *ddest = *dsrc1;
+  if (ddest == &cpu.eax && dsrc1 == &cpu.cr3)
+  printf("after mov %%cr3, %%eax: cr3, eax: %x %x", cpu.cr3, cpu.eax);
 }

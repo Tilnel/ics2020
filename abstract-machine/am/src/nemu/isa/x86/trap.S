@@ -12,6 +12,7 @@ __am_asm_trap:
   pushal
 
 #  pushl $0
+
   movl %cr3, %eax
 
   pushl %eax
