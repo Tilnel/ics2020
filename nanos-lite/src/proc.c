@@ -51,8 +51,8 @@ void context_kload(PCB *p, void (*entry)(void *), void *arg) {
     p->cp = kcontext(kstack, entry, arg);
 }
 
-void setargs(PCB *p, char *const argv[], char *const envp[]) {
-    char *args = (char *)p->cp->esp0 + 4;
+void setargs(PCB *p, char *const argv[], char *const envp[], void *stack) {
+    char *args = stack + 8 * PGSIZE - 0x100 + 4;
     int len = 0;
     int argc = 0;
     while((uint32_t)argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
@@ -85,14 +85,13 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     Log("Running user proc %d.", cnt);
     void *stack = new_page(8);
     p->max_brk = p->max_brk > (uintptr_t)stack + 8 * PGSIZE ? p->max_brk : (uintptr_t)stack + 8 * PGSIZE;
-        printf("cr3 %x\n", p->as.ptr);
     for (int i = 0; i < 8; i++) {
         map(&p->as, p->as.area.end - (8 - i) * PGSIZE, stack + i * PGSIZE, 0);
     }
     p->cp = ucontext(&(p->as), kstack, entry);
     p->cp->esp0 = (uintptr_t)p->as.area.end - 0x100;
     // printf("%x\n", p->cp->esp0);
-    setargs(p, argv, envp);
+    setargs(p, argv, envp, stack);
     return 0;
 }
 
