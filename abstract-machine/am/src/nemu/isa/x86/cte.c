@@ -35,20 +35,12 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     assert(c != NULL);
   }
-  printf("%x\n", c->esp);
-  printf("%x\n", c->eax);
-  printf("%x\n", c->edx);
-
-  printf("%x\n", c->cr3);
-  printf("%x\n", c->cs);
-  printf("%x\n", c->esp0);
-  printf("%x\n", c->eip);
   __am_switch(c);
   // printf("%x\n", c->cr3);
   // printf("%x\n", c->cs);
   // printf("%x\n", c->esp0);
   // printf("%x\n", c->eip);
-    printf("setcr3 to %x\n", get_cr3());
+  printf("setcr3 to %x\n", get_cr3());
   return c;
 }
 
