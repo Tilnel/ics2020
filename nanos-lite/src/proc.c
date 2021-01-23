@@ -48,7 +48,7 @@ Context *schedule(Context *prev) {
     current->cp = prev;
     current = (current == &pcb[0])? &pcb[cnt] : &pcb[0];
     *(uintptr_t *)ksp = (uintptr_t)current->ksp;
-    printf("nanos set ksp %x\n", ksp);
+    printf("nanos set ksp %x\n", *(uintptr_t *)ksp);
     return current->cp;
 }
 
