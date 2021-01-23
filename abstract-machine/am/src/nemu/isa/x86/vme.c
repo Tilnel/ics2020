@@ -38,7 +38,7 @@ void protect(AddrSpace *as) {
   PTE *updir = (PTE*)(pgalloc_usr(PGSIZE));
   as->ptr = updir;
   as->area = USER_SPACE;
-  printf("end at %x\n", -(uint32_t)as->area.end);
+  printf("end at %x\n", (uint32_t)as->area.end);
   as->pgsize = PGSIZE;
   // map kernel space
   memcpy(updir, kas.ptr, PGSIZE);
