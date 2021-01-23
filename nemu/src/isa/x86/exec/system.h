@@ -104,10 +104,7 @@ static inline def_EHelper(iret) {
     cpu.esp = *s1; // sp = usp
     printf("iret usp nemu %x\n", cpu.esp);
   } else {
-    rtl_pop(s, s0);
-    cpu.esp = *s0;
-    rtl_pop(s, &cpu.ss);
-    // cpu.esp += 8;
+    cpu.esp += 8;
   }
   printf("after iret esp %x\n", cpu.esp);
     
