@@ -11,7 +11,7 @@ static Area segments[] = {      // Kernel memory mappings
   NEMU_PADDR_SPACE
 };
 
-#define USER_SPACE RANGE(0x40000000, 0xc0000000)
+#define USER_SPACE RANGE(0x40000000U, 0xc0000000)
 
 bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
   pgalloc_usr = pgalloc_f;
