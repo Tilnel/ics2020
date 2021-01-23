@@ -43,7 +43,7 @@ Context* __am_irq_handle(Context *c) {
   printf("%x\n", c->cs);
   printf("%x\n", c->esp0);
   printf("%x\n", c->eip);
-  // __am_switch(c);
+  __am_switch(c);
   // printf("%x\n", c->cr3);
   // printf("%x\n", c->cs);
   // printf("%x\n", c->esp0);
@@ -90,7 +90,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (void *)(kstack.end - 128);
   tss.esp0 = (uintptr_t) kstack.end;
   ret->cs = KSEL(1);
-  ret->cr3 = (void *)get_cr3();
+  ret->cr3 = 0;
   ret->eax = (int)kstack.end;
   ret->eip = (int)entry;
   ret->esp = (int)(ret);
