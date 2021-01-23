@@ -95,7 +95,9 @@ static inline def_EHelper(iret) {
     vaddr_write(*s2 + 4, cpu.esp, 4);
     cpu.esp = *s1;
   } else {
-    cpu.esp += 8;
+    rtl_pop(s, &cpu.esp);
+    rtl_pop(s, &cpu.ss);
+    // cpu.esp += 8;
   }
   printf("after iret esp %x\n", cpu.esp);
     
