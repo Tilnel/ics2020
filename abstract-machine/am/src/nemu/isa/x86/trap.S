@@ -11,9 +11,9 @@ __am_asm_trap:
 
   pushal
 
-  pushl $0
-#  movl %cr3, %eax
-#  pushl %eax
+#  pushl $0
+  movl %cr3, %eax
+  pushl %eax
 
   pushl %esp
 
@@ -22,6 +22,9 @@ __am_asm_trap:
   movl %eax, %esp        
 
   addl $4, %esp
+  popl %eax
+
+  movl %eax, %cr3         
 
   popal
 
