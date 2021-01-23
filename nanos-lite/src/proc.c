@@ -19,10 +19,9 @@ void hello_fun(void *arg) {
     int j = 1;
     while (1) {
         if (!(j & 0xfffff))
-            Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
+            Log("Hello World from Nanos-lite with arg '%p' for the %dth time!\n",
                 (uintptr_t)arg, j);
         j++;
-        assert(0);
         yield();
     }
 }
