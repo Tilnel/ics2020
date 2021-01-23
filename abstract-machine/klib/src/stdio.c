@@ -125,10 +125,11 @@ int itoa(int n, char *s, int base) {
     int i, j, sign;
     char buf[12];
     if (base == 16) {
+        uint32_t tmp = (uint32_t)n;
         do {
-            buf[i] = n % base + '0';
+            buf[i] = tmp % base + '0';
             i++;
-        } while ((n /= base) > 0);
+        } while ((tmp /= base) > 0);
 
         for (j = i - 1; j >= 0; j--) {
             s[j] = (buf[i - 1 - j] <= '9' || buf[i - 1 - j] == '-')
