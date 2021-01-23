@@ -21,7 +21,7 @@ void __am_vecnull();
 
 
 Context* __am_irq_handle(Context *c) {
-  // printf("%x\n", *(int *)ksp);
+  printf("ksp %x\n", tss.esp0);
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
@@ -35,7 +35,7 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     assert(c != NULL);
   }
-  __am_switch(c);
+  // __am_switch(c);
   // printf("%x\n", c->cr3);
   // printf("%x\n", c->cs);
   // printf("%x\n", c->esp0);
@@ -82,6 +82,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (void *)(kstack.end - 128);
   tss.esp0 = (uintptr_t) kstack.end;
+  printf("tss %x\n", &tss);
   ret->cs = KSEL(1);
   ret->cr3 = (void *)get_cr3();
   ret->eax = (int)kstack.end;

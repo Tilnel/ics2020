@@ -42,31 +42,34 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  printf("before int esp %x\n", cpu.esp);
-  if ((cpu.cs & 0x3) == 3) {
+  // printf("before int esp %x\n", cpu.esp);
+  if ((cpu.cs & 0x3) == 3) { // if pp == user
     *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 7, 1) << 24;
     *s2 = *s0 + *s1;    // tss struct
     
     *s0 = cpu.esp;    
+    printf("int usp nemu %x\n", cpu.esp);
     *s1 = vaddr_read(*s2 + 8, 4); // ss0
-    cpu.esp = vaddr_read(*s2 + 4, 4); // esp0
-    rtl_push(s, s1); // push ss0
-    rtl_push(s, s0); // push usr esp
+    cpu.esp = vaddr_read(*s2 + 4, 4); // esp0 : sp = ksp
+    printf("int tss nemu %x\n", *s2);
+    printf("int ksp nemu %x\n", cpu.esp);
+    rtl_push(s, s1); // push ss3
+    rtl_push(s, s0); // push usr esp3 : usp = sp
   } else {
     cpu.esp -= 8;
   }
 
   rtl_push(s, &cpu.eflags);
-  rtl_push(s, &cpu.cs);
+  rtl_push(s, &cpu.cs); // np = pp
   rtl_push(s, &(s->seq_pc));
 
   *s0 = vaddr_read(cpu.ldtr.base + 8 * (*ddest), 2);
   *s1 = vaddr_read(cpu.ldtr.base + 8 * (*ddest) + 6, 2);
   *s2 = (*s1 << 16) + *s0;
   rtl_j(s, *s2);
-  printf("after int esp %x\n", cpu.esp);
+  // printf("after int esp %x\n", cpu.esp);
   //TODO();
   print_asm("int %s", id_dest->str);
 
@@ -76,28 +79,31 @@ static inline def_EHelper(int) {
 }
 
 static inline def_EHelper(iret) {
-  printf("before iret esp %x\n", cpu.esp);
+  // printf("before iret esp %x\n", cpu.esp);
     
   rtl_pop(s, s0);  
   rtl_j(s, *s0);
   
-  rtl_pop(s, &cpu.cs);
+  rtl_pop(s, &cpu.cs); // pp = np
   rtl_pop(s, &cpu.eflags);
 
-  if ((cpu.cs & 0x3) == 3) {
+  if ((cpu.cs & 0x3) == 3) { // if np == user
     *s0 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 2, 2);
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 7, 1) << 24;
     *s2 = *s0 + *s1;    // tss struct
+    printf("iret tss nemu %x\n", *s2);
     vaddr_write(*s2 + 8, cpu.ss, 4);
-    rtl_pop(s, s1);
+    rtl_pop(s, s1); // pop esp3 : sp = usp
     rtl_pop(s, &cpu.ss);
-    vaddr_write(*s2 + 4, cpu.esp, 4);
-    cpu.esp = *s1;
+    vaddr_write(*s2 + 4, cpu.esp, 4); // ksp = sp
+    printf("iret ksp nemu %x\n", cpu.esp);
+    cpu.esp = *s1; // sp = usp
+    printf("iret usp nemu %x\n", cpu.esp);
   } else {
     cpu.esp += 8;
   }
-  printf("after iret esp %x\n", cpu.esp);
+  // printf("after iret esp %x\n", cpu.esp);
     
   
   // TODO();
