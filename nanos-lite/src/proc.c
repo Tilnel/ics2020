@@ -20,7 +20,7 @@ void hello_fun(void *arg) {
     while (1) {
         if (!(j & 0xfffff))
             Log("Hello World from Nanos-lite with arg '%p' for the %dth time!",
-                (uintptr_t)arg, j >> 12);
+                (uintptr_t)arg, j >> 20);
         j++;
         // yield();
     }
