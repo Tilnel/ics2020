@@ -85,7 +85,7 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     Log("Running user proc %d.", cnt);
     void *stack = new_page(8);
     p->max_brk = p->max_brk > (uintptr_t)stack + 8 * PGSIZE ? p->max_brk : (uintptr_t)stack + 8 * PGSIZE;
-        printf("%x\n", p->as.ptr);
+        printf("cr3 %x\n", p->as.ptr);
     for (int i = 0; i < 8; i++) {
         map(&p->as, p->as.area.end - (8 - i) * PGSIZE, stack + i * PGSIZE, 0);
     }
