@@ -11,7 +11,7 @@ static Area segments[] = {      // Kernel memory mappings
   NEMU_PADDR_SPACE
 };
 
-#define USER_SPACE RANGE(0x40000000U, 0xc0000000)
+#define USER_SPACE RANGE(0x40000000, 0xc0000000)
 
 bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
   pgalloc_usr = pgalloc_f;
@@ -38,7 +38,6 @@ void protect(AddrSpace *as) {
   PTE *updir = (PTE*)(pgalloc_usr(PGSIZE));
   as->ptr = updir;
   as->area = USER_SPACE;
-  printf("end at %x\n", (uint32_t)as->area.end);
   as->pgsize = PGSIZE;
   // map kernel space
   memcpy(updir, kas.ptr, PGSIZE);
