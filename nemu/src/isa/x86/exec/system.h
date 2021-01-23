@@ -55,7 +55,7 @@ static inline def_EHelper(int) {
     rtl_push(s, s1); // push ss0
     rtl_push(s, s0); // push usr esp
   } else {
-    cpu.esp += 8;
+    cpu.esp -= 8;
   }
 
   rtl_push(s, &cpu.eflags);
@@ -84,7 +84,7 @@ static inline def_EHelper(iret) {
     rtl_pop(s, &cpu.ss);
     cpu.esp = *s1;
   } else {
-    cpu.esp -= 8;
+    cpu.esp += 8;
   }
   
   rtl_j(s, *s0);
