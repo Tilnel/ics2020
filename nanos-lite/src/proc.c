@@ -60,8 +60,8 @@ void setargs(PCB *p, char *const argv[], char *const envp[]) {
     int pos = 0;
     for (int i = 0; i < argc; i++) {
         strcpy(str + pos, argv[i]);
-        ((uintptr_t *)args)[i] = (uintptr_t)str + pos;
     assert(0);
+        ((uintptr_t *)args)[i] = (uintptr_t)str + pos;
         pos += strlen(argv[i]) + 1;
     }
     for (int i = argc; i < 5; i++) {
