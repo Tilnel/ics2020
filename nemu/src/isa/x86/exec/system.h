@@ -95,6 +95,7 @@ static inline def_EHelper(iret) {
   }
   
   rtl_j(s, *ddest);
+  printf("%x\n", *ddest);
   // TODO();
   print_asm("iret");
 
