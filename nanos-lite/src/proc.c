@@ -55,7 +55,7 @@ void setargs(PCB *p, char *const argv[], char *const envp[]) {
     char *args = (char *)p->cp->esp0 + 4;
     int len = 0;
     int argc = 0;
-    while((uint32_t)argv[argc] >= 0x100000 && (uint32_t)argv[argc] <= 0x8000000 && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
+    while((uint32_t)argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
     char *str = (char *)p->cp->eax - len;
     int pos = 0;
     for (int i = 0; i < argc; i++) {
@@ -90,7 +90,6 @@ int context_uload(PCB *p, const char *filename, char *const argv[],
     }
     p->cp = ucontext(&(p->as), kstack, entry);
     p->cp->esp0 = (uintptr_t)p->as.area.end - 0x100;
-    printf("esp0 %x\n", -p->cp->esp0);
     setargs(p, argv, envp);
     return 0;
 }
