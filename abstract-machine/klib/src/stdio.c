@@ -129,10 +129,10 @@ int itoa(int n, char *s, int base) {
         do {
             buf[i] = tmp % base + '0';
             i++;
-        } while ((tmp /= base) > 0);
+        } while (tmp /= base);
 
         for (j = i - 1; j >= 0; j--) {
-            s[j] = (buf[i - 1 - j] <= '9' || buf[i - 1 - j] == '-')
+            s[j] = (buf[i - 1 - j] <= '9')
                        ? buf[i - 1 - j]
                        : buf[i - 1 - j] - '9' + 'a' - 1;
         }
