@@ -2,13 +2,13 @@
 #include <memory/vaddr.h>
 #include <memory/paddr.h>
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
-  if (vaddr > 0x101825 && vaddr < 0x101827) printf("%x %x\n", vaddr, cpu.cr3);
   uint32_t dir = vaddr >> 22;
   uint32_t page = (vaddr >> 12) & 0x3ff;
   uint32_t offset = vaddr & 0xfff;
 
   paddr_t cr3 = cpu.cr3;
   paddr_t page_sheet = paddr_read(cr3 + 4 * dir, 4);
+  if (vaddr > 0x101825 && vaddr < 0x101827) printf("%x %x %x\n", vaddr, cpu.cr3, page_sheet);
   if ((page_sheet & 1) == 0) 
     panic("pagefault at pc = 0x%x, vaddr = 0x%x, pagesheet %x", cpu.pc, vaddr, page_sheet);
   paddr_t page_sheet_item = paddr_read((page_sheet & 0xfffff000) + 4 * page, 4);
