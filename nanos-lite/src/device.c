@@ -5,7 +5,6 @@
 #else
 # define MULTIPROGRAM_YIELD()
 #endif
-void init_device();
 int fg_pcb;
 
 #define NAME(key) \
@@ -29,7 +28,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   yield();
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
-  if (ev.keycode == AM_KEY_F1) { init_device() ; fg_pcb = 1; } 
+  if (ev.keycode == AM_KEY_F1) { ; fg_pcb = 1; } 
   if (ev.keycode == AM_KEY_F2) fg_pcb = 2; 
   if (ev.keycode == AM_KEY_F3) fg_pcb = 3; 
   if (ev.keycode == AM_KEY_NONE) { memset(buf, 0, len); return 0; }
