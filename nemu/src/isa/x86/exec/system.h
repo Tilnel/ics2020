@@ -76,9 +76,8 @@ static inline def_EHelper(int) {
 
 static inline def_EHelper(iret) {
     
-  rtl_pop(s, ddest);  
-  printf("pc %x\n", cpu.pc);
-  printf("pcto %x\n", *ddest);
+  rtl_pop(s, s0);  
+  rtl_j(s, *s0);
   rtl_pop(s, &cpu.cs);
   rtl_pop(s, &cpu.eflags);
 
@@ -96,8 +95,6 @@ static inline def_EHelper(iret) {
     cpu.esp += 8;
   }
   
-  printf("ddest %x\n", *ddest);
-  rtl_j(s, *ddest);
   // TODO();
   print_asm("iret");
 
