@@ -70,7 +70,6 @@ void setargs(PCB *p, char *const argv[], char *const envp[], void *stack) {
     ((uint32_t *)pargc)[0] = argc;
 
     p->cp->eax = pargc;
-    assert(0);
     // printf("argc %d\n", argc);
 }
 
