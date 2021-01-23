@@ -53,7 +53,6 @@ static inline def_EHelper(int) {
     printf("int usp nemu %x\n", cpu.esp);
     *s1 = vaddr_read(*s2 + 8, 4); // ss0
     cpu.esp = vaddr_read(*s2 + 4, 4); // esp0 : sp = ksp
-    printf("int tss nemu %x\n", *s2);
     printf("int ksp nemu %x\n", cpu.esp);
     rtl_push(s, s1); // push ss3
     rtl_push(s, s0); // push usr esp3 : usp = sp
@@ -92,7 +91,6 @@ static inline def_EHelper(iret) {
     *s0 = *s0 + (vaddr_read(cpu.gdtr.base + (cpu.tr) + 4, 1) << 16);
     *s1 = vaddr_read(cpu.gdtr.base + (cpu.tr) + 7, 1) << 24;
     *s2 = *s0 + *s1;    // tss struct
-    printf("iret tss nemu %x\n", *s2);
     vaddr_write(*s2 + 8, cpu.ss, 4);
     rtl_pop(s, s1); // pop esp3 : sp = usp
     rtl_pop(s, &cpu.ss);
