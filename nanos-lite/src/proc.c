@@ -56,7 +56,7 @@ void setargs(PCB *p, char *const argv[], char *const envp[], void *stack) {
     int len = 0;
     int argc = 0;
     while((uint32_t)argv[argc] && argv[argc][0]) len += strlen(argv[argc]) + 1, argc++;
-    char *str = (char *)args + 0x40;
+    char *str = args + 0x40;
     int pos = 0;
     for (int i = 0; i < argc; i++) {
         strcpy(str + pos, argv[i]);
@@ -70,6 +70,7 @@ void setargs(PCB *p, char *const argv[], char *const envp[], void *stack) {
     ((uint32_t *)pargc)[0] = argc;
 
     p->cp->eax = pargc;
+    assert(0);
     // printf("argc %d\n", argc);
 }
 
