@@ -1,6 +1,7 @@
 *.*
 *
 !*/
+!*.pdf
 !/nemu/*
 !/nexus-am/*
 !/nanos-lite/*
