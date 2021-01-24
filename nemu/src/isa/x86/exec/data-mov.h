@@ -58,7 +58,7 @@ static inline def_EHelper(leave) {
   print_asm("leave");
 }
 
-static inline def_EHelper(cltd) {
+static def_EHelper(cltd) {
   if (s->isa.is_operand_size_16) {
     if (cpu.eax >> 15 & 1) cpu.edx |= 0x0000ffff;
     else cpu.edx &= 0xffff0000;
