@@ -62,7 +62,7 @@ static inline def_rtl(is_sub_carry, rtlreg_t* dest,
   //TODO();
 }
 
-static inline def_rtl(is_add_overflow, rtlreg_t* dest,
+def_rtl(is_add_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
     *dest =  ((*src1 >> (8 * width - 1) & 1) == (*src2 >> (8 * width - 1) & 1)) &&
              ((*src1 >> (8 * width - 1) & 1) != (*res >> (8 * width - 1) & 1));
